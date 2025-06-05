@@ -12,7 +12,11 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  Icon,
 } from '@mui/material';
+import BlogBanner from '../components/Banner/BlogBanner';
+import HomeIcon from '@mui/icons-material/Home'
+import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 
 const Blog = () => {
   const allBlogs = [
@@ -53,17 +57,28 @@ const Blog = () => {
     blog.title.toLowerCase().includes(search.toLowerCase())
   );
 
-  return (
-    <Box sx={{ py: 5, px: 2, backgroundColor: '#f9f9f9' }}>
-      <Typography
-        variant="h3"
-        textAlign="center"
-        sx={{ mb: 5, fontWeight: 'bold', color: '#2c3e50' }}
-      >
-        Our Blog
-      </Typography>
+  const breadcrumbLinks = [
+    {href: '/', label: 'Home', icon: <HomeIcon sx={{mr:0.5}} fontSize='small' />},
+    {href: '/blog', label: 'Blogs'},
+  ];
 
-      <Grid container spacing={8} justifyContent="center">
+  return (
+    <Box sx={{ py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
+      <BlogBanner />
+
+      <Box
+      sx={{
+        maxWidth: 1200,
+        position: 'absolute',
+        top: 50,
+        left: 16,
+      }}
+      >
+        <Breadcrumb links={breadcrumbLinks} />
+      </Box>
+      
+
+      <Grid container spacing={8} justifyContent="center" sx={{mt: 8}}>
         {/* Main Blog Section */}
         <Grid item xs={12} md={9}>
           {filteredBlogs.map((post, index) => (

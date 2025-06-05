@@ -17,6 +17,7 @@ const pages = [
   { name: "About", path: "/about" },
   { name: "Products", path: "/products" },
   { name: "Blog", path: "/blog" },
+  {name: "Contact", path: "/contact"},
 ];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
