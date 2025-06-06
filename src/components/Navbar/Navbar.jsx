@@ -17,7 +17,7 @@ const pages = [
   { name: "About", path: "/about" },
   { name: "Products", path: "/products" },
   { name: "Blog", path: "/blog" },
-  {name: "Contact", path: "/contact"},
+  { name: "Contact", path: "/contact" },
 ];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -44,28 +44,15 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component={NavLink}
-            to="/"
+        <Toolbar disableGutters sx={{ minHeight: 64, px: 2 }}>
+          {/* Mobile Menu Icon */}
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              display: { xs: "flex", md: "none" },
+              flexGrow: 0,
+              alignItems: "center",
             }}
           >
-            Timoya~Farms
-          </Typography>
-
-          {/* Mobile Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -73,6 +60,7 @@ const Navbar = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              sx={{ p: 1 }}
             >
               <MenuIcon />
             </IconButton>
@@ -105,8 +93,35 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          {/* Desktop Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {/* Logo */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: { xs: "center", md: "flex-start" },
+              flexGrow: 1,
+              alignItems: "center",
+            }}
+            component={NavLink}
+            to="/"
+          >
+            <img
+              src="https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png"
+              alt="Timoya-Farms Logo"
+              style={{
+                width: "15%",
+                height: "auto",
+              }}
+            />
+          </Box>
+
+          {/* Centered Desktop Menu */}
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              justifyContent: "center",
+              flexGrow: 1,
+            }}
+          >
             {pages.map((page) => (
               <NavLink
                 key={page.name}
@@ -118,7 +133,7 @@ const Navbar = () => {
               >
                 <Typography
                   variant="button"
-                  sx={{ mx: 2, fontWeight: "bold" }}
+                  sx={{ mx: 2, fontWeight: "bold", fontSize: "0.9rem" }}
                 >
                   {page.name}
                 </Typography>
@@ -134,7 +149,7 @@ const Navbar = () => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "40px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -157,6 +172,8 @@ const Navbar = () => {
             </Menu>
           </Box>
         </Toolbar>
+
+
       </Container>
     </AppBar>
   );

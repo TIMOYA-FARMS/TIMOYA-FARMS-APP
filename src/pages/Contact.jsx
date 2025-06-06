@@ -2,22 +2,33 @@ import React from 'react';
 import { Box, Typography, Grid, IconButton, TextField, Button } from '@mui/material';
 import { Facebook, Twitter, Instagram, Email, Phone, LocationOn } from '@mui/icons-material';
 import Map from '../components/Map'; // Assuming you have a Map component
+import ContactBanner from '../components/Banner/ContactBanner';
 
 const Contact = () => {
     return (
-        <Box sx={{ py: 4, px: 2, backgroundColor: '#f9f9f9' }}>
+        <Box sx={{ py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
+            <ContactBanner />
 
             <Box sx={{
+                py: 4,
                 display: 'flex',
-                // alignItems: 'center',
+                flexDirection: {xs: 'column', sm: 'row',},
+                alignItems: {
+                    xs: 'center',
+                    sm: 'stretch',
+                    md: 'stretch'
+                },
                 justifyContent: 'space-around',
 
             }}>
                 {/* Follow Us Section */}
                 <Box sx={{
+                    width: {xs: '50%', sm: '25%', md:'25%'},
+                    justifyContent:'flex-start',
                     borderRadius: 4,
                     mb: 4,
-                    textAlign: 'center',
+                    padding: {xs: '5%', sm: '2%'},
+                    // textAlign: 'center',
                     boxShadow: 3,
                     transition: 'transform 0.3s, box-shadow 0.3s',
                     '&:hover': {
@@ -25,13 +36,13 @@ const Contact = () => {
                         boxShadow: 5,
                     },
                 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                    <Typography variant="h5" sx={{ pl: '4%', fontWeight: 'bold', mb: 2 }}>
                         Follow Us
                     </Typography>
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        alignContent: 'start'
+                        alignItems: 'flex-start'
                     }}>
                         <IconButton color="primary" href="https://facebook.com" target="_blank">
                             <Facebook /> Facebook
@@ -46,16 +57,24 @@ const Contact = () => {
                 </Box>
 
                 {/* Get in Touch Section */}
-                <Box sx={{borderRadius: 4, mb: 4, textAlign: 'center', boxShadow: 3,
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                '&:hover': {
-                    transform: 'scale(1.02)',
-                    boxShadow: 5,
-                }, }}>
+                <Box sx={{
+                    width: {xs: '60%', sm: '35%', md:'25%'},
+                    padding: {xs: '5%', sm: '2%'},
+                    justifyItems: 'flex-start',
+                    borderRadius: 4,
+                    mb: 4,
+                    textAlign: 'center',
+                    boxShadow: 3,
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    '&:hover': {
+                        transform: 'scale(1.02)',
+                        boxShadow: 5,
+                    },
+                }}>
                     <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
                         Get in Touch
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                         <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                             <Phone sx={{ mr: 1 }} /> +123 456 7890
                         </Typography>
@@ -69,12 +88,18 @@ const Contact = () => {
                 </Box>
 
                 {/* Contact Form */}
-                <Box sx={{borderRadius: 4, mb: 4, boxShadow: 3,
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                '&:hover': {
-                    transform: 'scale(1.02)',
-                    boxShadow: 5,
-                }, }}>
+                <Box sx={{
+                    width: {xs: '60%', sm: '35%', md:'25%'},
+                    padding: {xs: '5%', sm: '2%'},
+                    borderRadius: 4, 
+                    mb: 4, 
+                    boxShadow: 3,
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    '&:hover': {
+                        transform: 'scale(1.02)',
+                        boxShadow: 5,
+                    },
+                }}>
                     <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
                         Send Us a Message
                     </Typography>
@@ -87,7 +112,7 @@ const Contact = () => {
                             maxWidth: 600,
                             mx: 'auto',
                             // backgroundColor: '#fff',
-                            p: 3,
+                            p: 1,
                             borderRadius: 2,
                             // boxShadow: 2,
                         }}
@@ -111,9 +136,9 @@ const Contact = () => {
                 <Box
                     sx={{
                         width: '100%',
-                        maxWidth: 800,
+                        maxWidth: 1200,
                         mx: 'auto',
-                        height: 400,
+                        height: 300,
                         borderRadius: 2,
                         overflow: 'hidden',
                     }}

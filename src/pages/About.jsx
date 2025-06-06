@@ -21,7 +21,7 @@ const About = () => {
         <Banner />
         <Box
               sx={{
-                maxWidth: 1200,
+                // maxWidth: 100,
                 position: 'absolute',
                 top: 0,
                 left: 16,
