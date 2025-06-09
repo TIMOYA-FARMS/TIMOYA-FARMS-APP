@@ -10,6 +10,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import AllProducts from './pages/AllProducts'
 import Contact from './pages/Contact'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/products' element={<AllProducts />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/dashboard' element={<Dashboard />} />
 
       </Routes>
     </Layout>

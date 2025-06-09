@@ -20,7 +20,11 @@ const pages = [
   { name: "Contact", path: "/contact" },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { name: "Dashboard", path: "/dashboard" },
+  // { name: "Logout", path: "/logout" },
+
+];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,7 +47,7 @@ const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ minHeight: 64, px: 2 }}>
           {/* Mobile Menu Icon */}
           <Box
@@ -141,6 +145,7 @@ const Navbar = () => {
             ))}
           </Box>
 
+
           {/* User Menu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -165,14 +170,19 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  <NavLink
+                    to={setting.path}
+                    style={{textDecoration: "none", color: "inherit"}}
+                  >
+
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </NavLink>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
         </Toolbar>
-
 
       </Container>
     </AppBar>
