@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { Box, Typography, Card, CardContent, CardMedia, Grid, Button, Collapse } from '@mui/material';
 
+const cardStyle = {
+  borderRadius: 4,
+  boxShadow: 6,
+  transition: 'transform 0.2s, box-shadow 0.2s',
+  '&:hover': {
+    transform: 'translateY(-4px) scale(1.03)',
+    boxShadow: 12,
+    borderColor: 'primary.main',
+  },
+};
+
 const OurTeam = () => {
     const teamData = {
         founders: [
@@ -76,27 +87,40 @@ const OurTeam = () => {
                 </Typography>
                 <Grid container spacing={3} justifyContent="center">
                     {teamData.founders.map((founder, index) => (
-                        <Grid item xs={12} sm={6} md={4} key={index}>
-                            <Card sx={{ maxWidth: 345, mx: 'auto', boxShadow: 3 }}>
+                        <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
+                            <Card
+                                sx={{
+                                    maxWidth: 345,
+                                    minHeight: 440,
+                                    height: '100%',
+                                    mx: 'auto',
+                                    boxShadow: 3,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
                                 <CardMedia
                                     component="img"
-                                    height="280"
+                                    height="220"
                                     image={founder.image}
                                     alt={founder.name}
-                                    sx={{ borderRadius: 2 }}
+                                    sx={{ borderRadius: 2, objectFit: 'cover' }}
                                 />
-                                <CardContent>
-                                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
-                                        {founder.name}
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="text.secondary">
-                                        {founder.title}
-                                    </Typography>
-                                    <Collapse in={expanded[index]} timeout="auto" unmountOnExit>
-                                        <Typography variant="body2" sx={{ mt: 1, textAlign: 'justify', color: '#555' }}>
-                                            {founder.bio}
+                                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                                    <div>
+                                        <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
+                                            {founder.name}
                                         </Typography>
-                                    </Collapse>
+                                        <Typography variant="subtitle1" color="text.secondary">
+                                            {founder.title}
+                                        </Typography>
+                                        <Collapse in={expanded[index]} timeout="auto" unmountOnExit>
+                                            <Typography variant="body2" sx={{ mt: 1, textAlign: 'justify', color: '#555' }}>
+                                                {founder.bio}
+                                            </Typography>
+                                        </Collapse>
+                                    </div>
                                     <Button
                                         variant="text"
                                         onClick={() => toggleExpand(index)}
@@ -118,16 +142,27 @@ const OurTeam = () => {
                 </Typography>
                 <Grid container spacing={3} justifyContent="center">
                     {teamData.members.map((member, index) => (
-                        <Grid item xs={12} sm={6} md={3} key={index}>
-                            <Card sx={{ maxWidth: 300, mx: 'auto', boxShadow: 3 }}>
+                        <Grid item xs={12} sm={6} md={3} key={index} style={{ display: 'flex' }}>
+                            <Card
+                                sx={{
+                                    maxWidth: 300,
+                                    minHeight: 320,
+                                    height: '100%',
+                                    mx: 'auto',
+                                    boxShadow: 3,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                }}
+                            >
                                 <CardMedia
                                     component="img"
-                                    height="180"
+                                    height="140"
                                     image={member.image}
                                     alt={member.name}
-                                    sx={{ borderRadius: 2 }}
+                                    sx={{ borderRadius: 2, objectFit: 'cover' }}
                                 />
-                                <CardContent>
+                                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
                                         {member.name}
                                     </Typography>

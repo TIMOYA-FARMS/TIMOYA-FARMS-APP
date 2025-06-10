@@ -36,7 +36,7 @@ const Contact = () => {
                         boxShadow: 5,
                     },
                 }}>
-                    <Typography variant="h5" sx={{ pl: '4%', fontWeight: 'bold', mb: 2 }}>
+                    <Typography variant="h5" sx={{ pl: '4%', fontWeight: 'bold', mb: 2, color: 'primary.main', letterSpacing: 1 }}>
                         Follow Us
                     </Typography>
                     <Box sx={{
@@ -71,7 +71,7 @@ const Contact = () => {
                         boxShadow: 5,
                     },
                 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main', letterSpacing: 1 }}>
                         Get in Touch
                     </Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -100,7 +100,7 @@ const Contact = () => {
                         boxShadow: 5,
                     },
                 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center', color: 'primary.main', letterSpacing: 1 }}>
                         Send Us a Message
                     </Typography>
                     <Box
@@ -120,8 +120,8 @@ const Contact = () => {
                         <TextField label="Name" fullWidth />
                         <TextField label="Email" fullWidth />
                         <TextField label="Message" fullWidth multiline rows={4} />
-                        <Button variant="contained" color="primary" type="submit">
-                            Send Message
+                        <Button variant="contained" color="secondary" sx={{ fontWeight: 'bold', borderRadius: 3, py: 1.2, fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(255,184,0,0.12)', textTransform: 'uppercase', transition: 'all 0.3s', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}>
+                            Submit
                         </Button>
                     </Box>
                 </Box>

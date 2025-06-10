@@ -7,7 +7,30 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 const theme = createTheme({
-
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#219653', // Professional green
+      light: '#6FCF97',
+      dark: '#17643A',
+      contrastText: '#FFFFFF',
+    },
+    secondary: {
+      main: '#FFB800', // Elegant yellow accent
+      light: '#FFE082',
+      dark: '#C68400',
+      contrastText: '#222B45',
+    },
+    background: {
+      default: '#FAFAFA', // Subtle off-white
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#222B45', // Deep blue-gray for readability
+      secondary: '#6B7280', // Soft gray
+    },
+    divider: '#E0E0E0',
+  },
   breakpoints: {
     values: {
       xs: 0,

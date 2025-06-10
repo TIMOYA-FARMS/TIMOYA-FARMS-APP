@@ -13,6 +13,7 @@ import {
   ListItemText,
   Divider,
   Icon,
+  Paper
 } from '@mui/material';
 import BlogBanner from '../components/Banner/BlogBanner';
 import HomeIcon from '@mui/icons-material/Home'
@@ -63,20 +64,20 @@ const Blog = () => {
   ];
 
   return (
-    <Box sx={{ py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
+    <Box sx={{ position: 'relative', py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
       <BlogBanner />
-
       <Box
-      sx={{
-        maxWidth: 1200,
-        position: 'absolute',
-        top: 50,
-        left: 16,
-      }}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          mt: { xs: 2, md: 3 },
+          mb: { xs: 2, md: 4 },
+          width: '100%',
+        }}
       >
         <Breadcrumb links={breadcrumbLinks} />
       </Box>
-      
 
       <Grid container spacing={8} justifyContent="center" sx={{mt: 8}}>
         {/* Main Blog Section */}
@@ -86,9 +87,11 @@ const Blog = () => {
               key={index}
               sx={{
                 display: 'flex',
-                alignItems: 'center',
+                alignItems: 'stretch',
                 mb: 3,
                 boxShadow: 3,
+                borderRadius: 3,
+                minHeight: 220,
                 transition: 'transform 0.3s, box-shadow 0.3s',
                 '&:hover': {
                   transform: 'scale(1.02)',
@@ -100,7 +103,7 @@ const Blog = () => {
                 component="img"
                 image={post.image}
                 alt={post.title}
-                sx={{ width: 200, height: 'auto', borderTopRightRadius: 8}}
+                sx={{ width: 220, height: 220, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
                 <Typography

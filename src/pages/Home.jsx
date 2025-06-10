@@ -48,33 +48,64 @@ const Home = () => {
             >
               <Box
                 sx={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                  borderRadius: 2,
-                  padding: 3,
+                  background: 'linear-gradient(135deg, rgba(34,43,69,0.7) 40%, rgba(33,150,83,0.5) 100%)',
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  padding: { xs: 2, sm: 4, md: 6 },
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  maxWidth: { xs: '90%', sm: '70%', md: '50%' },
                 }}
               >
-                <Typography variant="h2" sx={{ color: 'white', fontWeight: 'bold', mb: 2 }}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    color: 'white',
+                    fontWeight: 900,
+                    mb: 2,
+                    letterSpacing: 1,
+                    textShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                    fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+                  }}
+                >
                   Welcome to Timoya Farms
                 </Typography>
-                <Typography variant="h6" sx={{ color: 'white', mb: 4 }}>
-                  Your one-stop destination for fresh and organic produce.
+                <Typography
+                  variant="h5"
+                  sx={{
+                    color: 'white',
+                    mb: 4,
+                    fontWeight: 400,
+                    textShadow: '0 2px 12px rgba(0,0,0,0.3)',
+                    fontSize: { xs: '1rem', sm: '1.4rem', md: '1.8rem' },
+                  }}
+                >
+                  Your one-stop destination for fresh, organic produce—delivered with care.
                 </Typography>
                 <Button
                   variant="contained"
-                  color="primary"
+                  color="secondary"
+                  size="large"
                   sx={{
-                    fontWeight: 'bold',
-                    paddingX: 3,
-                    paddingY: 1,
-                    borderRadius: 2,
+                    fontWeight: 700,
+                    px: 5,
+                    py: 1.5,
+                    borderRadius: 3,
+                    boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
+                    fontSize: { xs: '1rem', sm: '1.2rem' },
+                    textTransform: 'uppercase',
+                    transition: 'all 0.3s',
+                    '&:hover': {
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                      boxShadow: '0 4px 16px rgba(33,150,83,0.18)',
+                    },
                   }}
                 >
-                  SHOP NOW
+                  Shop Now
                 </Button>
               </Box>
             </Box>

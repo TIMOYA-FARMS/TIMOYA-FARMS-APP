@@ -6,12 +6,12 @@ const OurStory = () => {
     <Box
       sx={{
         display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' }, // Stack on small screens, row on large
+        flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-between',
         alignItems: 'center',
-        gap: 3, // Add spacing between items
-        mt: 2,
-        px: 2,
+        gap: 4,
+        mt: 4,
+        px: { xs: 1, sm: 4, md: 8 },
       }}
     >
       {/* Video Section */}
@@ -25,11 +25,11 @@ const OurStory = () => {
       >
         <Box
           sx={{
-            borderRadius: 2,
+            borderRadius: 3,
             overflow: 'hidden',
-            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+            boxShadow: 4,
             width: '100%',
-            maxWidth: '600px', // Ensure video doesn’t get too wide
+            maxWidth: '600px',
           }}
         >
           <video

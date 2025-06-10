@@ -9,8 +9,10 @@ const ProductList = (props) => {
                 container
                 spacing={2}
                 sx={{
-                    justifyContent: { xs: "center", sm: "center", md: "flex-start" },
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    maxWidth: { xs: '100%', sm: '100%', md: 1200 },
+                    margin: '0 auto',
                 }}
             >
                 {props.products.map((product) => (
@@ -21,15 +23,17 @@ const ProductList = (props) => {
                         sm={6}
                         md={4}
                         lg={3}
-                        sx={{ display: "flex", justifyContent: "center" }}
+                        sx={{ display: "flex", justifyContent: "center", alignItems: "stretch" }}
                     >
-                        <ProductCard
-                            id={product.id}
-                            title={product.title}
-                            price={product.price}
-                            image={product.image}
-                            description={product.description}
-                        />
+                        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <ProductCard
+                                id={product.id}
+                                title={product.title}
+                                price={product.price}
+                                image={product.image}
+                                description={product.description}
+                            />
+                        </Box>
                     </Grid>
                 ))}
             </Grid>

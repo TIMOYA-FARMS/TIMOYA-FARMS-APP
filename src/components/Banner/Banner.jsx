@@ -19,16 +19,33 @@ const Banner = () => {
         sx={{
           width: { xs: '100%', md: '50%' },
           textAlign: { xs: 'center', md: 'left' },
-          mb: { xs: 2, md: 0 }, // Margin for small screens
+          mb: { xs: 2, md: 0 },
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
+        <Typography variant="h3" sx={{ fontWeight: 900, mb: 1, color: 'primary.main', letterSpacing: 1 }}>
           About Us!
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
+        <Typography variant="h6" sx={{ mb: 3, color: 'text.secondary', fontWeight: 400 }}>
           Transforming agriculture through innovation, sustainability, and community empowerment!
         </Typography>
-        <Button variant="contained" color="primary" size="large">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{
+            fontWeight: 700,
+            px: 4,
+            py: 1.5,
+            borderRadius: 3,
+            boxShadow: '0 2px 8px rgba(255,184,0,0.15)',
+            textTransform: 'uppercase',
+            transition: 'all 0.3s',
+            '&:hover': {
+              backgroundColor: 'primary.main',
+              color: 'white',
+            },
+          }}
+        >
           Shop Now
         </Button>
       </Box>
