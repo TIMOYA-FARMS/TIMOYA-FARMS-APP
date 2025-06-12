@@ -150,7 +150,7 @@ const Contact = () => {
             </Box>
             {/* Map Section */}
             <Box sx={{ textAlign: 'center', mt: 4 }}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
                     Find Us
                 </Typography>
                 <Box

@@ -15,6 +15,7 @@ import Cart from './pages/Cart'
 import ShowProduct from './pages/ShowProduct'
 import Checkout from './pages/Checkout'
 import Orders from './pages/Orders'
+import Gallery from './pages/Gallery'
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/dashboard' element={<Dashboard />} />
-
+        <Route path='/gallery' element={<Gallery />} />
       </Routes>
     </Layout>
   )

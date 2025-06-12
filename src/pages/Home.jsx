@@ -7,6 +7,15 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Testimonials from '../components/Testimonials';
+import HomeAboutPreview from '../components/HomeAboutPreview';
+import HomeFeaturedProducts from '../components/HomeFeaturedProducts';
+import HomeHowItWorks from '../components/HomeHowItWorks';
+import HomeGalleryPreview from '../components/HomeGalleryPreview';
+import HomeBlogHighlights from '../components/HomeBlogHighlights';
+import HomeNewsletterSignup from '../components/HomeNewsletterSignup';
+import HomeCTABanner from '../components/HomeCTABanner';
+import HomePartners from '../components/HomePartners';
 
 const Home = () => {
   const images = [
@@ -17,102 +26,113 @@ const Home = () => {
   ];
 
   return (
-    <Box
-      sx={{
-        height: '80vh',
-        width: '100%',
-        overflow: 'hidden',
-        position: 'relative',
-      }}
-    >
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
-        pagination={{ clickable: true }}
-        loop
-        style={{ height: '100%' }}
+    <>
+      <Box
+        sx={{
+          height: '80vh',
+          width: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
       >
-        {images.map((image, index) => (
-          <SwiperSlide key={index}>
-            <Box
-              sx={{
-                height: '100%',
-                width: '100%',
-                backgroundImage: `url(${image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+        <Swiper
+          modules={[Autoplay, Pagination]}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          pagination={{ clickable: true }}
+          loop
+          style={{ height: '100%' }}
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
               <Box
                 sx={{
-                  background: 'linear-gradient(135deg, rgba(34,43,69,0.7) 40%, rgba(33,150,83,0.5) 100%)',
-                  boxShadow: 3,
-                  borderRadius: 3,
-                  padding: { xs: 2, sm: 4, md: 6 },
-                  textAlign: 'center',
+                  height: '100%',
+                  width: '100%',
+                  backgroundImage: `url(${image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
                   display: 'flex',
-                  flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  maxWidth: { xs: '90%', sm: '70%', md: '50%' },
                 }}
               >
-                <Typography
-                  variant="h2"
+                <Box
                   sx={{
-                    color: 'white',
-                    fontWeight: 900,
-                    mb: 2,
-                    letterSpacing: 1,
-                    textShadow: '0 4px 24px rgba(0,0,0,0.5)',
-                    fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
-                  }}
-                >
-                  Welcome to Timoya Farms
-                </Typography>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    color: 'white',
-                    mb: 4,
-                    fontWeight: 400,
-                    textShadow: '0 2px 12px rgba(0,0,0,0.3)',
-                    fontSize: { xs: '1rem', sm: '1.4rem', md: '1.8rem' },
-                  }}
-                >
-                  Your one-stop destination for fresh, organic produce—delivered with care.
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  size="large"
-                  sx={{
-                    fontWeight: 700,
-                    px: 5,
-                    py: 1.5,
+                    background: 'linear-gradient(135deg, rgba(34,43,69,0.7) 40%, rgba(33,150,83,0.5) 100%)',
+                    boxShadow: 3,
                     borderRadius: 3,
-                    boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
-                    fontSize: { xs: '1rem', sm: '1.2rem' },
-                    textTransform: 'uppercase',
-                    transition: 'all 0.3s',
-                    '&:hover': {
-                      backgroundColor: 'primary.main',
-                      color: 'white',
-                      boxShadow: '0 4px 16px rgba(33,150,83,0.18)',
-                    },
+                    padding: { xs: 2, sm: 4, md: 6 },
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    maxWidth: { xs: '90%', sm: '70%', md: '50%' },
                   }}
                 >
-                  Shop Now
-                </Button>
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      color: 'white',
+                      fontWeight: 900,
+                      mb: 2,
+                      letterSpacing: 1,
+                      textShadow: '0 4px 24px rgba(0,0,0,0.5)',
+                      fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+                    }}
+                  >
+                    Welcome to Timoya Farms
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: 'white',
+                      mb: 4,
+                      fontWeight: 400,
+                      textShadow: '0 2px 12px rgba(0,0,0,0.3)',
+                      fontSize: { xs: '1rem', sm: '1.4rem', md: '1.8rem' },
+                    }}
+                  >
+                    Your one-stop destination for fresh, organic produce—delivered with care.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    sx={{
+                      fontWeight: 700,
+                      px: 5,
+                      py: 1.5,
+                      borderRadius: 3,
+                      boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
+                      fontSize: { xs: '1rem', sm: '1.2rem' },
+                      textTransform: 'uppercase',
+                      transition: 'all 0.3s',
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                        color: 'white',
+                        boxShadow: '0 4px 16px rgba(33,150,83,0.18)',
+                      },
+                    }}
+                  >
+                    Shop Now
+                  </Button>
+                </Box>
               </Box>
-            </Box>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </Box>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Box>
+      <HomeAboutPreview />
+      <HomeFeaturedProducts />
+      <HomeHowItWorks />
+      <HomeGalleryPreview />
+      <Testimonials />
+      <HomeBlogHighlights />
+      <HomeNewsletterSignup />
+      <HomeCTABanner />
+      <HomePartners />
+    </>
   );
 };
 

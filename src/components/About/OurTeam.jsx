@@ -85,14 +85,13 @@ const OurTeam = () => {
                 <Typography variant="h4" textAlign="center" sx={{ mb: 3, color: '#34495e' }}>
                     Founders
                 </Typography>
-                <Grid container spacing={3} justifyContent="center">
+                <Grid container spacing={3} justifyContent="center" alignItems="stretch">
                     {teamData.founders.map((founder, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index} style={{ display: 'flex' }}>
                             <Card
                                 sx={{
                                     maxWidth: 345,
-                                    minHeight: 440,
-                                    height: '100%',
+                                    height: 520,
                                     mx: 'auto',
                                     boxShadow: 3,
                                     display: 'flex',
@@ -140,14 +139,13 @@ const OurTeam = () => {
                 <Typography variant="h4" textAlign="center" sx={{ mb: 3, color: '#34495e' }}>
                     Our Team Members
                 </Typography>
-                <Grid container spacing={3} justifyContent="center">
+                <Grid container spacing={3} justifyContent="center" alignItems="stretch">
                     {teamData.members.map((member, index) => (
                         <Grid item xs={12} sm={6} md={3} key={index} style={{ display: 'flex' }}>
                             <Card
                                 sx={{
                                     maxWidth: 300,
-                                    minHeight: 320,
-                                    height: '100%',
+                                    height: 340,
                                     mx: 'auto',
                                     boxShadow: 3,
                                     display: 'flex',

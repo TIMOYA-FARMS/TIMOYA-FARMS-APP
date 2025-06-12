@@ -6,6 +6,14 @@ import HomeIcon from '@mui/icons-material/Home';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import OurTeam from '../components/About/OurTeam';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import Testimonials from '../components/Testimonials';
+import MissionVisionValues from '../components/About/MissionVisionValues';
+import TimelineMilestones from '../components/About/TimelineMilestones';
+import SustainabilityImpact from '../components/About/SustainabilityImpact';
+import CertificationsAwards from '../components/About/CertificationsAwards';
+import PressMedia from '../components/About/PressMedia';
+import AboutCallToAction from '../components/About/AboutCallToAction';
+import AboutFAQ from '../components/About/AboutFAQ';
 
 
 const breadcrumbLinks = [
@@ -34,8 +42,16 @@ const About = () => {
       </Box>
 
       {/* Page Content */}
+      <MissionVisionValues />
+      <TimelineMilestones />
       <OurStory />
+      <SustainabilityImpact />
+      <CertificationsAwards />
       <OurTeam />
+      <PressMedia />
+      <Testimonials />
+      <AboutFAQ />
+      <AboutCallToAction />
     </Box>
   );
 };

@@ -114,7 +114,7 @@ const Blog = () => {
                 </Typography>
                 <Typography
                   variant="h6"
-                  sx={{ mt: 1, fontWeight: 'bold', color: '#2c3e50' }}
+                  sx={{ mt: 1, fontWeight: 'bold', color: 'primary.main', mb: 1 }}
                 >
                   {post.title}
                 </Typography>
@@ -129,9 +129,11 @@ const Blog = () => {
                   href={post.link}
                   sx={{
                     mt: 2,
-                    color: '#2c3e50',
+                    color: 'primary.main',
+                    borderColor: 'primary.main',
                     textTransform: 'uppercase',
                     fontWeight: 'bold',
+                    '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
                   }}
                 >
                   Read More
@@ -145,7 +147,7 @@ const Blog = () => {
         <Grid item xs={12} md={3}>
           {/* Search Blog */}
           <Box sx={{ mb: 4, boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Search Blog
             </Typography>
             <TextField
@@ -159,7 +161,7 @@ const Blog = () => {
 
           {/* Recent Blogs */}
           <Box sx={{ mb: 4, boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Recent Blogs
             </Typography>
             <List>
@@ -176,7 +178,7 @@ const Blog = () => {
 
           {/* Recent Comments */}
           <Box sx={{ boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Recent Comments
             </Typography>
             <List>
@@ -195,7 +197,7 @@ const Blog = () => {
 
       {/* Newsletter Subscription */}
       <Box sx={{ mt: 5, p: 3, textAlign: 'center', backgroundColor: '#fff', boxShadow: 2 }}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#2c3e50' }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
           Subscribe to Our Newsletter
         </Typography>
         <TextField

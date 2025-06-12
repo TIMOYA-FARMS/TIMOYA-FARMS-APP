@@ -26,7 +26,9 @@ const Cart = () => {
         <div>
             <Grid container spacing={50} sx={{ mt: 2 }}>
                 <Grid item xs={12} sm={8} md={9}>
-                    <h1>Cart Items</h1>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
+                        Cart Items
+                    </Typography>
 
                     {
                         cart.map((item, index) => {
@@ -47,20 +49,22 @@ const Cart = () => {
 
                 </Grid>
                 <Grid>
-                    <h1>Order Details</h1>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
+                        Order Details
+                    </Typography>
 
-                    <Typography variant='h5' gutterBottom>
+                    <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
                         Total Amount :  ${totalAmount}
                     </Typography>
 
-                    <Typography variant='h5' gutterBottom>
+                    <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
                         Total Items : {totalItems} {totalItemsText}
                     </Typography>
-                    <Typography variant='h5' gutterBottom>
+                    <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
                         Total Price : ${totalPrice}
                     </Typography>
 
-                    <Typography variant='h5' gutterBottom>
+                    <Typography variant='h6' sx={{ color: cartEmpty ? 'error.main' : 'primary.main', fontWeight: 'bold', mb: 2 }}>
                         {cartEmpty ? 'Your cart is empty' : 'Thank you for your order!'}
                     </Typography>
 

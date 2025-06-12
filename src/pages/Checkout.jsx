@@ -31,17 +31,17 @@ const Checkout = () => {
   if (orderPlaced) {
     return (
       <Box sx={{ maxWidth: 500, mx: 'auto', mt: 5, p: 3, textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom>Thank you for your order!</Typography>
-        <Typography variant="body1">A confirmation has been sent to {form.email}.</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Thank you for your order!</Typography>
+        <Typography variant="body1" sx={{ color: '#555' }}>A confirmation has been sent to {form.email}.</Typography>
       </Box>
     );
   }
 
   return (
     <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 3 }}>
-      <Typography variant="h4" gutterBottom>Checkout</Typography>
+      <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Checkout</Typography>
       <Paper sx={{ mb: 3, p: 2 }}>
-        <Typography variant="h6">Order Summary</Typography>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Order Summary</Typography>
         <List>
           {cart.map((item) => (
             <ListItem key={item.id}>
@@ -53,7 +53,7 @@ const Checkout = () => {
           ))}
         </List>
         <Divider />
-        <Typography variant="h6" sx={{ mt: 2 }}>Total: ${totalAmount.toFixed(2)}</Typography>
+        <Typography variant="h6" sx={{ mt: 2, fontWeight: 'bold', color: 'primary.main' }}>Total: ${totalAmount.toFixed(2)}</Typography>
       </Paper>
       <form onSubmit={handlePlaceOrder}>
         <TextField

@@ -59,13 +59,13 @@ const ShowProduct = () => {
                     alt={product.title}
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
                         {product.name }
                     </Typography>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
                         ${product.price}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography variant="body2" sx={{ color: '#555', mb: 2 }}>
                         {product.description}
                     </Typography>
                     <Rating readOnly name="size-small" defaultValue={product.rating.rate} size="small" />

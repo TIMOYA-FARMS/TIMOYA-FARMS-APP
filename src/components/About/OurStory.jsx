@@ -1,7 +1,17 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Typography, Button, Collapse } from '@mui/material';
+import React, { useState } from 'react';
 
 const OurStory = () => {
+  const [expanded, setExpanded] = useState(false);
+  const shortText = `Timoya operates in the agricultural industry with a primary focus on rice processing, specializing in parboiled rice. Our mission is to bridge the gap between local farmers and consumers while extending our services to smallholder farmers and cooperatives.`;
+  const fullText = `Timoya operates in the agricultural industry with a primary focus on rice processing, specializing in parboiled rice. Our mission is to bridge the gap between local farmers and consumers while extending our services to smallholder farmers and cooperatives.
+
+Our facilities in Saboba and Tamale enable comprehensive processing, from boiling and milling to packaging. Women in Saboba handle the parboiling process, while manual sorting and grading take place in Tamale. To centralize operations, we plan to establish a factory in Saboba.
+
+By leveraging innovative technologies and eco-friendly practices, we aim to improve the rice value chain's quality and sustainability. We address critical challenges such as climate change, poor market access, and post-harvest losses while empowering farmers through value addition and knowledge sharing.
+
+One of our key innovations includes a circular parboiling system designed to reduce boiling time from 72 hours to just 24 hours, significantly enhancing the quality of the rice and reducing processing time.`;
+
   return (
     <Box
       sx={{
@@ -76,14 +86,28 @@ const OurStory = () => {
             color: '#555',
           }}
         >
-          Timoya operates in the agricultural industry with a primary focus on rice processing, specializing in parboiled rice. Our mission is to bridge the gap between local farmers and consumers while extending our services to smallholder farmers and cooperatives.
-
-          Our facilities in Saboba and Tamale enable comprehensive processing, from boiling and milling to packaging. Women in Saboba handle the parboiling process, while manual sorting and grading take place in Tamale. To centralize operations, we plan to establish a factory in Saboba.
-
-          By leveraging innovative technologies and eco-friendly practices, we aim to improve the rice value chain's quality and sustainability. We address critical challenges such as climate change, poor market access, and post-harvest losses while empowering farmers through value addition and knowledge sharing.
-
-          One of our key innovations includes a circular parboiling system designed to reduce boiling time from 72 hours to just 24 hours, significantly enhancing the quality of the rice and reducing processing time.
+          {shortText}
         </Typography>
+        <Collapse in={expanded}>
+          <Typography
+            variant="body1"
+            sx={{
+              lineHeight: 2,
+              textAlign: 'justify',
+              color: '#555',
+              mt: 2,
+            }}
+          >
+            {fullText.replace(shortText, '').trim()}
+          </Typography>
+        </Collapse>
+        <Button
+          variant="text"
+          onClick={() => setExpanded((prev) => !prev)}
+          sx={{ mt: 1, textTransform: 'none', color: '#2c3e50' }}
+        >
+          {expanded ? 'Read Less' : 'Read More'}
+        </Button>
       </Box>
     </Box>
   );
