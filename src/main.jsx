@@ -4,6 +4,7 @@ import './index.css';
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CartContextProvider } from './Store/CartContext.jsx';
 
 
 const theme = createTheme({
@@ -46,7 +47,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+      <CartContextProvider >
         <App />
+      </CartContextProvider>
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>

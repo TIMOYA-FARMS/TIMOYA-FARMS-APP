@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -12,6 +12,9 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import CartContext from "../../Store/CartContext";
+import { Badge, Button } from "@mui/material";
+import { ShoppingCartCheckoutTwoTone } from "@mui/icons-material";
 
 const pages = [
   { name: "About", path: "/about" },
@@ -22,13 +25,15 @@ const pages = [
 
 const settings = [
   { name: "Dashboard", path: "/dashboard" },
-  // { name: "Logout", path: "/logout" },
-
+  { name: "Orders", path: "/orders" },
+  { name: "Checkout", path: "/checkout" },
+  { name: "Logout", path: "/logout" },
 ];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const context = useContext(CartContext);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -124,6 +129,13 @@ const Navbar = () => {
               display: { xs: "none", md: "flex" },
               justifyContent: "center",
               flexGrow: 1,
+              alignItems: "center",
+              mx: 2,
+              gap: 2,
+              borderRightStyle: "solid",
+              borderRightWidth: 1,
+              borderRightColor: "white",
+              pr: 2,
             }}
           >
             {pages.map((page) => (
@@ -146,8 +158,29 @@ const Navbar = () => {
           </Box>
 
 
-          {/* User Menu */}
-          <Box sx={{ flexGrow: 0 }}>
+          {/* Cart | User Menu */}
+          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}>
+            <Tooltip title="Cart" sx={{ mr: 2 }}>
+              <IconButton
+                component={NavLink}
+                to="/cart"
+                sx={{ p: 0, color: "inherit", mr: 1 }}
+                style={({ isActive }) => ({
+                  textDecoration: "none",
+                  color: isActive ? "yellow" : "white",
+                })}
+              >
+                <Badge
+                  badgeContent={context.cartLength}
+                  color="secondary"
+                  sx={{ mr: 2, color: "inherit" }}
+                >
+                  <ShoppingCartCheckoutTwoTone 
+                  sx={{ fontSize: 30, color: "inherit", }}
+                  />
+                </Badge>
+              </IconButton>
+            </Tooltip>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -181,6 +214,7 @@ const Navbar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            
           </Box>
         </Toolbar>
 

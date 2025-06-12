@@ -1,0 +1,84 @@
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
+import CartContext from "../Store/CartContext";
+import axios from "axios";
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Rating, Typography } from "@mui/material";
+import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+
+
+const ShowProduct = () => {
+    const {productId} = useParams();
+    const [product, setProduct] = useState(null);
+    const cartContext = useContext(CartContext);
+
+    useEffect(() => {
+        axios.get(`https://fakestoreapi.com/products/${productId}`)
+        .then((res) => {
+            setProduct(res.data);
+        })
+    }, []);
+
+    const addToCartHandler = () => {
+        if (!product) {
+            return;
+        }
+        cartContext.addToCart({...product, qty: 1 });
+    }
+
+    if (!product) {
+        return <p>Loading...</p>;
+    }
+
+    return (
+        <Box>
+            <Box sx={{ position: 'relative', backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        mt: { xs: 2, md: 3 },
+                        mb: { xs: 2, md: 4 },
+                        width: '100%',
+                    }}
+                >
+                    <Breadcrumb
+                        links={[
+                            { label: 'Home', href: '/' },
+                            { label: 'Products', href: '/products' },
+                            { label: product.title, href: `/products/${productId}` }
+                        ]}
+                    />
+                </Box>
+            </Box>
+            <Card sx={{ maxWidth: 350, margin: 'auto', mt: 5, p: 2 }}>
+                <CardMedia 
+                    component="img"
+                    height="350"
+                    image={product.image}
+                    alt={product.title}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {product.name }
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="div">
+                        ${product.price}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                        {product.description}
+                    </Typography>
+                    <Rating readOnly name="size-small" defaultValue={product.rating.rate} size="small" />
+                </CardContent>
+
+                <CardActions>
+                    <Button variant="outlined" size="small" onClick={addToCartHandler}>
+                        Add to Cart
+                    </Button>
+                </CardActions>
+            </Card>
+        </Box>
+    )
+}
+
+export default ShowProduct;

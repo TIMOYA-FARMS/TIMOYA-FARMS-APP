@@ -3,16 +3,36 @@ import { Box, Typography, Grid, IconButton, TextField, Button } from '@mui/mater
 import { Facebook, Twitter, Instagram, Email, Phone, LocationOn } from '@mui/icons-material';
 import Map from '../components/Map'; // Assuming you have a Map component
 import ContactBanner from '../components/Banner/ContactBanner';
+import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 
 const Contact = () => {
     return (
-        <Box sx={{ py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
+        <Box sx={{ position: 'relative', py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
             <ContactBanner />
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    mt: { xs: 2, md: 3 },
+                    mb: { xs: 2, md: 4 },
+                    width: '100%',
+                }}
+            >
+                <Breadcrumb
+                    links={[
+                        { label: 'Home', href: '/' },
+                        { label: 'Contact', href: '/contact' }
+                    ]}
+                />
+            </Box>
+            <Box sx={{ position: 'relative', backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
 
+            </Box>
             <Box sx={{
                 py: 4,
                 display: 'flex',
-                flexDirection: {xs: 'column', sm: 'row',},
+                flexDirection: { xs: 'column', sm: 'row', },
                 alignItems: {
                     xs: 'center',
                     sm: 'stretch',
@@ -23,11 +43,11 @@ const Contact = () => {
             }}>
                 {/* Follow Us Section */}
                 <Box sx={{
-                    width: {xs: '50%', sm: '25%', md:'25%'},
-                    justifyContent:'flex-start',
+                    width: { xs: '50%', sm: '25%', md: '25%' },
+                    justifyContent: 'flex-start',
                     borderRadius: 4,
                     mb: 4,
-                    padding: {xs: '5%', sm: '2%'},
+                    padding: { xs: '5%', sm: '2%' },
                     // textAlign: 'center',
                     boxShadow: 3,
                     transition: 'transform 0.3s, box-shadow 0.3s',
@@ -58,8 +78,8 @@ const Contact = () => {
 
                 {/* Get in Touch Section */}
                 <Box sx={{
-                    width: {xs: '60%', sm: '35%', md:'25%'},
-                    padding: {xs: '5%', sm: '2%'},
+                    width: { xs: '60%', sm: '35%', md: '25%' },
+                    padding: { xs: '5%', sm: '2%' },
                     justifyItems: 'flex-start',
                     borderRadius: 4,
                     mb: 4,
@@ -89,10 +109,10 @@ const Contact = () => {
 
                 {/* Contact Form */}
                 <Box sx={{
-                    width: {xs: '60%', sm: '35%', md:'25%'},
-                    padding: {xs: '5%', sm: '2%'},
-                    borderRadius: 4, 
-                    mb: 4, 
+                    width: { xs: '60%', sm: '35%', md: '25%' },
+                    padding: { xs: '5%', sm: '2%' },
+                    borderRadius: 4,
+                    mb: 4,
                     boxShadow: 3,
                     transition: 'transform 0.3s, box-shadow 0.3s',
                     '&:hover': {

@@ -11,6 +11,10 @@ import Register from './pages/Register'
 import AllProducts from './pages/AllProducts'
 import Contact from './pages/Contact'
 import Dashboard from './pages/Dashboard'
+import Cart from './pages/Cart'
+import ShowProduct from './pages/ShowProduct'
+import Checkout from './pages/Checkout'
+import Orders from './pages/Orders'
 
 function App() {
 
@@ -25,6 +29,10 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/products' element={<AllProducts />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/products/:productId' element={<ShowProduct />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/checkout' element={<Checkout />} />
+        <Route path='/orders' element={<Orders />} />
         <Route path='/dashboard' element={<Dashboard />} />
 
       </Routes>
