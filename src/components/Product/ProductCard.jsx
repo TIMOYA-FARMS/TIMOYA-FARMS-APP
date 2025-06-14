@@ -38,12 +38,16 @@ const ProductCard = (props) => {
                 <Button component={Link} to={`/products/${props.id}`} variant='outlined' size='small' sx={{ borderRadius: 2, fontWeight: 600 }}>
                     View
                 </Button>
-                <Button component={Link} to={`/cart/${props.id}`} variant='contained' color='secondary' size='medium' sx={{ borderRadius: 2, fontWeight: 700, px: 3, boxShadow: '0 2px 8px rgba(255,184,0,0.12)', textTransform: 'uppercase', transition: 'all 0.3s', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}>
+                <Button
+                    variant='contained'
+                    color='secondary'
+                    size='medium'
+                    sx={{ borderRadius: 2, fontWeight: 700, px: 3, boxShadow: '0 2px 8px rgba(255,184,0,0.12)', textTransform: 'uppercase', transition: 'all 0.3s', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}
+                    onClick={() => props.onAddToCart && props.onAddToCart(props.product)}
+                >
                     Add to Cart
                 </Button>
             </CardActions>
-
-
         </Card>
     )
 }

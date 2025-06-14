@@ -1,32 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom"
 import CartContext from "../Store/CartContext";
-import axios from "axios";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Rating, Typography } from "@mui/material";
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import useApi from '../hooks/useApi';
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const ShowProduct = () => {
-    const {productId} = useParams();
-    const [product, setProduct] = useState(null);
+    const { productId } = useParams();
     const cartContext = useContext(CartContext);
-
-    useEffect(() => {
-        axios.get(`https://fakestoreapi.com/products/${productId}`)
-        .then((res) => {
-            setProduct(res.data);
-        })
-    }, []);
+    const { data: product, error, loading } = useApi(() => `${baseUrl}/products/${productId}`);
 
     const addToCartHandler = () => {
         if (!product) {
             return;
         }
-        cartContext.addToCart({...product, qty: 1 });
+        cartContext.addToCart({ ...product, qty: 1 });
     }
 
-    if (!product) {
+    if (loading) {
         return <p>Loading...</p>;
+    }
+    if (error) {
+        return <p style={{ color: 'red' }}>Failed to load product.</p>;
+    }
+    if (!product) {
+        return <p>No product found.</p>;
     }
 
     return (
@@ -52,7 +52,7 @@ const ShowProduct = () => {
                 </Box>
             </Box>
             <Card sx={{ maxWidth: 350, margin: 'auto', mt: 5, p: 2 }}>
-                <CardMedia 
+                <CardMedia
                     component="img"
                     height="350"
                     image={product.image}
@@ -60,7 +60,7 @@ const ShowProduct = () => {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
-                        {product.name }
+                        {product.name}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
                         ${product.price}

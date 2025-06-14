@@ -15,7 +15,7 @@ const images = [
 
 const Gallery = () => {
   return (
-    <Box sx={{ backgroundColor: '#f9f9f9', minHeight: '100vh', py: 4 }}>
+    <Box sx={{ backgroundColor: '#f9f9f9', minHeight: '100vh', py: 0 }}>
       <Box sx={{ position: 'relative', backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
         <GalleryBanner />
         <Box

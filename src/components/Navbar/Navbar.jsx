@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -110,6 +110,7 @@ const Navbar = () => {
               justifyContent: { xs: "center", md: "flex-start" },
               flexGrow: 1,
               alignItems: "center",
+              maxHeight: 74,
             }}
             component={NavLink}
             to="/"
@@ -118,7 +119,7 @@ const Navbar = () => {
               src="https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png"
               alt="Timoya-Farms Logo"
               style={{
-                width: "15%",
+                width: "35%",
                 height: "auto",
               }}
             />
@@ -183,8 +184,8 @@ const Navbar = () => {
               </IconButton>
             </Tooltip>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
+                <AccountCircle sx={{ width: 36, height: 36 }} />
               </IconButton>
             </Tooltip>
             <Menu

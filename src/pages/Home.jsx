@@ -95,28 +95,55 @@ const Home = () => {
                   >
                     Your one-stop destination for fresh, organic produce—delivered with care.
                   </Typography>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                    sx={{
-                      fontWeight: 700,
-                      px: 5,
-                      py: 1.5,
-                      borderRadius: 3,
-                      boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
-                      fontSize: { xs: '1rem', sm: '1.2rem' },
-                      textTransform: 'uppercase',
-                      transition: 'all 0.3s',
-                      '&:hover': {
-                        backgroundColor: 'primary.main',
-                        color: 'white',
-                        boxShadow: '0 4px 16px rgba(33,150,83,0.18)',
-                      },
-                    }}
-                  >
-                    Shop Now
-                  </Button>
+                  <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      size="large"
+                      sx={{
+                        fontWeight: 700,
+                        px: 5,
+                        py: 1.5,
+                        borderRadius: 3,
+                        boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
+                        fontSize: { xs: '1rem', sm: '1.2rem' },
+                        textTransform: 'uppercase',
+                        transition: 'all 0.3s',
+                        '&:hover': {
+                          backgroundColor: 'primary.main',
+                          color: 'white',
+                          boxShadow: '0 4px 16px rgba(33,150,83,0.18)',
+                        },
+                      }}
+                    >
+                      Shop Now
+                    </Button>
+                    {/* Show Login button if not logged in */}
+                    {false && (
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        size="large"
+                        href="/login"
+                        sx={{
+                          fontWeight: 700,
+                          px: 5,
+                          py: 1.5,
+                          borderRadius: 3,
+                          fontSize: { xs: '1rem', sm: '1.2rem' },
+                          textTransform: 'uppercase',
+                          borderWidth: 2,
+                          borderColor: 'primary.main',
+                          '&:hover': {
+                            backgroundColor: 'primary.main',
+                            color: 'white',
+                          },
+                        }}
+                      >
+                        Login
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             </SwiperSlide>

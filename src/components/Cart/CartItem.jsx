@@ -32,9 +32,9 @@ const CartItem = (props) => {
 
 
     return (
-        <Box sx={{width: '500px', margin: 2}}>
-        <Card sx={{ display: 'flex' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ width: { xs: '100%', sm: '90%', md: '500px' }, maxWidth: '100%', mx: 'auto', my: 2 }}>
+        <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="h5">
                         {props.title}

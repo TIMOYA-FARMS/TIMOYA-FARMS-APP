@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Typography, Button } from '@mui/material';
 
 const BlogBanner = () => {
+  const isLoggedIn = false; // Replace with real auth logic
   return (
     <Box
           sx={{
@@ -28,9 +29,32 @@ const BlogBanner = () => {
             <Typography variant="body1" sx={{ marginBottom: '20px' }}>
               Check out what we have been up to!
             </Typography>
-            <Button variant="contained" color="primary" size="large">
-              Shop Now
-            </Button>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Button variant="contained" color="primary" size="large">
+                Shop Now
+              </Button>
+              {!isLoggedIn && (
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  href="/login"
+                  sx={{
+                    fontWeight: 700,
+                    borderRadius: 3,
+                    textTransform: 'uppercase',
+                    borderWidth: 2,
+                    borderColor: 'primary.main',
+                    '&:hover': {
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                    },
+                  }}
+                >
+                  Login
+                </Button>
+              )}
+            </Box>
           </Box>
           <Box
             sx={{

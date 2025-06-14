@@ -7,6 +7,7 @@ const Checkout = () => {
   const [form, setForm] = useState({ name: '', address: '', email: '' });
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [emailError, setEmailError] = useState('');
+  const isLoggedIn = false; // Replace with real auth logic
 
   const totalAmount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
@@ -40,6 +41,11 @@ const Checkout = () => {
   return (
     <Box sx={{ maxWidth: 600, mx: 'auto', mt: 5, p: 3 }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Checkout</Typography>
+      {!isLoggedIn && (
+        <Typography variant="body2" sx={{ color: 'error.main', mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
+          Please <a href="/login" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Login</a> or <a href="/register" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Register</a> to place your order.
+        </Typography>
+      )}
       <Paper sx={{ mb: 3, p: 2 }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Order Summary</Typography>
         <List>
@@ -47,7 +53,7 @@ const Checkout = () => {
             <ListItem key={item.id}>
               <ListItemText
                 primary={`${item.title} x${item.qty}`}
-                secondary={`$${(item.price * item.qty).toFixed(2)}`}
+                secondary={`${(item.price * item.qty).toFixed(2)}`}
               />
             </ListItem>
           ))}
@@ -64,6 +70,7 @@ const Checkout = () => {
           fullWidth
           required
           sx={{ mb: 2 }}
+          disabled={!isLoggedIn}
         />
         <TextField
           label="Address"
@@ -73,6 +80,7 @@ const Checkout = () => {
           fullWidth
           required
           sx={{ mb: 2 }}
+          disabled={!isLoggedIn}
         />
         <TextField
           label="Email"
@@ -85,6 +93,7 @@ const Checkout = () => {
           error={!!emailError}
           helperText={emailError}
           sx={{ mb: 2 }}
+          disabled={!isLoggedIn}
         />
         {emailError && <Alert severity="error" sx={{ mb: 2 }}>{emailError}</Alert>}
         <Button
@@ -92,7 +101,7 @@ const Checkout = () => {
           variant="contained"
           color="primary"
           fullWidth
-          disabled={cart.length === 0}
+          disabled={cart.length === 0 || !isLoggedIn}
         >
           Place Order
         </Button>
