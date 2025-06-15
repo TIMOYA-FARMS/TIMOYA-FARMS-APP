@@ -29,7 +29,7 @@ const ShopBanner = () => {
         <Typography variant="h6" sx={{ mb: 3, color: 'text.secondary', fontWeight: 400 }}>
           Check out our amazing products!
         </Typography>
-        <Button
+        {/* <Button
           variant="contained"
           color="secondary"
           size="large"
@@ -48,7 +48,7 @@ const ShopBanner = () => {
           }}
         >
           Shop Now
-        </Button>
+        </Button> */}
       </Box>
       <Box
         sx={{
