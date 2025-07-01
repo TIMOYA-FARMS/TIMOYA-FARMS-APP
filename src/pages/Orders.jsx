@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Paper, CircularProgress, Chip, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Box, Typography, Paper, CircularProgress, Chip, Accordion, AccordionSummary, AccordionDetails, Stack, Avatar, Grid } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import CancelIcon from '@mui/icons-material/Cancel';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import PaidIcon from '@mui/icons-material/Paid';
 
 const Orders = () => {
   const { isAuthenticated, user, loading: authLoading } = useAuth();
@@ -43,6 +48,17 @@ const Orders = () => {
       case 'cancelled': return 'error';
       case 'refunded': return 'warning';
       default: return 'default';
+    }
+  };
+
+  const statusIcon = (status) => {
+    switch ((status || '').toLowerCase()) {
+      case 'paid': return <PaidIcon sx={{ color: 'success.main', mr: 1 }} />;
+      case 'processing': return <PendingActionsIcon sx={{ color: 'info.main', mr: 1 }} />;
+      case 'shipped': return <LocalShippingIcon sx={{ color: 'primary.main', mr: 1 }} />;
+      case 'delivered': return <AssignmentTurnedInIcon sx={{ color: 'secondary.main', mr: 1 }} />;
+      case 'cancelled': return <CancelIcon sx={{ color: 'error.main', mr: 1 }} />;
+      default: return <PendingActionsIcon sx={{ color: 'grey.500', mr: 1 }} />;
     }
   };
 
@@ -93,39 +109,51 @@ const Orders = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 700, mx: 'auto', mt: 5, p: 3 }}>
+    <Box sx={{ maxWidth: 900, mx: 'auto', mt: 5, p: { xs: 1, md: 3 } }}>
       {/* Order Summary */}
-      <Paper sx={{ mb: 3, p: 2, background: '#f7f7f7' }}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>Order Summary</Typography>
-        <Typography variant="body2" sx={{ mb: 0.5 }}>Total Orders: <b>{totalOrders}</b></Typography>
-        <Typography variant="body2" sx={{ mb: 0.5 }}>Paid Orders: <b>{paidOrders}</b></Typography>
-        <Typography variant="body2" sx={{ mb: 0.5 }}>Pending Orders: <b>{pendingOrders}</b></Typography>
-        <Typography variant="body2" sx={{ mb: 0.5 }}>Total Spent: <b>₵{totalSpent.toFixed(2)}</b></Typography>
+      <Paper elevation={6} sx={{ mb: 4, p: 3, borderRadius: 4, background: 'linear-gradient(90deg, #e0ffe7 0%, #fffde4 100%)', boxShadow: 6 }}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={12} md={3}>
+            <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56, boxShadow: 3 }}>
+              <AssignmentTurnedInIcon sx={{ fontSize: 32, color: '#fff' }} />
+            </Avatar>
+          </Grid>
+          <Grid item xs={12} md={9}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>Order Summary</Typography>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3}>
+              <Typography variant="body1">Total Orders: <b>{totalOrders}</b></Typography>
+              <Typography variant="body1">Paid: <b>{paidOrders}</b></Typography>
+              <Typography variant="body1">Pending: <b>{pendingOrders}</b></Typography>
+              <Typography variant="body1">Total Spent: <b>₵{totalSpent.toFixed(2)}</b></Typography>
+            </Stack>
+          </Grid>
+        </Grid>
       </Paper>
       {/* Orders List */}
       {error && <Typography color="error" sx={{ mb: 2 }}>{error}</Typography>}
       {orders.length === 0 ? (
-        <Paper sx={{ p: 3, textAlign: 'center' }}>
+        <Paper sx={{ p: 3, textAlign: 'center', borderRadius: 3, background: 'linear-gradient(90deg, #f9f9f9 60%, #e0ffe7 100%)', boxShadow: 1 }}>
           <Typography variant="body1" sx={{ color: '#555' }}>You have not placed any orders yet.</Typography>
         </Paper>
       ) : (
         orders.map((order, idx) => (
-          <Accordion key={idx} sx={{ mb: 2 }}>
+          <Accordion key={idx} sx={{ mb: 3, borderRadius: 3, boxShadow: 4, background: 'linear-gradient(90deg, #fffde4 60%, #e0ffe7 100%)', '&:before': { display: 'none' } }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+              <Stack direction="row" alignItems="center" spacing={2} sx={{ width: '100%' }}>
+                {statusIcon(order.status)}
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main', flexGrow: 1 }}>
                   Order #{order._id || order.id}
                 </Typography>
                 <Chip
                   label={order.status || 'Pending'}
                   color={statusColor(order.status)}
                   size="small"
-                  sx={{ ml: 2, textTransform: 'capitalize' }}
+                  sx={{ textTransform: 'capitalize', fontWeight: 700 }}
                 />
                 <Typography variant="body2" sx={{ color: 'text.secondary', ml: 2, display: 'inline' }}>
                   {order.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A'}
                 </Typography>
-              </Box>
+              </Stack>
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
@@ -168,7 +196,7 @@ const Orders = () => {
                   color="primary"
                   variant="outlined"
                   onClick={() => downloadInvoice(order)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: 'pointer', fontWeight: 700 }}
                 />
               </Box>
             </AccordionDetails>

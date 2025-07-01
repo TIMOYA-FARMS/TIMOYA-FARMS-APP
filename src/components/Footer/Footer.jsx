@@ -154,7 +154,7 @@ const Footer = () => (
     <Box sx={{ textAlign: 'center', pb: 3, px: { xs: 2, md: 4 } }}>
       <Typography variant="body2" sx={{ color: '#fff', opacity: 0.8 }}>
         © 2025 Timoya~Farms. All rights reserved.
-      </Typography>
+    </Typography>
     </Box>
   </Box>
 );

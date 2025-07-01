@@ -32,7 +32,7 @@ const About = () => {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    mt: { xs: 2, md: 3 },
+    mt: 0,
     mb: { xs: 2, md: 4 },
     width: '100%',
   }}

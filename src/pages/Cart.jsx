@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { useAuth } from '../contexts/AuthContext';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 const Cart = () => {
     const { cart } = useContext(CartContext);
@@ -25,10 +27,13 @@ const Cart = () => {
                 {/* Cart Items Section */}
                 <Grid item xs={12} md={8}>
 
-                    <Paper elevation={2} sx={{ p: { xs: 1, sm: 2, md: 3 }, borderRadius: 3, background: '#fafafa' }}>
-                        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 3, letterSpacing: 1, textAlign: 'center' }}>
-                        Cart Items
-                    </Typography>
+                    <Paper elevation={4} sx={{ p: { xs: 2, sm: 3, md: 4 }, borderRadius: 4, background: 'linear-gradient(135deg, #e0ffe7 0%, #b2f7ef 100%)', boxShadow: 6 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, justifyContent: 'center' }}>
+                          <ShoppingCartIcon sx={{ fontSize: 36, color: 'primary.main', mr: 1 }} />
+                          <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', letterSpacing: 1, textAlign: 'center' }}>
+                            Cart Items
+                          </Typography>
+                        </Box>
                         {cart.length === 0 ? (
                             <Typography variant="h6" sx={{ color: 'error.main', textAlign: 'center', py: 6, fontWeight: 600 }}>
                                 Your cart is empty
@@ -57,10 +62,13 @@ const Cart = () => {
                 </Grid>
                 {/* Order Summary Section */}
                 <Grid item xs={12} md={4}>
-                    <Paper elevation={4} sx={{ p: { xs: 2, md: 3 }, borderRadius: 3, background: '#fff', minWidth: 260 }}>
-                        <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2, letterSpacing: 1, textAlign: 'center' }}>
+                    <Paper elevation={6} sx={{ p: { xs: 3, md: 4 }, borderRadius: 4, background: 'linear-gradient(135deg, #fffde4 0%, #f7e8b2 100%)', minWidth: 260, boxShadow: 8 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, justifyContent: 'center' }}>
+                          <ShoppingCartCheckoutIcon sx={{ fontSize: 32, color: 'secondary.main', mr: 1 }} />
+                          <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', letterSpacing: 1, textAlign: 'center' }}>
                             Order Details
-                        </Typography>
+                          </Typography>
+                        </Box>
                         {!isAuthenticated && (
                             <Typography variant="body2" sx={{ color: 'error.main', mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
                                 Please <a href="/login" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Login</a> or <a href="/register" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Register</a> to proceed to checkout.
@@ -104,10 +112,6 @@ const Cart = () => {
                 </Grid>
             </Grid>
         </div>
-
-            //     </Grid>
-            // </Grid>
-        // </div>
     )
 }
 

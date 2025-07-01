@@ -22,6 +22,8 @@ import Products from './pages/admin/Products'
 import OrdersAdmin from './pages/admin/Orders'
 import Farmers from './pages/admin/Farmers'
 import AdminDashboard from './pages/dashboard/AdminDashboard'
+import CustomerDashboard from './pages/dashboard/CustomerDashboard'
+import FarmerDashboard from './pages/dashboard/FarmerDashboard'
 
 function App() {
 
@@ -50,6 +52,13 @@ function App() {
         <Route path='admin/products' element={<Products />} />
         <Route path='admin/orders' element={<OrdersAdmin />} />
         <Route path='admin/farmers' element={<Farmers />} />
+        <Route path='customer' >
+          <Route index element={<CustomerDashboard />} />
+          <Route path='orders' element={<Orders />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='checkout' element={<Checkout />} />
+        </Route>
+        <Route path='farmer' element={<FarmerDashboard />} />
       </Route>
     </Routes>
   )

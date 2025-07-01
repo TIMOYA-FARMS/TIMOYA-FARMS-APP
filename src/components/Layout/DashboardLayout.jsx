@@ -6,6 +6,9 @@ import PeopleIcon from '@mui/icons-material/People';
 import StoreIcon from '@mui/icons-material/Store';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -17,6 +20,13 @@ const adminNav = [
   { label: 'Products', icon: <StoreIcon />, path: '/dashboard/admin/products' },
   { label: 'Orders', icon: <ShoppingBagIcon />, path: '/dashboard/admin/orders' },
   { label: 'Farmers', icon: <AgricultureIcon />, path: '/dashboard/admin/farmers' },
+];
+
+const customerNav = [
+  { label: 'Overview', icon: <DashboardIcon />, path: '/dashboard/customer' },
+  { label: 'Orders', icon: <ReceiptLongIcon />, path: '/dashboard/customer/orders' },
+  { label: 'Cart', icon: <ShoppingCartCheckoutIcon />, path: '/dashboard/customer/cart' },
+  { label: 'Checkout', icon: <LocalOfferIcon />, path: '/dashboard/customer/checkout' },
 ];
 
 const DashboardLayout = () => {
@@ -31,7 +41,8 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (!loading && user) {
-      if (window.location.pathname.startsWith('/dashboard/admin') && user.role !== 'Admin') {
+      const isAdminRoute = window.location.pathname.startsWith('/dashboard/admin') || window.location.pathname === '/dashboard';
+      if (isAdminRoute && user.role !== 'Admin') {
         if (user.role === 'Farmer') navigate('/dashboard/farmer', { replace: true });
         else if (user.role === 'User') navigate('/dashboard/customer', { replace: true });
         else navigate('/', { replace: true });
@@ -39,12 +50,15 @@ const DashboardLayout = () => {
     }
   }, [user, loading, navigate]);
 
+  const isCustomerRoute = location.pathname.startsWith('/dashboard/customer');
+  const isAdminRoute = location.pathname.startsWith('/dashboard/admin') || location.pathname === '/dashboard';
+
   const drawer = (
     <div>
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {adminNav.map((item) => (
+          {(isAdminRoute ? adminNav : isCustomerRoute ? customerNav : []).map((item) => (
             <ListItem
               button
               key={item.label}
@@ -73,12 +87,12 @@ const DashboardLayout = () => {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: 'none' } }}
+              sx={{ mr: 2, display: { md: isAdminRoute ? 'none' : 'none', xs: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
+              {isAdminRoute ? 'Admin Dashboard' : isCustomerRoute ? 'Customer Dashboard' : 'Dashboard'}
             </Typography>
           </Box>
           <Button
@@ -91,33 +105,37 @@ const DashboardLayout = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      {/* Permanent drawer for md+ screens */}
-      <Drawer
-        variant="permanent"
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          display: { xs: 'none', md: 'block' },
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-        open
-      >
-        {drawer}
-      </Drawer>
-      {/* Temporary drawer for mobile */}
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{ keepMounted: true }}
-        sx={{
-          display: { xs: 'block', md: 'none' },
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
-        {drawer}
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: { xs: 1, md: 3 }, width: { xs: '100%', md: `calc(100% - ${drawerWidth}px)` }, minHeight: '100vh', background: '#f9f9f9' }}>
+      {/* Permanent drawer for md+ screens (for admin and customer) */}
+      {(isAdminRoute || isCustomerRoute) && (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            display: { xs: 'none', md: 'block' },
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      )}
+      {/* Temporary drawer for mobile (for admin and customer) */}
+      {(isAdminRoute || isCustomerRoute) && (
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      )}
+      <Box component="main" sx={{ flexGrow: 1, p: { xs: 1, md: 3 }, width: { xs: '100%', md: (isAdminRoute || isCustomerRoute) ? `calc(100% - ${drawerWidth}px)` : '100%' }, minHeight: '100vh', background: '#f9f9f9' }}>
         <Toolbar />
         <Outlet />
       </Box>

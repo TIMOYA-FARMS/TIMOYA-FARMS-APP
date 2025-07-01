@@ -37,7 +37,7 @@ const Contact = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    mt: { xs: 2, md: 3 },
+                    mt: 0,
                     mb: { xs: 2, md: 4 },
                     width: '100%',
                 }}
@@ -117,7 +117,7 @@ const Contact = () => {
                         </Box>
                     </Box>
                     <Typography variant="body2" sx={{ color: '#555', mt: 2, textAlign: 'center' }}>
-                        We’re available during business hours for your inquiries.
+                        We're available during business hours for your inquiries.
                     </Typography>
                 </Paper>
 
@@ -127,7 +127,7 @@ const Contact = () => {
                         Send Us a Message
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#555', mb: 2, textAlign: 'center' }}>
-                        We’d love to hear from you! Fill out the form and our team will get back to you soon.
+                        We'd love to hear from you! Fill out the form and our team will get back to you soon.
                     </Typography>
                     {formSuccess && <Alert severity="success" sx={{ mb: 2 }}>Thank you for reaching out! We will get back to you soon.</Alert>}
                     {formError && <Alert severity="error" sx={{ mb: 2 }}>{formError}</Alert>}
