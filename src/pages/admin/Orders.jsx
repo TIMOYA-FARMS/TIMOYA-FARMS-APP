@@ -93,7 +93,15 @@ const Orders = () => {
 
   const columns = [
     { field: '_id', headerName: 'Order ID', flex: 1 },
-    { field: 'customer', headerName: 'Customer', flex: 1, valueGetter: (params) => params.row.user?.firstName + ' ' + params.row.user?.lastName },
+    {
+      field: 'customer',
+      headerName: 'Customer',
+      flex: 1,
+      valueGetter: (params) =>
+        params && params.row && params.row.user
+          ? `${params.row.user.firstName || ''} ${params.row.user.lastName || ''}`.trim() || 'N/A'
+          : 'N/A',
+    },
     { field: 'totalPrice', headerName: 'Total (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value).toFixed(2)}` },
     { field: 'status', headerName: 'Status', flex: 1 },
     { field: 'createdAt', headerName: 'Created At', flex: 1, valueFormatter: (params) => new Date(params.value).toLocaleString() },
