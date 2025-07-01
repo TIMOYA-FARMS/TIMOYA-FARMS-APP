@@ -1,5 +1,6 @@
 import { Box, Typography, Button } from '@mui/material';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
   return (
@@ -29,6 +30,8 @@ const Banner = () => {
           Transforming agriculture through innovation, sustainability, and community empowerment!
         </Typography>
         <Button
+          component={Link}
+          to="/products"
           variant="contained"
           color="secondary"
           size="large"

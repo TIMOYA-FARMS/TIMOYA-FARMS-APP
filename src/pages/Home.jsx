@@ -16,6 +16,7 @@ import HomeBlogHighlights from '../components/HomeBlogHighlights';
 import HomeNewsletterSignup from '../components/HomeNewsletterSignup';
 import HomeCTABanner from '../components/HomeCTABanner';
 import HomePartners from '../components/HomePartners';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const images = [
@@ -97,6 +98,8 @@ const Home = () => {
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
                     <Button
+                      component={Link}
+                      to="/products"
                       variant="contained"
                       color="secondary"
                       size="large"
@@ -118,31 +121,6 @@ const Home = () => {
                     >
                       Shop Now
                     </Button>
-                    {/* Show Login button if not logged in */}
-                    {false && (
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        size="large"
-                        href="/login"
-                        sx={{
-                          fontWeight: 700,
-                          px: 5,
-                          py: 1.5,
-                          borderRadius: 3,
-                          fontSize: { xs: '1rem', sm: '1.2rem' },
-                          textTransform: 'uppercase',
-                          borderWidth: 2,
-                          borderColor: 'primary.main',
-                          '&:hover': {
-                            backgroundColor: 'primary.main',
-                            color: 'white',
-                          },
-                        }}
-                      >
-                        Login
-                      </Button>
-                    )}
                   </Box>
                 </Box>
               </Box>

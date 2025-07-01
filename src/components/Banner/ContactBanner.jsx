@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const ContactBanner = () => {
   return (
@@ -28,7 +29,26 @@ const ContactBanner = () => {
         <Typography variant="body1" sx={{ marginBottom: '20px' }}>
           We are here for you, you can reach out anytime!
         </Typography>
-        <Button variant="contained" color="primary" size="large">
+        <Button 
+          component={Link} 
+          to="/products"
+          variant="contained" 
+          color="primary" 
+          size="large"
+          sx={{
+            fontWeight: 700,
+            px: 4,
+            py: 1.5,
+            borderRadius: 3,
+            boxShadow: '0 2px 8px rgba(255,184,0,0.15)',
+            textTransform: 'uppercase',
+            transition: 'all 0.3s',
+            '&:hover': {
+              backgroundColor: 'secondary.main',
+              color: 'white',
+            },
+          }}
+        >
           Shop Now
         </Button>
       </Box>

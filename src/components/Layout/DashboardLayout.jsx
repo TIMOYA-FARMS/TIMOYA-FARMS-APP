@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Toolbar, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Typography, Button, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -7,6 +7,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 const drawerWidth = 220;
 
@@ -19,6 +20,7 @@ const adminNav = [
 ];
 
 const DashboardLayout = () => {
+  const { user, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,6 +28,16 @@ const DashboardLayout = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  useEffect(() => {
+    if (!loading && user) {
+      if (window.location.pathname.startsWith('/dashboard/admin') && user.role !== 'Admin') {
+        if (user.role === 'Farmer') navigate('/dashboard/farmer', { replace: true });
+        else if (user.role === 'User') navigate('/dashboard/customer', { replace: true });
+        else navigate('/', { replace: true });
+      }
+    }
+  }, [user, loading, navigate]);
 
   const drawer = (
     <div>

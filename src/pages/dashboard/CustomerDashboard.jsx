@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { Link } from 'react-router-dom';
 
 const CustomerDashboard = () => {
   return (
@@ -31,7 +32,28 @@ const CustomerDashboard = () => {
         <Grid item xs={12} md={4}>
           <Paper elevation={3} sx={{ p: 3, borderRadius: 3, display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main' }}>Recommended</Typography>
-            <Button variant="contained" color="secondary" sx={{ ml: 2 }}>Shop Now</Button>
+            <Button 
+              component={Link} 
+              to="/products"
+              variant="contained" 
+              color="secondary" 
+              sx={{ 
+                ml: 2,
+                fontWeight: 700,
+                px: 4,
+                py: 1.5,
+                borderRadius: 3,
+                boxShadow: '0 2px 8px rgba(255,184,0,0.15)',
+                textTransform: 'uppercase',
+                transition: 'all 0.3s',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                },
+              }}
+            >
+              Shop Now
+            </Button>
           </Paper>
         </Grid>
       </Grid>

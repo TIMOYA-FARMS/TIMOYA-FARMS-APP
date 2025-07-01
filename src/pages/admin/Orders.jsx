@@ -33,6 +33,7 @@ const Orders = () => {
     setError('');
     try {
       const res = await axios.get(`${baseUrl}/orders/admin/all`);
+      console.log('Fetched orders:', res.data.orders || res.data);
       setOrders(res.data.orders || res.data);
     } catch (err) {
       setError('Failed to fetch orders.');
@@ -99,12 +100,12 @@ const Orders = () => {
       flex: 1,
       valueGetter: (params) =>
         params && params.row && params.row.user
-          ? `${params.row.user.firstName || ''} ${params.row.user.lastName || ''}`.trim() || 'N/A'
+          ? `${params.row.user.firstName || ''} ${params.row.user.lastName || ''}`.trim() || params.row.user.email || params.row.user.id || 'N/A'
           : 'N/A',
     },
-    { field: 'totalPrice', headerName: 'Total (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value).toFixed(2)}` },
+    { field: 'totalPrice', headerName: 'Total (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value || 0).toFixed(2)}` },
     { field: 'status', headerName: 'Status', flex: 1 },
-    { field: 'createdAt', headerName: 'Created At', flex: 1, valueFormatter: (params) => new Date(params.value).toLocaleString() },
+    { field: 'createdAt', headerName: 'Created At', flex: 1, valueFormatter: (params) => params.value ? new Date(params.value).toLocaleString() : 'N/A' },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -134,7 +135,7 @@ const Orders = () => {
               <DataGrid
                 rows={orders}
                 columns={columns}
-                getRowId={(row) => row._id || row.id}
+                getRowId={(row) => row.id || row._id}
                 pageSize={10}
                 rowsPerPageOptions={[10, 20, 50]}
                 disableSelectionOnClick
@@ -150,17 +151,17 @@ const Orders = () => {
           {selectedOrder && (
             <>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Order ID:</b> {selectedOrder._id || selectedOrder.id}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Customer:</b> {selectedOrder.user?.firstName} {selectedOrder.user?.lastName}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Total:</b> ₵{Number(selectedOrder.totalPrice).toFixed(2)}</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}><b>Customer:</b> {selectedOrder.user?.firstName || ''} {selectedOrder.user?.lastName || ''} {(!selectedOrder.user?.firstName && !selectedOrder.user?.lastName) ? (selectedOrder.user?.email || selectedOrder.user?.id || 'N/A') : ''}</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}><b>Total:</b> ₵{Number(selectedOrder.totalPrice || 0).toFixed(2)}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Status:</b> {selectedOrder.status}</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}><b>Created At:</b> {new Date(selectedOrder.createdAt).toLocaleString()}</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}><b>Created At:</b> {selectedOrder.createdAt ? new Date(selectedOrder.createdAt).toLocaleString() : 'N/A'}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Payment Ref:</b> {selectedOrder.paymentRef || 'N/A'}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Shipping Address:</b> {selectedOrder.shippingAddress ? `${selectedOrder.shippingAddress.street || ''}, ${selectedOrder.shippingAddress.city || ''}, ${selectedOrder.shippingAddress.state || ''} (${selectedOrder.shippingAddress.phone || ''})` : 'N/A'}</Typography>
               <Typography variant="body2" sx={{ mb: 1 }}><b>Products:</b></Typography>
               <ul style={{ margin: 0, paddingLeft: 18 }}>
                 {(selectedOrder.products || []).map((item, i) => (
                   <li key={i}>
-                    {item.product?.name || item.product?.title || 'Product'} x{item.quantity} (₵{Number(item.price).toFixed(2)})
+                    {item.product?.productName || item.product?.name || item.product?.title || 'Product'} x{item.quantity} (₵{Number(item.price || item.product?.price || 0).toFixed(2)})
                   </li>
                 ))}
               </ul>

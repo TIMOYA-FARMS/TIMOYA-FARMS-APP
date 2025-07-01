@@ -31,6 +31,7 @@ const Products = () => {
     setError('');
     try {
       const res = await axios.get(`${baseUrl}/products`);
+      console.log('Fetched products:', res.data.products || res.data);
       setProducts(res.data.products || res.data);
     } catch (err) {
       setError('Failed to fetch products.');
@@ -73,7 +74,7 @@ const Products = () => {
     try {
       const formData = new FormData();
       formData.append('productName', form.productName);
-      formData.append('price', form.price);
+      formData.append('price', Number(form.price));
       formData.append('stock', form.stock);
       formData.append('description', form.description);
       formData.append('quantity', form.quantity);
@@ -113,7 +114,7 @@ const Products = () => {
 
   const columns = [
     { field: 'productName', headerName: 'Product Name', flex: 1 },
-    { field: 'price', headerName: 'Price (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value).toFixed(2)}` },
+    { field: 'price', headerName: 'Price (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value || 0).toFixed(2)}` },
     { field: 'stock', headerName: 'Stock', flex: 1 },
     {
       field: 'actions',
@@ -151,7 +152,7 @@ const Products = () => {
               <DataGrid
                 rows={products}
                 columns={columns}
-                getRowId={(row) => row._id || row.id}
+                getRowId={(row) => row.id || row._id}
                 pageSize={10}
                 rowsPerPageOptions={[10, 20, 50]}
                 disableSelectionOnClick
