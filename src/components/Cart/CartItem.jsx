@@ -20,13 +20,13 @@ const CartItem = (props) => {
 
     const qtyIncrementHandler = () => {
         const newQty = props.qty + 1;
-        updateCartItemQty(props.id, newQty);
+        updateCartItemQty(props.id, newQty, props.cartId);
     }
 
     const qtyDecrementHandler = () => {
         const newQty = props.qty - 1;
         if (newQty > 0) {
-            updateCartItemQty(props.id, newQty);
+            updateCartItemQty(props.id, newQty, props.cartId);
         }
     }
 
@@ -37,14 +37,14 @@ const CartItem = (props) => {
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                 <CardContent sx={{ flex: '1 0 auto' }}>
                     <Typography component="div" variant="h5">
-                        {props.title}
+                        {props.productName || props.title || 'Product Name Not Available'}
                     </Typography>
                     <Typography
                         variant="subtitle1"
                         component="div"
                         sx={{ color: 'text.secondary', mt: 2 }}
                     >
-                        ${props.price}
+                        ₵{props.price}
                     </Typography>
                     <Typography
                         variant="subtitle1"
@@ -64,7 +64,9 @@ const CartItem = (props) => {
                         <RemoveIcon />
                     </IconButton>
 
-                    <IconButton aria-label="remove from cart" color="error" onClick={() => removeFromCart(props.id)} sx={{ ml: 2 }}>
+                    <IconButton aria-label="remove from cart" color="error" onClick={() => {
+                        removeFromCart(props.id, props.cartItemId);
+                    }} sx={{ ml: 2 }}>
                         <DeleteIcon />
                     </IconButton>
                 </Box>

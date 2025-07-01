@@ -7,25 +7,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import { useAuth } from '../contexts/AuthContext';
 
 const Cart = () => {
-
     const { cart } = useContext(CartContext);
+    console.log('Cart contents:', cart);
+    const { isAuthenticated } = useAuth();
     const totalAmount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
     const totalPrice = totalAmount.toFixed(2);
     const totalItemsText = totalItems === 1 ? 'item' : 'items';
     const cartEmpty = cart.length === 0;
 
-    // if (cartEmpty) {
-    //     return (
-    //         <div>
-    //             <h2>Your cart is empty</h2>
-    //         </div>
-    //     );
-    // }
-
-    const isLoggedIn = false; // Replace with real auth logic
     return (
         <div>
             <Grid container spacing={4} sx={{ mt: 4, px: { xs: 1, md: 4 } }}>
@@ -45,6 +38,8 @@ const Cart = () => {
                                 <Box key={index}>
                                     <CartItem
                                         id={item.id}
+                                        cartItemId={item.cartItemId}
+                                        productName={item.productName}
                                         title={item.title}
                                         image={item.image}
                                         price={item.price}
@@ -66,20 +61,20 @@ const Cart = () => {
                         <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2, letterSpacing: 1, textAlign: 'center' }}>
                             Order Details
                         </Typography>
-                        {!isLoggedIn && (
+                        {!isAuthenticated && (
                             <Typography variant="body2" sx={{ color: 'error.main', mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
                                 Please <a href="/login" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Login</a> or <a href="/register" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Register</a> to proceed to checkout.
                             </Typography>
                         )}
                         <Box sx={{ mb: 2 }}>
                             <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
-                                Total Amount: <span style={{ fontWeight: 700, color: '#222B45' }}>${totalAmount}</span>
+                                Total Amount: <span style={{ fontWeight: 700, color: '#222B45' }}>₵{totalAmount}</span>
                             </Typography>
                             <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
                                 Total Items: <span style={{ fontWeight: 700, color: '#222B45' }}>{totalItems} {totalItemsText}</span>
                             </Typography>
                             <Typography variant='h6' sx={{ color: '#555', mb: 1 }}>
-                                Total Price: <span style={{ fontWeight: 700, color: '#219653' }}>${totalPrice}</span>
+                                Total Price: <span style={{ fontWeight: 700, color: '#219653' }}>₵{totalPrice}</span>
                             </Typography>
                         </Box>
                         <Typography variant='h6' sx={{ color: cartEmpty ? 'error.main' : 'primary.main', fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
@@ -90,7 +85,7 @@ const Cart = () => {
                             to="/checkout"
                             variant='contained'
                             color='primary'
-                            disabled={cartEmpty || !isLoggedIn}
+                            disabled={cartEmpty || !isAuthenticated}
                             sx={{
                                 mt: 2,
                                 width: '100%',
@@ -103,7 +98,7 @@ const Cart = () => {
                                 textTransform: 'uppercase',
                             }}
                         >
-                            {cartEmpty ? 'Checkout Disabled' : !isLoggedIn ? 'Login to Checkout' : 'Checkout'}
+                            {cartEmpty ? 'Checkout Disabled' : !isAuthenticated ? 'Login to Checkout' : 'Checkout'}
                         </Button>
                     </Paper>
                 </Grid>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Paper, Typography, TextField, Button, InputAdornment, IconButton, Link } from '@mui/material';
 import { Visibility, VisibilityOff, Email, Lock, Person } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,13 +10,14 @@ const Register = () => {
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { register, loading, error: authError } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.password || !form.confirm) {
       setError('Please fill in all fields.');
@@ -25,8 +27,19 @@ const Register = () => {
       setError('Passwords do not match.');
       return;
     }
-    // Simulate registration success
-    navigate('/login');
+    // Split name into firstName and lastName for backend
+    const [firstName, ...lastParts] = form.name.trim().split(' ');
+    const lastName = lastParts.join(' ') || ' ';
+    const formData = {
+      firstName,
+      lastName,
+      email: form.email,
+      password: form.password,
+    };
+    const success = await register(formData);
+    if (success) {
+      navigate('/');
+    }
   };
 
   return (
@@ -135,17 +148,18 @@ const Register = () => {
               ),
             }}
           />
-          {error && (
-            <Typography variant="body2" sx={{ color: 'error.main', mt: 1, mb: 1, textAlign: 'center' }}>{error}</Typography>
+          {(error || authError) && (
+            <Typography variant="body2" sx={{ color: 'error.main', mt: 1, mb: 1, textAlign: 'center' }}>{error || authError}</Typography>
           )}
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
+            disabled={loading}
             sx={{ mt: 2, fontWeight: 'bold', borderRadius: 3, py: 1.2, fontSize: '1.1rem', textTransform: 'uppercase' }}
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </Button>
         </Box>
         <Typography variant="body2" sx={{ color: '#555', mt: 3 }}>

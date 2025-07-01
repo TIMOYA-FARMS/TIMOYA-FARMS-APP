@@ -5,6 +5,7 @@ import { RoleProvider, useRole } from '../contexts/RoleContext';
 import CustomerDashboard from './dashboard/CustomerDashboard';
 import FarmerDashboard from './dashboard/FarmerDashboard';
 import AdminDashboard from './dashboard/AdminDashboard';
+import { useAuth } from '../contexts/AuthContext';
 // Icon imports for navigation (if you use NAVIGATION elsewhere)
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -102,22 +103,14 @@ const Skeleton = styled('div')(({ theme, height }) => ({
 }));
 
 const Dashboard = () => {
-  const { role, setRole } = useRole();
-
-  return (
-    <Box sx={{ p: { xs: 1, md: 3 } }}>
-      {/* Temporary role switcher for demo/testing */}
-      <Stack direction="row" spacing={2} sx={{ mb: 3 }}>
-        <Button variant={role === 'customer' ? 'contained' : 'outlined'} onClick={() => setRole('customer')}>Customer</Button>
-        <Button variant={role === 'farmer' ? 'contained' : 'outlined'} onClick={() => setRole('farmer')}>Farmer</Button>
-        <Button variant={role === 'admin' ? 'contained' : 'outlined'} onClick={() => setRole('admin')}>Admin</Button>
-      </Stack>
-      {role === 'customer' && <CustomerDashboard />}
-      {role === 'farmer' && <FarmerDashboard />}
-      {role === 'admin' && <AdminDashboard />}
-    </Box>
-  );
-}
+  const { user, loading } = useAuth();
+  if (loading) return <div>Loading...</div>;
+  if (!user) return <div>You must be logged in to view the dashboard.</div>;
+  if (user.role === 'Admin') return <AdminDashboard />;
+  if (user.role === 'Farmer') return <FarmerDashboard />;
+  if (user.role === 'User') return <CustomerDashboard />;
+  return <div>Unknown role.</div>;
+};
 
 // Wrap with RoleProvider for context
 const DashboardWithProvider = (props) => (

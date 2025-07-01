@@ -25,13 +25,16 @@ const ProductCard = (props) => {
             />
             <CardContent sx={{ flexGrow: 1, minHeight: 140, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                 <Typography gutterBottom variant='h6' component='div' sx={{ fontWeight: 700, color: 'primary.main', minHeight: 48 }}>
-                    {props.title}
+                    {props.productName}
                 </Typography>
                 <Typography gutterBottom variant='h5' component='div' sx={{ color: 'secondary.main', fontWeight: 900 }}>
-                    ${props.price}
+                    ₵{props.price}
                 </Typography>
                 <Typography variant='body2' sx={{ color: 'text.secondary', minHeight: 40 }}>
                     {props.description && props.description.substring(0, 60)}{props.description && props.description.length > 60 && '...'}
+                </Typography>
+                <Typography variant='body2' sx={{ color: props.stockStatus === 'In Stock' ? 'green' : 'red', fontWeight: 600, mt: 1 }}>
+                    {props.stockStatus}
                 </Typography>
             </CardContent>
             <CardActions sx={{ mt: 'auto', display: 'flex', justifyContent: 'space-between', px: 2, pb: 2 }}>

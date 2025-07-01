@@ -24,7 +24,7 @@ const CustomerDashboard = () => {
             <LocalOfferIcon color="secondary" sx={{ fontSize: 40 }} />
             <Box>
               <Typography variant="h6">Total Spent</Typography>
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>$120.00</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>₵120.00</Typography>
             </Box>
           </Paper>
         </Grid>

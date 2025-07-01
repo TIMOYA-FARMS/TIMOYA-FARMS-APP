@@ -24,7 +24,7 @@ const FarmerDashboard = () => {
             <MonetizationOnIcon color="secondary" sx={{ fontSize: 40 }} />
             <Box>
               <Typography variant="h6">Pending Payments</Typography>
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>$200.00</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>₵200.00</Typography>
             </Box>
           </Paper>
         </Grid>

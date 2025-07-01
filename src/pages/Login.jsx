@@ -2,26 +2,30 @@ import React, { useState } from 'react';
 import { Box, Paper, Typography, TextField, Button, InputAdornment, IconButton, Link } from '@mui/material';
 import { Visibility, VisibilityOff, Email, Lock } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login, loading, error: authError } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.email || !form.password) {
       setError('Please fill in all fields.');
       return;
     }
-    // Simulate login success
-    navigate('/');
+    const success = await login(form.email, form.password);
+    if (success) {
+      navigate('/');
+    }
   };
 
   return (
@@ -90,17 +94,18 @@ const Login = () => {
               ),
             }}
           />
-          {error && (
-            <Typography variant="body2" sx={{ color: 'error.main', mt: 1, mb: 1, textAlign: 'center' }}>{error}</Typography>
+          {(error || authError) && (
+            <Typography variant="body2" sx={{ color: 'error.main', mt: 1, mb: 1, textAlign: 'center' }}>{error || authError}</Typography>
           )}
           <Button
             type="submit"
             variant="contained"
             color="primary"
             fullWidth
+            disabled={loading}
             sx={{ mt: 2, fontWeight: 'bold', borderRadius: 3, py: 1.2, fontSize: '1.1rem', textTransform: 'uppercase' }}
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </Button>
         </Box>
         <Typography variant="body2" sx={{ color: '#555', mt: 3 }}>

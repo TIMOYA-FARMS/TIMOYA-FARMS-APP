@@ -10,7 +10,9 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const ShowProduct = () => {
     const { productId } = useParams();
     const cartContext = useContext(CartContext);
-    const { data: product, error, loading } = useApi(() => `${baseUrl}/products/${productId}`);
+    const { data: productResponse, error, loading } = useApi(`${baseUrl}/products/${productId}`);
+    const product = productResponse?.product;
+    console.log('Fetched product:', product);
 
     const addToCartHandler = () => {
         if (!product) {
@@ -46,7 +48,7 @@ const ShowProduct = () => {
                         links={[
                             { label: 'Home', href: '/' },
                             { label: 'Products', href: '/products' },
-                            { label: product.title, href: `/products/${productId}` }
+                            { label: product.productName, href: `${baseUrl}/products/${productId}` }
                         ]}
                     />
                 </Box>
@@ -56,19 +58,22 @@ const ShowProduct = () => {
                     component="img"
                     height="350"
                     image={product.image}
-                    alt={product.title}
+                    alt={product.productName}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>
-                        {product.name}
+                        {product.productName}
                     </Typography>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
-                        ${product.price}
+                        ₵{product.price}
                     </Typography>
                     <Typography variant="body2" sx={{ color: '#555', mb: 2 }}>
                         {product.description}
                     </Typography>
-                    <Rating readOnly name="size-small" defaultValue={product.rating.rate} size="small" />
+                    <Typography variant="body2" sx={{ color: product.stockStatus === 'In Stock' ? 'green' : 'red', fontWeight: 600, mb: 2 }}>
+                        {product.stockStatus}
+                    </Typography>
+                    {/* <Rating readOnly name="size-small" defaultValue={product.rating.rate} size="small" /> */}
                 </CardContent>
 
                 <CardActions>

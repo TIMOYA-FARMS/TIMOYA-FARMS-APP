@@ -33,10 +33,11 @@ const ProductList = (props) => {
                             <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', height: '100%' }}>
                                 <ProductCard
                                     id={product.id}
-                                    title={product.title}
+                                    productName={product.productName}
                                     price={product.price}
                                     image={product.image}
                                     description={product.description}
+                                    stockStatus={product.stockStatus}
                                     product={product}
                                     onAddToCart={props.onAddToCart}
                                 />

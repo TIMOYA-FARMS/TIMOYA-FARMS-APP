@@ -2,15 +2,16 @@ import React, { Fragment } from 'react'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 import ScrollToTopButton from '../ScrollToTopButton';
+import { Outlet } from 'react-router-dom';
 
-const Layout = (props) => {
+const Layout = () => {
     return (
         <Fragment>
             <header>
                 <Navbar />
             </header>
             <main>
-                {props.children}
+                <Outlet />
             </main>
             <ScrollToTopButton />
             <footer>

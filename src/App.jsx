@@ -16,13 +16,20 @@ import ShowProduct from './pages/ShowProduct'
 import Checkout from './pages/Checkout'
 import Orders from './pages/Orders'
 import Gallery from './pages/Gallery'
+import DashboardLayout from './components/Layout/DashboardLayout'
+import Users from './pages/admin/Users'
+import Products from './pages/admin/Products'
+import OrdersAdmin from './pages/admin/Orders'
+import Farmers from './pages/admin/Farmers'
+import AdminDashboard from './pages/dashboard/AdminDashboard'
 
 function App() {
 
 
   return (
-    <Layout>
-      <Routes>
+    <Routes>
+      {/* Public/shop routes */}
+      <Route element={<Layout />}>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/blog' element={<Blog />} />
@@ -34,10 +41,17 @@ function App() {
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/orders' element={<Orders />} />
-        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/gallery' element={<Gallery />} />
-      </Routes>
-    </Layout>
+      </Route>
+      {/* Dashboard/admin routes */}
+      <Route path='/dashboard' element={<DashboardLayout />}>
+        <Route index element={<AdminDashboard />} />
+        <Route path='admin/users' element={<Users />} />
+        <Route path='admin/products' element={<Products />} />
+        <Route path='admin/orders' element={<OrdersAdmin />} />
+        <Route path='admin/farmers' element={<Farmers />} />
+      </Route>
+    </Routes>
   )
 }
 

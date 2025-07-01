@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -15,6 +15,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import CartContext from "../../Store/CartContext";
 import { Badge, Button } from "@mui/material";
 import { ShoppingCartCheckoutTwoTone } from "@mui/icons-material";
+import { useAuth } from '../../contexts/AuthContext';
 
 const pages = [
   { name: "About", path: "/about" },
@@ -24,17 +25,12 @@ const pages = [
   { name: "Contact", path: "/contact" },
 ];
 
-const settings = [
-  { name: "Dashboard", path: "/dashboard" },
-  { name: "Orders", path: "/orders" },
-  { name: "Checkout", path: "/checkout" },
-  { name: "Logout", path: "/logout" },
-];
-
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const context = useContext(CartContext);
+  const { user, isAuthenticated, logout, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -49,6 +45,12 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    handleCloseUserMenu();
+    navigate('/login');
   };
 
   return (
@@ -183,40 +185,53 @@ const Navbar = () => {
                 </Badge>
               </IconButton>
             </Tooltip>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
-                <AccountCircle sx={{ width: 36, height: 36 }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "40px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <NavLink
-                    to={setting.path}
-                    style={{textDecoration: "none", color: "inherit"}}
-                  >
-
-                    <Typography textAlign="center">{setting.name}</Typography>
-                  </NavLink>
-                </MenuItem>
-              ))}
-            </Menu>
-            
+            {isAuthenticated ? (
+              <>
+                <Tooltip title={user?.firstName ? `Logged in as ${user.firstName}${user.lastName ? ' ' + user.lastName : ''}${user.role ? ' (' + user.role + ')' : ''}` : "Profile"}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
+                    <AccountCircle sx={{ width: 36, height: 36 }} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "40px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/dashboard');}}>
+                    <Typography textAlign="center">Dashboard</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/orders');}}>
+                    <Typography textAlign="center">Orders</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/checkout');}}>
+                    <Typography textAlign="center">Checkout</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout} disabled={loading}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button color="inherit" component={NavLink} to="/login" sx={{ mx: 1 }}>
+                  Login
+                </Button>
+                <Button color="inherit" component={NavLink} to="/register" sx={{ mx: 1 }}>
+                  Register
+                </Button>
+              </>
+            )}
           </Box>
         </Toolbar>
 
