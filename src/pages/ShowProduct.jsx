@@ -32,7 +32,7 @@ const ShowProduct = () => {
     }
 
     return (
-        <Box>
+        <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
             <Box sx={{ position: 'relative', backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
                 <Box
                     sx={{

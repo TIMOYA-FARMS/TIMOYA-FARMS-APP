@@ -3,6 +3,7 @@ import { Box, Typography, Grid, Paper } from '@mui/material';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const steps = [
   {
@@ -23,7 +24,7 @@ const steps = [
 ];
 
 const HomeHowItWorks = () => (
-  <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#f5f5f5' }}>
+  <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '' }}>
     <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
       How It Works
     </Typography>
@@ -35,6 +36,27 @@ const HomeHowItWorks = () => (
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>{step.desc}</Typography>
         </Paper>
       ))}
+    </Box>
+    <Box sx={{ maxWidth: 600, mx: 'auto', mt: 4, px: 2 }}>
+      <LinearProgress
+        variant="determinate"
+        value={100}
+        sx={{
+          height: 10,
+          borderRadius: 5,
+          background: '#e0ffe7',
+          '& .MuiLinearProgress-bar': {
+            background: 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)',
+            borderRadius: 5,
+            transition: 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
+          },
+        }}
+      />
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+        {steps.map((step, idx) => (
+          <Typography key={idx} variant="caption" sx={{ color: 'primary.main', fontWeight: 700 }}>{step.title.split(' ')[0]}</Typography>
+        ))}
+      </Box>
     </Box>
   </Box>
 );

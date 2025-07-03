@@ -30,11 +30,11 @@ const Login = () => {
 
   return (
     <Box sx={{
+      background: '#f9f9f9',
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #e0f7fa 0%, #f5f5f5 100%)',
       p: 2,
     }}>
       <Paper elevation={6} sx={{

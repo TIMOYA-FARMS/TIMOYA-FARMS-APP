@@ -17,6 +17,55 @@ import HomeNewsletterSignup from '../components/HomeNewsletterSignup';
 import HomeCTABanner from '../components/HomeCTABanner';
 import HomePartners from '../components/HomePartners';
 import { Link } from 'react-router-dom';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useState, useEffect } from 'react';
+
+const taglines = [
+  'Your one-stop destination for fresh, organic produce—delivered with care.',
+  'Farm-fresh quality, straight to your door.',
+  'Eat healthy. Live better. Choose Timoya Farms.',
+];
+
+const AnimatedLeaves = () => (
+  <Box sx={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    pointerEvents: 'none',
+    zIndex: 1,
+  }}>
+    {/* Example floating SVG leaves/particles */}
+    <svg width="100%" height="100%" style={{ position: 'absolute', top: 0, left: 0 }}>
+      <circle cx="10%" cy="20%" r="8" fill="#b2f7ef" opacity="0.3">
+        <animate attributeName="cy" values="20%;80%;20%" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="80%" cy="60%" r="12" fill="#e0ffe7" opacity="0.25">
+        <animate attributeName="cy" values="60%;10%;60%" dur="10s" repeatCount="indefinite" />
+      </circle>
+      <ellipse cx="50%" cy="10%" rx="18" ry="8" fill="#fffde4" opacity="0.18">
+        <animate attributeName="cy" values="10%;90%;10%" dur="12s" repeatCount="indefinite" />
+      </ellipse>
+    </svg>
+  </Box>
+);
+
+const SectionDivider = ({ flip }) => (
+  <Box sx={{ width: '100%', overflow: 'hidden', lineHeight: 0, background: 'none' }}>
+    <svg
+      viewBox="0 0 1440 80"
+      style={{ display: 'block', width: '100%', height: 60, transform: flip ? 'rotate(180deg)' : 'none' }}
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,32 C360,80 1080,0 1440,48 L1440,80 L0,80 Z"
+        fill="#f9f9f9"
+        opacity="1"
+      />
+    </svg>
+  </Box>
+);
 
 const Home = () => {
   const images = [
@@ -25,17 +74,25 @@ const Home = () => {
     'https://images.unsplash.com/photo-1627276272485-e45905a6aedb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
   ];
+  const [taglineIdx, setTaglineIdx] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTaglineIdx((prev) => (prev + 1) % taglines.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
+    <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
       <Box
         sx={{
-          height: '80vh',
+          height: { xs: '60vh', sm: '70vh', md: '80vh' },
           width: '100%',
           overflow: 'hidden',
           position: 'relative',
         }}
       >
+        <AnimatedLeaves />
         <Swiper
           modules={[Autoplay, Pagination]}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
@@ -55,6 +112,7 @@ const Home = () => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  position: 'relative',
                 }}
               >
                 <Box
@@ -68,7 +126,8 @@ const Home = () => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    maxWidth: { xs: '90%', sm: '70%', md: '50%' },
+                    maxWidth: { xs: '95%', sm: '80%', md: '60%' },
+                    zIndex: 2,
                   }}
                 >
                   <Typography
@@ -91,10 +150,12 @@ const Home = () => {
                       mb: 4,
                       fontWeight: 400,
                       textShadow: '0 2px 12px rgba(0,0,0,0.3)',
-                      fontSize: { xs: '1rem', sm: '1.4rem', md: '1.8rem' },
+                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+                      minHeight: { xs: 40, sm: 48, md: 56 },
+                      transition: 'all 0.5s',
                     }}
                   >
-                    Your one-stop destination for fresh, organic produce—delivered with care.
+                    {taglines[taglineIdx]}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
                     <Button
@@ -123,21 +184,40 @@ const Home = () => {
                     </Button>
                   </Box>
                 </Box>
+                {/* Scroll Down Indicator */}
+                <Box sx={{ position: 'absolute', left: 0, right: 0, bottom: 24, display: 'flex', justifyContent: 'center', zIndex: 3 }}>
+                  <KeyboardArrowDownIcon sx={{ fontSize: 48, color: 'white', opacity: 0.7, animation: 'bounce 2s infinite' }} />
+                </Box>
+                <style>{`
+                  @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(12px); }
+                  }
+                `}</style>
               </Box>
             </SwiperSlide>
           ))}
         </Swiper>
       </Box>
+      <SectionDivider />
       <HomeAboutPreview />
+      <SectionDivider flip />
       <HomeFeaturedProducts />
+      <SectionDivider />
       <HomeHowItWorks />
+      <SectionDivider flip />
       <HomeGalleryPreview />
+      <SectionDivider />
       <Testimonials />
+      <SectionDivider flip />
       <HomeBlogHighlights />
+      <SectionDivider />
       <HomeNewsletterSignup />
+      <SectionDivider flip />
       <HomeCTABanner />
+      <SectionDivider />
       <HomePartners />
-    </>
+    </Box>
   );
 };
 

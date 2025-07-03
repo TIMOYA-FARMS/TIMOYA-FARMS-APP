@@ -22,7 +22,7 @@ const Cart = () => {
     const cartEmpty = cart.length === 0;
 
     return (
-        <div>
+        <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
             <Grid container spacing={4} sx={{ mt: 4, px: { xs: 1, md: 4 } }}>
                 {/* Cart Items Section */}
                 <Grid item xs={12} md={8}>
@@ -111,7 +111,7 @@ const Cart = () => {
                     </Paper>
                 </Grid>
             </Grid>
-        </div>
+        </Box>
     )
 }
 

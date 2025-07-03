@@ -44,11 +44,11 @@ const Register = () => {
 
   return (
     <Box sx={{
+      background: '#f9f9f9',
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #f5f5f5 0%, #e0f7fa 100%)',
       p: 2,
     }}>
       <Paper elevation={6} sx={{

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Alert } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const HomeNewsletterSignup = () => {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ const HomeNewsletterSignup = () => {
   };
 
   return (
-    <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#fff', textAlign: 'center' }}>
+    <Box sx={{ py: 6, px: { xs: 2, md: 8 }, background: 'linear-gradient(135deg, #e0ffe7 0%, #fffde4 100%)', textAlign: 'center', borderRadius: 4 }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
         Stay Updated
       </Typography>
@@ -35,12 +36,25 @@ const HomeNewsletterSignup = () => {
           required
           error={!!error}
           helperText={error}
+          sx={{ background: '#fff', borderRadius: 2 }}
         />
-        <Button type="submit" variant="contained" color="primary" sx={{ px: 4, py: 1, fontWeight: 'bold', borderRadius: 3 }}>
+        <Button type="submit" variant="contained" color="primary" sx={{ px: 6, py: 2, fontWeight: 'bold', borderRadius: 3, fontSize: '1.1rem', boxShadow: 2, textTransform: 'uppercase', minWidth: 160 }}>
           Subscribe
         </Button>
       </Box>
-      {submitted && <Alert severity="success" sx={{ mt: 2 }}>Thank you for subscribing!</Alert>}
+      {submitted && (
+        <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', animation: 'pop 0.7s' }}>
+          <CheckCircleIcon sx={{ color: 'success.main', fontSize: 48, mb: 1 }} />
+          <Alert severity="success" sx={{ fontWeight: 'bold', fontSize: '1.1rem', background: '#e0ffe7', color: 'success.main', borderRadius: 2 }}>Thank you for subscribing!</Alert>
+          <style>{`
+            @keyframes pop {
+              0% { transform: scale(0.7); opacity: 0; }
+              60% { transform: scale(1.15); opacity: 1; }
+              100% { transform: scale(1); }
+            }
+          `}</style>
+        </Box>
+      )}
     </Box>
   );
 };

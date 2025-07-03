@@ -32,7 +32,7 @@ const MissionVisionValues = () => {
   const [openIdx, setOpenIdx] = useState(null);
 
   return (
-    <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#fff' }}>
+    <Box sx={{ py: 4, px: { xs: 2, md: 8 }, backgroundColor: '#fff',  }}>
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
         Our Mission, Vision & Values
       </Typography>

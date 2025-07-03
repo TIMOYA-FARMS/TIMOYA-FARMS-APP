@@ -10,7 +10,7 @@ const Layout = () => {
             <header>
                 <Navbar />
             </header>
-            <main>
+            <main style={{ background: '#f9f9f9', minHeight: '100vh' }}>
                 <Outlet />
             </main>
             <ScrollToTopButton />

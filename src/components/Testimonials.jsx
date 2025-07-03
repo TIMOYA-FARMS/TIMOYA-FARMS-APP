@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography, Avatar, Paper, useMediaQuery, useTheme } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 
 const testimonials = [
   {
@@ -23,7 +24,8 @@ const Testimonials = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Box sx={{ py: 6, backgroundColor: '#fff' }}>
+    <Box sx={{ py: 6, }}>
+      {/* background: 'linear-gradient(135deg, #e0ffe7 0%, #fffde4 100%)' */}
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
         What Our Happy Customers Say
       </Typography>
@@ -52,12 +54,18 @@ const Testimonials = () => {
               height: '100%',
               width: { xs: '100%', md: '100%' },
               mx: { xs: 'auto', md: 0 },
+              background: 'rgba(255,255,255,0.95)',
             }}
           >
             <Avatar src={t.avatar} alt={t.name} sx={{ width: 64, height: 64, mx: 'auto', mb: 2 }} />
             <Typography variant="body1" sx={{ mb: 2, fontStyle: 'italic', color: 'text.secondary' }}>
               "{t.feedback}"
             </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+              {[...Array(5)].map((_, i) => (
+                <StarIcon key={i} sx={{ color: '#FFD600', fontSize: 22, opacity: 0.9 }} />
+              ))}
+            </Box>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
               {t.name}
             </Typography>

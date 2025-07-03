@@ -64,7 +64,7 @@ const Blog = () => {
   ];
 
   return (
-    <Box sx={{ position: 'relative', py: 0, px: 0, backgroundColor: '#f9f9f9' }}>
+    <Box sx={{ background: '#f9f9f9', minHeight: '100vh', position: 'relative', }}>
       <BlogBanner />
       <Box
         sx={{

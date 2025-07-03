@@ -3,7 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const HomeAboutPreview = () => (
-  <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#f5f5f5', textAlign: 'center' }}>
+  <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '', textAlign: 'center' }}>
     <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
       About Timoya Farms
     </Typography>

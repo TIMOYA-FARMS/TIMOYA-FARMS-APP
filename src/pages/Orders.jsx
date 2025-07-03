@@ -109,7 +109,7 @@ const Orders = () => {
   }
 
   return (
-    <Box sx={{ maxWidth: 900, mx: 'auto', mt: 5, p: { xs: 1, md: 3 } }}>
+    <Box sx={{ background: '#f9f9f9', minHeight: '100vh', maxWidth: 900, mx: 'auto', mt: 5, p: { xs: 1, md: 3 } }}>
       {/* Order Summary */}
       <Paper elevation={6} sx={{ mb: 4, p: 3, borderRadius: 4, background: 'linear-gradient(90deg, #e0ffe7 0%, #fffde4 100%)', boxShadow: 6 }}>
         <Grid container spacing={2} alignItems="center">

@@ -14,6 +14,7 @@ import CertificationsAwards from '../components/About/CertificationsAwards';
 import PressMedia from '../components/About/PressMedia';
 import AboutCallToAction from '../components/About/AboutCallToAction';
 import AboutFAQ from '../components/About/AboutFAQ';
+import ByTheNumbers from '../components/About/ByTheNumbers';
 
 
 const breadcrumbLinks = [
@@ -21,36 +22,61 @@ const breadcrumbLinks = [
   { href: '/about', label: 'About' },
 ];
 
+const SectionDivider = () => (
+  <Box sx={{ width: '100%', overflow: 'hidden', lineHeight: 0, background: 'none' }}>
+    <svg
+      viewBox="0 0 1440 80"
+      style={{ display: 'block', width: '100%', height: 60 }}
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,32 C360,80 1080,0 1440,48 L1440,80 L0,80 Z"
+        fill="#f9f9f9"
+        opacity="1"
+      />
+    </svg>
+  </Box>
+);
+
 const About = () => {
   return (
-    <Box>
+    <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
       {/* Banner with Breadcrumbs */}
       <Box sx={{ position: 'relative' , backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
         <Banner />
         <Box
-  sx={{
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    mt: 0,
-    mb: { xs: 2, md: 4 },
-    width: '100%',
-  }}
->
-  <Breadcrumb links={breadcrumbLinks} />
-</Box>
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            mt: 0,
+            mb: { xs: 0, md: 0 },
+            width: '100%',
+          }}
+        >
+          <Breadcrumb links={breadcrumbLinks} />
+        </Box>
       </Box>
-
-      {/* Page Content */}
       <MissionVisionValues />
-      <TimelineMilestones />
+      <SectionDivider />
+      <ByTheNumbers />
+      <SectionDivider />
       <OurStory />
+      <SectionDivider />
+      <TimelineMilestones />
+      <SectionDivider />
       <SustainabilityImpact />
-      <CertificationsAwards />
+      <SectionDivider />
+      {/* Only show CertificationsAwards if real content exists */}
+      {/* <CertificationsAwards /> */}
       <OurTeam />
-      <PressMedia />
+      <SectionDivider />
+      {/* Only show PressMedia if real content exists */}
+      {/* <PressMedia /> */}
       <Testimonials />
+      <SectionDivider />
       <AboutFAQ />
+      <SectionDivider />
       <AboutCallToAction />
     </Box>
   );
