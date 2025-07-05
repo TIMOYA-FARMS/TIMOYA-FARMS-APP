@@ -196,7 +196,7 @@ const Blog = () => {
       </Grid>
 
       {/* Newsletter Subscription */}
-      <Box sx={{ mt: 5, p: 3, textAlign: 'center', backgroundColor: '#fff', boxShadow: 2 }}>
+      <Box sx={{ mt: 5, p: 3, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 2 }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
           Subscribe to Our Newsletter
         </Typography>

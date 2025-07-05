@@ -22,27 +22,11 @@ const breadcrumbLinks = [
   { href: '/about', label: 'About' },
 ];
 
-const SectionDivider = () => (
-  <Box sx={{ width: '100%', overflow: 'hidden', lineHeight: 0, background: 'none' }}>
-    <svg
-      viewBox="0 0 1440 80"
-      style={{ display: 'block', width: '100%', height: 60 }}
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,32 C360,80 1080,0 1440,48 L1440,80 L0,80 Z"
-        fill="#f9f9f9"
-        opacity="1"
-      />
-    </svg>
-  </Box>
-);
-
 const About = () => {
   return (
-    <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
+    <Box sx={{ background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)', minHeight: '100vh' }}>
       {/* Banner with Breadcrumbs */}
-      <Box sx={{ position: 'relative' , backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
+      <Box sx={{ position: 'relative' , backgroundColor: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)', py: 0, px: 0 }}>
         <Banner />
         <Box
           sx={{
@@ -58,25 +42,17 @@ const About = () => {
         </Box>
       </Box>
       <MissionVisionValues />
-      <SectionDivider />
       <ByTheNumbers />
-      <SectionDivider />
       <OurStory />
-      <SectionDivider />
       <TimelineMilestones />
-      <SectionDivider />
       <SustainabilityImpact />
-      <SectionDivider />
       {/* Only show CertificationsAwards if real content exists */}
       {/* <CertificationsAwards /> */}
       <OurTeam />
-      <SectionDivider />
       {/* Only show PressMedia if real content exists */}
       {/* <PressMedia /> */}
       <Testimonials />
-      <SectionDivider />
       <AboutFAQ />
-      <SectionDivider />
       <AboutCallToAction />
     </Box>
   );

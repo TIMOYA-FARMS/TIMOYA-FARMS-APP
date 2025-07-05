@@ -85,7 +85,7 @@ const OurTeam = () => {
     };
 
     return (
-        <Box sx={{ py: 5, px: 2, background: 'linear-gradient(135deg, #e0ffe7 0%, #fffde4 100%)' }}>
+        <Box sx={{ py: 8, px: { xs: 2, md: 8 }, background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)' }}>
             <Typography variant="h3" textAlign="center" sx={{ mb: 4, fontWeight: 'bold', color: '#2c3e50' }}>
                 Meet Our Team
             </Typography>

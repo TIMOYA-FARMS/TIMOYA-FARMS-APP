@@ -17,7 +17,7 @@ const steps = [
     desc: 'We use innovative, energy-efficient, and safe processing techniques for the best quality.'
   },
   {
-    icon: <LocalShippingIcon color="secondary" sx={{ fontSize: 48 }} />,
+    icon: <LocalShippingIcon color="primary" sx={{ fontSize: 48 }} />,
     title: 'Delivered Fresh',
     desc: 'Our products are packaged and delivered quickly to ensure maximum freshness.'
   },

@@ -6,7 +6,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const AboutCallToAction = () => (
-  <Box sx={{ py: 6, px: { xs: 2, md: 8 }, background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', textAlign: 'center', borderRadius: 4 }}>
+  <Box sx={{ py: 8, px: { xs: 2, md: 8 }, background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', textAlign: 'center', borderRadius: 4 }}>
     <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
       Get Involved with Timoya Farms
     </Typography>
@@ -17,10 +17,10 @@ const AboutCallToAction = () => (
       <Button component={Link} to="/contact" variant="contained" color="primary" size="large">
         Contact Us
       </Button>
-      <Button component={Link} to="/blog" variant="outlined" color="secondary" size="large">
+      <Button component={Link} to="/blog" variant="outlined" color="primary" size="large">
         Read Our Blog
       </Button>
-      <Button
+      {/* <Button
         variant="outlined"
         color="primary"
         size="large"
@@ -29,7 +29,7 @@ const AboutCallToAction = () => (
         sx={{ textTransform: 'none' }}
       >
         info@timoyafarms.com
-      </Button>
+      </Button> */}
     </Stack>
     <Stack direction="row" spacing={2} justifyContent="center" sx={{ mt: 2 }}>
       <Tooltip title="Email">

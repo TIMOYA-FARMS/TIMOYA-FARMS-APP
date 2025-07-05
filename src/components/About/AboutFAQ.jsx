@@ -37,7 +37,7 @@ const AboutFAQ = () => {
   };
 
   return (
-    <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#fff' }}>
+    <Box sx={{ py: 8, px: { xs: 2, md: 8 }, backgroundColor: '#ffffff' }}>
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
         Frequently Asked Questions
       </Typography>

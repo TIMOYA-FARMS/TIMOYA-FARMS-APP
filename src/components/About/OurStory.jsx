@@ -13,101 +13,103 @@ By leveraging innovative technologies and eco-friendly practices, we aim to impr
 One of our key innovations includes a circular parboiling system designed to reduce boiling time from 72 hours to just 24 hours, significantly enhancing the quality of the rice and reducing processing time.`;
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: 4,
-        mt: 4,
-        px: { xs: 1, sm: 4, md: 8 },
-      }}
-    >
-      {/* Video Section */}
+    <Box sx={{ py: 8, px: { xs: 2, md: 8 }, backgroundColor: '#f8f9fa' }}>
       <Box
         sx={{
-          flex: 1,
           display: 'flex',
-          justifyContent: 'center',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
           alignItems: 'center',
+          gap: 4,
+          maxWidth: 1200,
+          mx: 'auto',
         }}
       >
+        {/* Video Section */}
         <Box
           sx={{
-            borderRadius: 3,
-            overflow: 'hidden',
-            boxShadow: 4,
-            width: '100%',
-            maxWidth: '600px',
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <video
-            src="https://timoyafarms.com/wp-content/uploads/2023/10/video_2023-10-20_14-41-29.mp4"
-            controls
-            style={{
+          <Box
+            sx={{
+              borderRadius: 3,
+              overflow: 'hidden',
+              boxShadow: 8,
               width: '100%',
-              height: 'auto',
+              maxWidth: '600px',
             }}
-          />
+          >
+            <video
+              src="https://timoyafarms.com/wp-content/uploads/2023/10/video_2023-10-20_14-41-29.mp4"
+              controls
+              style={{
+                width: '100%',
+                height: 'auto',
+              }}
+            />
+          </Box>
         </Box>
-      </Box>
 
-      {/* Story Section */}
-      <Box
-        sx={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: { xs: 'center', md: 'flex-start' },
-          textAlign: { xs: 'center', md: 'left' },
-          p: 3,
-          backgroundColor: '#f5f5f5',
-          borderRadius: 2,
-          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <Typography
-          variant="h4"
+        {/* Story Section */}
+        <Box
           sx={{
-            mb: 2,
-            fontWeight: 'bold',
-            color: '#2c3e50',
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: { xs: 'center', md: 'flex-start' },
+            textAlign: { xs: 'center', md: 'left' },
+            p: 4,
+            backgroundColor: '#ffffff',
+            borderRadius: 4,
+            boxShadow: 4,
           }}
         >
-          Our Story
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{
-            lineHeight: 2,
-            textAlign: 'justify',
-            color: '#555',
-          }}
-        >
-          {shortText}
-        </Typography>
-        <Collapse in={expanded}>
+          <Typography
+            variant="h4"
+            sx={{
+              mb: 3,
+              fontWeight: 'bold',
+              color: '#2c3e50',
+            }}
+          >
+            Our Story
+          </Typography>
           <Typography
             variant="body1"
             sx={{
               lineHeight: 2,
               textAlign: 'justify',
               color: '#555',
-              mt: 2,
             }}
           >
-            {fullText.replace(shortText, '').trim()}
+            {shortText}
           </Typography>
-        </Collapse>
-        <Button
-          variant="text"
-          onClick={() => setExpanded((prev) => !prev)}
-          sx={{ mt: 1, textTransform: 'none', color: '#2c3e50' }}
-        >
-          {expanded ? 'Read Less' : 'Read More'}
-        </Button>
+          <Collapse in={expanded}>
+            <Typography
+              variant="body1"
+              sx={{
+                lineHeight: 2,
+                textAlign: 'justify',
+                color: '#555',
+                mt: 2,
+              }}
+            >
+              {fullText.replace(shortText, '').trim()}
+            </Typography>
+          </Collapse>
+          <Button
+            variant="text"
+            onClick={() => setExpanded((prev) => !prev)}
+            sx={{ mt: 2, textTransform: 'none', color: '#2c3e50', fontWeight: 600 }}
+          >
+            {expanded ? 'Read Less' : 'Read More'}
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
