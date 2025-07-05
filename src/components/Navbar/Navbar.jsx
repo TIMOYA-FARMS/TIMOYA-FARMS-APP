@@ -56,13 +56,14 @@ const Navbar = () => {
   return (
     <AppBar position="static">
       <Container maxWidth="lg">
-        <Toolbar disableGutters sx={{ minHeight: 64, px: 2 }}>
+        <Toolbar disableGutters sx={{ minHeight: 64, px: { xs: 1, sm: 2 } }}>
           {/* Mobile Menu Icon */}
           <Box
             sx={{
               display: { xs: "flex", md: "none" },
               flexGrow: 0,
               alignItems: "center",
+              mr: 1,
             }}
           >
             <IconButton
@@ -121,8 +122,10 @@ const Navbar = () => {
               src="https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png"
               alt="Timoya-Farms Logo"
               style={{
-                width: "35%",
+                width: "25%",
                 height: "auto",
+                maxWidth: "120px",
+                minWidth: "80px",
               }}
             />
           </Box>
@@ -163,12 +166,18 @@ const Navbar = () => {
 
 
           {/* Cart | User Menu */}
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}>
-            <Tooltip title="Cart" sx={{ mr: 2 }}>
+          <Box sx={{ 
+            flexGrow: 0, 
+            display: "flex", 
+            justifyContent: "flex-end",
+            alignItems: "center",
+            gap: { xs: 0.5, sm: 1 }
+          }}>
+            <Tooltip title="Cart">
               <IconButton
                 component={NavLink}
                 to="/cart"
-                sx={{ p: 0, color: "inherit", mr: 1 }}
+                sx={{ p: 0, color: "inherit" }}
                 style={({ isActive }) => ({
                   textDecoration: "none",
                   color: isActive ? "yellow" : "white",
@@ -177,10 +186,10 @@ const Navbar = () => {
                 <Badge
                   badgeContent={context.cartLength}
                   color="secondary"
-                  sx={{ mr: 2, color: "inherit" }}
+                  sx={{ color: "inherit" }}
                 >
                   <ShoppingCartCheckoutTwoTone 
-                  sx={{ fontSize: 30, color: "inherit", }}
+                  sx={{ fontSize: { xs: 24, sm: 30 }, color: "inherit" }}
                   />
                 </Badge>
               </IconButton>
@@ -189,7 +198,7 @@ const Navbar = () => {
               <>
                 <Tooltip title={user?.firstName ? `Logged in as ${user.firstName}${user.lastName ? ' ' + user.lastName : ''}${user.role ? ' (' + user.role + ')' : ''}` : "Profile"}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
-                    <AccountCircle sx={{ width: 36, height: 36 }} />
+                    <AccountCircle sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 } }} />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -224,10 +233,28 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button color="inherit" component={NavLink} to="/login" sx={{ mx: 1 }}>
+                <Button 
+                  color="inherit" 
+                  component={NavLink} 
+                  to="/login" 
+                  sx={{ 
+                    mx: { xs: 0.5, sm: 1 },
+                    fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                    px: { xs: 1, sm: 2 }
+                  }}
+                >
                   Login
                 </Button>
-                <Button color="inherit" component={NavLink} to="/register" sx={{ mx: 1 }}>
+                <Button 
+                  color="inherit" 
+                  component={NavLink} 
+                  to="/register" 
+                  sx={{ 
+                    mx: { xs: 0.5, sm: 1 },
+                    fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                    px: { xs: 1, sm: 2 }
+                  }}
+                >
                   Register
                 </Button>
               </>
