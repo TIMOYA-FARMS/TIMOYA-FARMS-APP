@@ -3,6 +3,8 @@ import { Box, Typography, Button } from '@mui/material';
 
 
 const ShopBanner = () => {
+  const heroImg = "https://timoyafarms.com/wp-content/uploads/2023/10/photo_23_2023-10-19_19-45-24-1.jpg".replace('/upload/', '/upload/w_600,h_300,c_fill/');
+
   return (
     <Box
       sx={{
@@ -59,14 +61,17 @@ const ShopBanner = () => {
         }}
       >
         <img
-          src="https://timoyafarms.com/wp-content/uploads/2023/10/photo_23_2023-10-19_19-45-24-1.jpg"
+          src={heroImg}
           alt="About us Banner Image"
+          width="600"
+          height="300"
+          fetchpriority="high"
           style={{
             width: '100%',
-            height: 'auto', // Maintain aspect ratio
-            maxHeight: '300px', // Set maximum height for the image
+            height: 'auto',
+            maxHeight: '300px',
             borderRadius: '8px',
-            objectFit: 'cover', // Ensures the image fills its container without distortion
+            objectFit: 'cover',
           }}
         />
       </Box>
