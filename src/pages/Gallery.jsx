@@ -49,9 +49,15 @@ const Gallery = () => {
                 <CardMedia
                   component="img"
                   height={250}
-                  image={img}
+                  image={img.replace('/upload/', '/upload/w_320,h_250,c_fill/')}
+                  srcSet={`
+                    ${img.replace('/upload/', '/upload/w_320,h_250,c_fill/')} 320w,
+                    ${img.replace('/upload/', '/upload/w_640,h_500,c_fill/')} 640w
+                  `}
+                  sizes="(max-width: 600px) 320px, 640px"
                   alt={`Gallery ${idx + 1}`}
                   loading="lazy"
+                  fetchpriority={idx === 0 ? 'high' : undefined}
                   sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               )}

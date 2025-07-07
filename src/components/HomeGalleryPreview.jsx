@@ -24,9 +24,15 @@ const HomeGalleryPreview = () => (
             <CardMedia
               component="img"
               height={180}
-              image={img}
+              image={img.replace('/upload/', '/upload/w_320,h_180,c_fill/')}
+              srcSet={`
+                ${img.replace('/upload/', '/upload/w_320,h_180,c_fill/')} 320w,
+                ${img.replace('/upload/', '/upload/w_640,h_360,c_fill/')} 640w
+              `}
+              sizes="(max-width: 600px) 320px, 640px"
               alt={`Gallery Preview ${idx + 1}`}
               loading="lazy"
+              fetchpriority={idx === 0 ? 'high' : undefined}
               sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', '&:hover': { transform: 'scale(1.08)' } }}
             />
           </Card>

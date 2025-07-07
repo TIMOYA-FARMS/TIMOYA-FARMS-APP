@@ -62,9 +62,15 @@ const HomeFeaturedProducts = () => (
               <CardMedia
                 component="img"
                 height={180}
-                image={item.image}
+                image={item.image.replace('/upload/', '/upload/w_320,h_180,c_fill/')}
+                srcSet={`
+                  ${item.image.replace('/upload/', '/upload/w_320,h_180,c_fill/')} 320w,
+                  ${item.image.replace('/upload/', '/upload/w_640,h_360,c_fill/')} 640w
+                `}
+                sizes="(max-width: 600px) 320px, 640px"
                 alt={item.title}
                 loading="lazy"
+                fetchpriority={idx === 0 ? 'high' : undefined}
                 sx={{ height: 180, objectFit: 'cover', borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
               />
               <Chip
