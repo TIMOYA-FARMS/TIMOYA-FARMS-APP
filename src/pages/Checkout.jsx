@@ -4,11 +4,13 @@ import CartContext from '../Store/CartContext';
 import usePaystack from '../hooks/usePaystack';
 import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
+import { useNotification } from '../contexts/NotificationContext';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 
 const Checkout = () => {
   const { cart, clearCart } = useContext(CartContext);
+  const { showSuccess, showError, showInfo } = useNotification();
   const [form, setForm] = useState({ name: '', address: '', email: '' });
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [emailError, setEmailError] = useState('');
@@ -32,22 +34,27 @@ const Checkout = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       setEmailError('Please enter a valid email address.');
+      showError('Please enter a valid email address.', 'Invalid Email');
       return;
     } else {
       setEmailError('');
     }
     if (!isAuthenticated) {
       setError('You must be logged in to checkout.');
+      showError('You must be logged in to checkout.', 'Authentication Required');
       return;
     }
     if (cart.length === 0) {
       setError('Your cart is empty.');
+      showError('Your cart is empty.', 'Empty Cart');
       return;
     }
     // Generate a unique reference for Paystack and order
     const reference = `TIMFARM-${Date.now()}-${Math.floor(Math.random() * 100000)}`;
     setPaymentRef(reference);
     setLoading(true);
+    showInfo('Processing your payment...', 'Payment in Progress');
+    
     payWithPaystack({
       email: form.email,
       amount: totalAmount,
@@ -81,8 +88,11 @@ const Checkout = () => {
             }
             setOrderPlaced(true);
             clearCart();
+            showSuccess('Order placed successfully! Check your email for confirmation.', 'Order Confirmed');
           } catch (err) {
-            setError('Order creation or payment verification failed. Please contact support.');
+            const errorMessage = err.response?.data?.message || 'Order creation or payment verification failed. Please contact support.';
+            setError(errorMessage);
+            showError(errorMessage, 'Order Failed');
           } finally {
             setLoading(false);
           }
@@ -90,6 +100,7 @@ const Checkout = () => {
       },
       onClose: function() {
         setLoading(false);
+        showInfo('Payment was cancelled. You can try again.', 'Payment Cancelled');
       },
     });
   };

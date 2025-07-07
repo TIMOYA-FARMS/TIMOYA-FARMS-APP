@@ -48,8 +48,10 @@ const Gallery = () => {
               ) : (
                 <CardMedia
                   component="img"
+                  height={250}
                   image={img}
                   alt={`Gallery ${idx + 1}`}
+                  loading="lazy"
                   sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               )}

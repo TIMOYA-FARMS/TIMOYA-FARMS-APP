@@ -6,16 +6,18 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import { useAuth } from '../../contexts/AuthContext';
+import { useNotification } from '../../contexts/NotificationContext';
 import { can } from '../../utils/permissions';
 
 const roles = [
-  { value: 'User', label: 'Customer' },
+  { value: 'User', label: 'User' },
   { value: 'Farmer', label: 'Farmer' },
   { value: 'Admin', label: 'Admin' },
 ];
 
 const Users = () => {
   const { user } = useAuth();
+  const { showSuccess, showError } = useNotification();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -36,7 +38,9 @@ const Users = () => {
       const res = await axios.get(`${baseUrl}/users`);
       setUsers(res.data.users || res.data);
     } catch (err) {
-      setError('Failed to fetch users.');
+      const errorMessage = err.response?.data?.message || 'Failed to fetch users.';
+      setError(errorMessage);
+      showError(errorMessage, 'Fetch Error');
     } finally {
       setLoading(false);
     }
@@ -44,7 +48,13 @@ const Users = () => {
 
   const handleOpenDialog = (user = null) => {
     setSelectedUser(user);
-    setForm(user ? { ...user } : { firstName: '', lastName: '', email: '', phone: '', address: '', role: 'User' });
+    if (user) {
+      // Filter out sensitive fields that shouldn't be editable
+      const { avatar, _id, __v, createdAt, updatedAt, password, resetPasswordToken, resetPasswordExpires, ...editableFields } = user;
+      setForm(editableFields);
+    } else {
+      setForm({ firstName: '', lastName: '', email: '', phone: '', address: '', role: 'User' });
+    }
     setOpenDialog(true);
   };
 
@@ -62,12 +72,24 @@ const Users = () => {
     setLoading(true);
     setError('');
     try {
-      // PATCH /users/update expects the updated user data (likely with _id)
-      await axios.patch(`${baseUrl}/users/update`, { ...form, _id: selectedUser._id });
-      fetchUsers();
+      // Only send fields that are allowed by the backend validator
+      const updateData = {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        email: form.email,
+        address: form.address || '',
+        phone: form.phone || '',
+        role: form.role
+      };
+      
+      await axios.patch(`${baseUrl}/users/update`, updateData);
+      await fetchUsers();
       handleCloseDialog();
+      showSuccess(`User ${form.firstName} ${form.lastName} updated successfully!`, 'User Updated');
     } catch (err) {
-      setError('Failed to update user.');
+      const errorMessage = err.response?.data?.message || 'Failed to update user.';
+      setError(errorMessage);
+      showError(errorMessage, 'Update Error');
     } finally {
       setLoading(false);
     }
@@ -130,7 +152,9 @@ const Users = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleSave} variant="contained">Save</Button>
+          <Button onClick={handleSave} variant="contained" disabled={loading}>
+            {loading ? <CircularProgress size={20} /> : 'Save'}
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

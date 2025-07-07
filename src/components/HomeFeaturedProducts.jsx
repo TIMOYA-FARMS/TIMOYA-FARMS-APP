@@ -61,8 +61,10 @@ const HomeFeaturedProducts = () => (
             <Box sx={{ position: 'relative' }}>
               <CardMedia
                 component="img"
+                height={180}
                 image={item.image}
                 alt={item.title}
+                loading="lazy"
                 sx={{ height: 180, objectFit: 'cover', borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
               />
               <Chip

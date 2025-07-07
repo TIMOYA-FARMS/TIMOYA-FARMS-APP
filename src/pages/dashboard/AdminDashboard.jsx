@@ -17,7 +17,7 @@ const adminNav = [
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  const [stats, setStats] = useState({ customers: 0, farmers: 0, orders: 0, sales: 0 });
+  const [stats, setStats] = useState({ users: 0, farmers: 0, orders: 0, sales: 0 });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,14 +30,14 @@ const AdminDashboard = () => {
         const users = usersRes.data.users || usersRes.data;
         const orders = ordersRes.data.orders || ordersRes.data;
         setStats({
-          customers: users.filter(u => u.role === 'User').length,
+          users: users.filter(u => u.role === 'User').length,
           farmers: users.filter(u => u.role === 'Farmer').length,
           orders: orders.length,
           sales: orders.filter(o => (o.status || '').toLowerCase() === 'paid')
             .reduce((sum, o) => sum + (typeof o.totalPrice === 'number' ? o.totalPrice : parseFloat(o.totalPrice) || 0), 0),
         });
       } catch (err) {
-        setStats({ customers: 0, farmers: 0, orders: 0, sales: 0 });
+        setStats({ users: 0, farmers: 0, orders: 0, sales: 0 });
       } finally {
         setLoading(false);
       }
@@ -60,8 +60,8 @@ const AdminDashboard = () => {
             <Paper elevation={3} sx={{ p: 2, borderRadius: 3, display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
               <GroupIcon color="primary" sx={{ fontSize: 36 }} />
               <Box>
-                <Typography variant="subtitle1">Customers</Typography>
-                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{stats.customers}</Typography>
+                <Typography variant="subtitle1">Users</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{stats.users}</Typography>
               </Box>
             </Paper>
           </Grid>

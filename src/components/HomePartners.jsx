@@ -19,7 +19,7 @@ const HomePartners = () => (
       {partners.map((p, idx) => (
         <Grid item xs={12} sm={4} md={3} key={idx}>
           <Paper sx={{ p: 3, borderRadius: 2, boxShadow: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 120, justifyContent: 'center', background: '#fff' }}>
-            <img src={p.logo} alt={p.name} style={{ maxHeight: 60, maxWidth: '100%', marginBottom: 8, filter: 'grayscale(1)', transition: 'filter 0.3s' }} onMouseOver={e => e.currentTarget.style.filter = 'grayscale(0)'} onMouseOut={e => e.currentTarget.style.filter = 'grayscale(1)'} />
+            <img src={p.logo} alt={p.name} loading="lazy" style={{ maxHeight: 60, maxWidth: '100%', marginBottom: 8, filter: 'grayscale(1)', transition: 'filter 0.3s' }} onMouseOver={e => e.currentTarget.style.filter = 'grayscale(0)'} onMouseOut={e => e.currentTarget.style.filter = 'grayscale(1)'} />
             <Typography variant="subtitle2" sx={{ color: 'text.secondary', fontWeight: 'bold' }}>{p.name}</Typography>
           </Paper>
         </Grid>

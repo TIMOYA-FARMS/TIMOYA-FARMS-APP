@@ -101,8 +101,10 @@ const Blog = () => {
             >
               <CardMedia
                 component="img"
+                height="250"
                 image={post.image}
                 alt={post.title}
+                loading="lazy"
                 sx={{ width: 220, height: 220, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
               />
               <CardContent sx={{ flexGrow: 1 }}>

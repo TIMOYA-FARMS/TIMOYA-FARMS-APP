@@ -32,8 +32,10 @@ const HomeBlogHighlights = () => (
         <Card key={idx} sx={{ minWidth: 260, maxWidth: 320, flex: '0 0 auto', height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 2, borderRadius: 2, background: '#fff' }}>
           <CardMedia
             component="img"
+            height={180}
             image={post.image}
             alt={post.title}
+            loading="lazy"
             sx={{ height: 140, objectFit: 'cover', borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
           />
           <CardContent sx={{ flexGrow: 1 }}>

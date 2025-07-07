@@ -9,6 +9,8 @@ import AgricultureIcon from '@mui/icons-material/Agriculture';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -27,6 +29,12 @@ const customerNav = [
   { label: 'Orders', icon: <ReceiptLongIcon />, path: '/dashboard/customer/orders' },
   { label: 'Cart', icon: <ShoppingCartCheckoutIcon />, path: '/dashboard/customer/cart' },
   { label: 'Checkout', icon: <LocalOfferIcon />, path: '/dashboard/customer/checkout' },
+];
+
+const farmerNav = [
+  { label: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard/farmer' },
+  { label: 'Deliveries', icon: <LocalShippingIcon />, path: '/dashboard/farmer/deliveries' },
+  { label: 'Payments', icon: <MonetizationOnIcon />, path: '/dashboard/farmer/payments' },
 ];
 
 const DashboardLayout = () => {
@@ -52,13 +60,14 @@ const DashboardLayout = () => {
 
   const isCustomerRoute = location.pathname.startsWith('/dashboard/customer');
   const isAdminRoute = location.pathname.startsWith('/dashboard/admin') || location.pathname === '/dashboard';
+  const isFarmerRoute = location.pathname.startsWith('/dashboard/farmer');
 
   const drawer = (
     <div>
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {(isAdminRoute ? adminNav : isCustomerRoute ? customerNav : []).map((item) => (
+          {(isAdminRoute ? adminNav : isCustomerRoute ? customerNav : isFarmerRoute ? farmerNav : []).map((item) => (
             <ListItem
               button
               key={item.label}
@@ -87,12 +96,18 @@ const DashboardLayout = () => {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: isAdminRoute ? 'none' : 'none', xs: 'none' } }}
+              sx={{ 
+                mr: 2, 
+                display: { 
+                  xs: (isAdminRoute || isCustomerRoute || isFarmerRoute) ? 'flex' : 'none', 
+                  md: 'none' 
+                } 
+              }}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap component="div">
-              {isAdminRoute ? 'Admin Dashboard' : isCustomerRoute ? 'Customer Dashboard' : 'Dashboard'}
+              {isAdminRoute ? 'Admin Dashboard' : isCustomerRoute ? 'User Dashboard' : isFarmerRoute ? 'Farmer Dashboard' : 'Dashboard'}
             </Typography>
           </Box>
           <Button
@@ -105,8 +120,8 @@ const DashboardLayout = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      {/* Permanent drawer for md+ screens (for admin and customer) */}
-      {(isAdminRoute || isCustomerRoute) && (
+      {/* Permanent drawer for md+ screens (for admin, customer, and farmer) */}
+      {(isAdminRoute || isCustomerRoute || isFarmerRoute) && (
         <Drawer
           variant="permanent"
           sx={{
@@ -120,8 +135,8 @@ const DashboardLayout = () => {
           {drawer}
         </Drawer>
       )}
-      {/* Temporary drawer for mobile (for admin and customer) */}
-      {(isAdminRoute || isCustomerRoute) && (
+      {/* Temporary drawer for mobile (for admin, customer, and farmer) */}
+      {(isAdminRoute || isCustomerRoute || isFarmerRoute) && (
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -135,7 +150,7 @@ const DashboardLayout = () => {
           {drawer}
         </Drawer>
       )}
-      <Box component="main" sx={{ flexGrow: 1, p: { xs: 1, md: 3 }, width: { xs: '100%', md: (isAdminRoute || isCustomerRoute) ? `calc(100% - ${drawerWidth}px)` : '100%' }, minHeight: '100vh', background: '#f9f9f9' }}>
+      <Box component="main" sx={{ flexGrow: 1, p: { xs: 1, md: 3 }, width: { xs: '100%', md: (isAdminRoute || isCustomerRoute || isFarmerRoute) ? `calc(100% - ${drawerWidth}px)` : '100%' }, minHeight: '100vh', background: '#f9f9f9' }}>
         <Toolbar />
         <Outlet />
       </Box>

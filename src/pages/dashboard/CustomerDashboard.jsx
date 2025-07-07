@@ -75,7 +75,7 @@ const CustomerDashboard = () => {
     return (
       <Box sx={{ maxWidth: 500, mx: 'auto', mt: 8, p: 3, textAlign: 'center' }}>
         <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
-          Customer Dashboard
+          User Dashboard
         </Typography>
         <Typography variant="body1" sx={{ color: 'error.main', mb: 3 }}>
           You must <Link to="/login" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Login</Link> or <Link to="/register" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Register</Link> to view your dashboard.
@@ -92,8 +92,8 @@ const CustomerDashboard = () => {
           {getInitial(user)}
         </Avatar>
         <Box>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', letterSpacing: 1, mb: 0.5 }}>
-            Welcome, {user?.firstName || 'Customer'}!
+          <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
+            Welcome, {user?.firstName || 'User'}!
           </Typography>
           <Typography variant="body1" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
             Here's your personalized dashboard overview.

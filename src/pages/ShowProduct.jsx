@@ -4,6 +4,7 @@ import CartContext from "../Store/CartContext";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Rating, Typography } from "@mui/material";
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import useApi from '../hooks/useApi';
+import { Helmet } from 'react-helmet-async';
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -33,6 +34,15 @@ const ShowProduct = () => {
 
     return (
         <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
+            <Helmet>
+                <title>{product.productName} | Timoya Farms</title>
+                <meta name="description" content={product.description || 'Product details at Timoya Farms.'} />
+                <meta property="og:title" content={`${product.productName} | Timoya Farms`} />
+                <meta property="og:description" content={product.description || 'Product details at Timoya Farms.'} />
+                <meta property="og:type" content="product" />
+                <meta property="og:url" content={`https://timoya-farms.com/products/${productId}`} />
+                <meta property="og:image" content={product.image} />
+            </Helmet>
             <Box sx={{ position: 'relative', backgroundColor: '#f9f9f9', py: 0, px: 0 }}>
                 <Box
                     sx={{
@@ -59,6 +69,7 @@ const ShowProduct = () => {
                     height="350"
                     image={product.image}
                     alt={product.productName}
+                    loading="lazy"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 1 }}>

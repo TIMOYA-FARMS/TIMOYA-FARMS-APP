@@ -9,27 +9,37 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useContext } from 'react';
 import CartContext from '../../Store/CartContext';
+import { useNotification } from '../../contexts/NotificationContext';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const CartItem = (props) => {
 
     const {updateCartItemQty, removeFromCart} = useContext(CartContext);
+    const { showSuccess, showInfo } = useNotification();
 
     // const [productQty, setProductQty] = useState(props.qty || 1);
 
     const qtyIncrementHandler = () => {
         const newQty = props.qty + 1;
         updateCartItemQty(props.id, newQty, props.cartId);
+        showSuccess(`Quantity updated to ${newQty}`, 'Cart Updated');
     }
 
     const qtyDecrementHandler = () => {
         const newQty = props.qty - 1;
         if (newQty > 0) {
             updateCartItemQty(props.id, newQty, props.cartId);
+            showSuccess(`Quantity updated to ${newQty}`, 'Cart Updated');
+        } else {
+            showInfo('Quantity cannot be less than 1', 'Minimum Quantity');
         }
     }
 
+    const handleRemoveFromCart = () => {
+        removeFromCart(props.id, props.cartItemId);
+        showSuccess(`${props.productName || props.title} removed from cart`, 'Item Removed');
+    }
 
     return (
         <Box sx={{ width: { xs: '100%', sm: '90%', md: '500px' }, maxWidth: '100%', mx: 'auto', my: 2 }}>
@@ -64,18 +74,17 @@ const CartItem = (props) => {
                         <RemoveIcon />
                     </IconButton>
 
-                    <IconButton aria-label="remove from cart" color="error" onClick={() => {
-                        removeFromCart(props.id, props.cartItemId);
-                    }} sx={{ ml: 2 }}>
+                    <IconButton aria-label="remove from cart" color="error" onClick={handleRemoveFromCart} sx={{ ml: 2 }}>
                         <DeleteIcon />
                     </IconButton>
                 </Box>
             </Box>
             <CardMedia
                 component="img"
-                sx={{ width: 151, padding: 2 }}
+                height={100}
                 image={props.image}
                 alt="image of an item"
+                loading="lazy"
             />
         </Card>
         </Box>

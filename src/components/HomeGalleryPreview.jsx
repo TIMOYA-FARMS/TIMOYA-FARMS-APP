@@ -23,8 +23,10 @@ const HomeGalleryPreview = () => (
           <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: heights[idx % heights.length], position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 } }}>
             <CardMedia
               component="img"
+              height={180}
               image={img}
               alt={`Gallery Preview ${idx + 1}`}
+              loading="lazy"
               sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', '&:hover': { transform: 'scale(1.08)' } }}
             />
           </Card>
