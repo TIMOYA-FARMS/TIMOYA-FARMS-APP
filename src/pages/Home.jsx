@@ -106,15 +106,31 @@ const Home = () => {
                 sx={{
                   height: '100%',
                   width: '100%',
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  position: 'relative',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  position: 'relative',
+                  background: index === 0 ? 'none' : `url(${image}) center/cover no-repeat`,
                 }}
               >
+                {index === 0 && (
+                  <img
+                    src={image.replace('/upload/', '/upload/w_1200,h_600,c_fill/')}
+                    alt="Timoya Farms Hero"
+                    width="1200"
+                    height="600"
+                    fetchpriority="high"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      zIndex: 0,
+                    }}
+                  />
+                )}
                 <Box
                   sx={{
                     background: 'linear-gradient(135deg, rgba(34,43,69,0.7) 40%, rgba(33,150,83,0.5) 100%)',
