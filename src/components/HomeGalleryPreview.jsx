@@ -23,13 +23,13 @@ const HomeGalleryPreview = () => (
           <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: heights[idx % heights.length], position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 } }}>
             <CardMedia
               component="img"
-              height={180}
-              image={img.replace('/upload/', '/upload/w_320,h_180,c_fill/')}
+              height={heights[idx % heights.length]}
+              image={img.replace('/upload/', `/upload/w_${heights[idx % heights.length]*2},h_${heights[idx % heights.length]},c_fill,f_webp/`)}
               srcSet={`
-                ${img.replace('/upload/', '/upload/w_320,h_180,c_fill/')} 320w,
-                ${img.replace('/upload/', '/upload/w_640,h_360,c_fill/')} 640w
+                ${img.replace('/upload/', `/upload/w_${heights[idx % heights.length]},h_${heights[idx % heights.length]},c_fill,f_webp/`)} ${heights[idx % heights.length]}w,
+                ${img.replace('/upload/', `/upload/w_${heights[idx % heights.length]*2},h_${heights[idx % heights.length]},c_fill,f_webp/`)} ${heights[idx % heights.length]*2}w
               `}
-              sizes="(max-width: 600px) 320px, 640px"
+              sizes={`(max-width: 600px) ${heights[idx % heights.length]}px, ${heights[idx % heights.length]*2}px`}
               alt={`Gallery Preview ${idx + 1}`}
               loading="lazy"
               fetchpriority={idx === 0 ? 'high' : undefined}

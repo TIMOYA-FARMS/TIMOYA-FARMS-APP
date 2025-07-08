@@ -148,6 +148,7 @@ const Home = () => {
                 >
                   <Typography
                     variant="h2"
+                    component="h1"
                     sx={{
                       color: 'white',
                       fontWeight: 900,
@@ -161,6 +162,7 @@ const Home = () => {
                   </Typography>
                   <Typography
                     variant="h5"
+                    component="h2"
                     sx={{
                       color: 'white',
                       mb: 4,

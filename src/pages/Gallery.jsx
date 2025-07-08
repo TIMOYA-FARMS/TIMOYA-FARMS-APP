@@ -49,12 +49,13 @@ const Gallery = () => {
                 <CardMedia
                   component="img"
                   height={250}
-                  image={img.replace('/upload/', '/upload/w_320,h_250,c_fill/')}
+                  image={img.replace('/upload/', '/upload/w_320,h_250,c_fill,f_webp/')}
                   srcSet={`
-                    ${img.replace('/upload/', '/upload/w_320,h_250,c_fill/')} 320w,
-                    ${img.replace('/upload/', '/upload/w_640,h_500,c_fill/')} 640w
+                    ${img.replace('/upload/', '/upload/w_160,h_125,c_fill,f_webp/')} 160w,
+                    ${img.replace('/upload/', '/upload/w_320,h_250,c_fill,f_webp/')} 320w,
+                    ${img.replace('/upload/', '/upload/w_640,h_500,c_fill,f_webp/')} 640w
                   `}
-                  sizes="(max-width: 600px) 320px, 640px"
+                  sizes="(max-width: 600px) 160px, (max-width: 900px) 320px, 640px"
                   alt={`Gallery ${idx + 1}`}
                   loading="lazy"
                   fetchpriority={idx === 0 ? 'high' : undefined}

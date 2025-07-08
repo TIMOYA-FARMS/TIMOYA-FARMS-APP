@@ -26,7 +26,7 @@ const featured = [
 
 const HomeFeaturedProducts = () => (
   <Box sx={{ py: 6, px: { xs: 1, sm: 2, md: 8 }, backgroundColor: '#fff' }}>
-    <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
+    <Typography variant="h4" align="center" component="h2" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
       Featured Highlights
     </Typography>
     <Box sx={{
@@ -62,12 +62,13 @@ const HomeFeaturedProducts = () => (
               <CardMedia
                 component="img"
                 height={180}
-                image={item.image.replace('/upload/', '/upload/w_320,h_180,c_fill/')}
+                image={item.image.replace('/upload/', '/upload/w_320,h_180,c_fill,f_webp/')}
                 srcSet={`
-                  ${item.image.replace('/upload/', '/upload/w_320,h_180,c_fill/')} 320w,
-                  ${item.image.replace('/upload/', '/upload/w_640,h_360,c_fill/')} 640w
+                  ${item.image.replace('/upload/', '/upload/w_160,h_90,c_fill,f_webp/')} 160w,
+                  ${item.image.replace('/upload/', '/upload/w_320,h_180,c_fill,f_webp/')} 320w,
+                  ${item.image.replace('/upload/', '/upload/w_640,h_360,c_fill,f_webp/')} 640w
                 `}
-                sizes="(max-width: 600px) 320px, 640px"
+                sizes="(max-width: 600px) 160px, (max-width: 900px) 320px, 640px"
                 alt={item.title}
                 loading="lazy"
                 fetchpriority={idx === 0 ? 'high' : undefined}
@@ -90,7 +91,7 @@ const HomeFeaturedProducts = () => (
               />
             </Box>
             <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>{item.title}</Typography>
+              <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>{item.title}</Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>{item.desc}</Typography>
               <Button 
                 component={Link} 

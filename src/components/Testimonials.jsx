@@ -24,7 +24,7 @@ const Testimonials = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   return (
-    <Box sx={{ py: 6, }}>
+    <Box sx={{ py: 6, mr: 2, ml: 2, px: { xs: 2, md: 8 } }}>
       {/* background: 'linear-gradient(135deg, #e0ffe7 0%, #fffde4 100%)' */}
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
         What Our Happy Customers Say
