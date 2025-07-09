@@ -20,12 +20,6 @@ import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState, useEffect } from 'react';
 
-const taglines = [
-  'Your one-stop destination for fresh, organic produce—delivered with care.',
-  'Farm-fresh quality, straight to your door.',
-  'Eat healthy. Live better. Choose Timoya Farms.',
-];
-
 const AnimatedLeaves = () => (
   <Box sx={{
     position: 'absolute',
@@ -68,19 +62,28 @@ const SectionDivider = ({ flip }) => (
 );
 
 const Home = () => {
-  const images = [
-    'https://timoyafarms.com/wp-content/uploads/2023/10/photo_23_2023-10-19_19-45-24-1.jpg',
-    'https://images.unsplash.com/photo-1655102713930-ed68081e6b7d?q=80&w=2083&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1627276272485-e45905a6aedb?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
+  const heroSlides = [
+    {
+      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_farm_1_ffkbu4.jpg',
+      title: 'Grown in Ghana, Trusted on Every Table',
+      tagline: `Aviella Rice is proudly cultivated by Ghana's smallholder farmers, bringing rich nutrition and local pride to our plate.`
+    },
+    {
+      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_goldenRice_2_a5qvnt.jpg',
+      title: 'Parboiled to Perfection',
+      tagline: 'Enjoy wholesome, fluffy grains - carefully processed through our clean-energy system for maximum nutrition.'
+    },
+    {
+      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_happyCustomer_4_af7fjs.jpg',
+      title: 'Every Bag Empowers a Farmer.',
+      tagline: 'With every purchase, you support smallholder farmers, local livelihoods, and sustainable agriculture in Ghana.'
+    },
+    {
+      image: 'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
+      title: 'Happy Customers',
+      tagline: 'Join our community of happy, healthy customers!'
+    },
   ];
-  const [taglineIdx, setTaglineIdx] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTaglineIdx((prev) => (prev + 1) % taglines.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
@@ -100,7 +103,7 @@ const Home = () => {
           loop
           style={{ height: '100%' }}
         >
-          {images.map((image, index) => (
+          {heroSlides.map((slide, index) => (
             <SwiperSlide key={index}>
               <Box
                 sx={{
@@ -108,15 +111,27 @@ const Home = () => {
                   width: '100%',
                   position: 'relative',
                   display: 'flex',
-                  justifyContent: 'center',
+                  justifyContent: { xs: 'center', md: 'flex-start' },
                   alignItems: 'center',
-                  background: index === 0 ? 'none' : `url(${image}) center/cover no-repeat`,
+                  background: index === 0 ? 'none' : `url(${slide.image}) center/cover no-repeat`,
                 }}
               >
+                {/* Gradient overlay for image contrast */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    zIndex: 1,
+                    background: 'linear-gradient(90deg, rgba(34,43,69,0.55) 40%, rgba(33,150,83,0.25) 100%)',
+                  }}
+                />
                 {index === 0 && (
                   <img
-                    src={image.replace('/upload/', '/upload/w_1200,h_600,c_fill/')}
-                    alt="Timoya Farms Hero"
+                    src={slide.image.replace('/upload/', '/upload/w_1200,h_600,c_fill/')}
+                    alt={slide.title}
                     width="1200"
                     height="600"
                     fetchpriority="high"
@@ -133,17 +148,22 @@ const Home = () => {
                 )}
                 <Box
                   sx={{
-                    background: 'linear-gradient(135deg, rgba(34,43,69,0.7) 40%, rgba(33,150,83,0.5) 100%)',
-                    boxShadow: 3,
+                    position: 'relative',
+                    zIndex: 2,
+                    // background: 'rgba(255,255,255,0.10)',
+                    backdropFilter: 'blur(1px)',
+                    // boxShadow: 3,
                     borderRadius: 3,
                     padding: { xs: 2, sm: 4, md: 6 },
-                    textAlign: 'center',
+                    textAlign: { xs: 'center', md: 'left' },
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                    maxWidth: { xs: '95%', sm: '80%', md: '60%' },
-                    zIndex: 2,
+                    alignItems: { xs: 'center', md: 'flex-start' },
+                    maxWidth: { xs: '95%', sm: '80%', md: '45%' },
+                    left: { xs: 0, md: 40 },
+                    minHeight: { xs: 180, sm: 220, md: 260 },
+                    maxHeight: { xs: 220, sm: 260, md: 300 },
                   }}
                 >
                   <Typography
@@ -158,22 +178,29 @@ const Home = () => {
                       fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
                     }}
                   >
-                    Welcome to Timoya Farms
+                    {slide.title}
                   </Typography>
                   <Typography
                     variant="h5"
                     component="h2"
                     sx={{
                       color: 'white',
-                      mb: 4,
+                      mb: 3,
                       fontWeight: 400,
                       textShadow: '0 2px 12px rgba(0,0,0,0.3)',
-                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
+                      lineHeight: 1.5,
                       minHeight: { xs: 40, sm: 48, md: 56 },
                       transition: 'all 0.5s',
+                      maxHeight: { xs: 80, sm: 120, md: 160 },
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: { xs: 3, sm: 4, md: 5 },
+                      WebkitBoxOrient: 'vertical',
                     }}
                   >
-                    {taglines[taglineIdx]}
+                    {slide.tagline}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
                     <Button
@@ -217,7 +244,7 @@ const Home = () => {
           ))}
         </Swiper>
       </Box>
-      <SectionDivider />
+      {/* <SectionDivider /> */}
       <HomeAboutPreview />
       <SectionDivider flip />
       <HomeFeaturedProducts />
@@ -229,11 +256,11 @@ const Home = () => {
       <Testimonials />
       <SectionDivider flip />
       <HomeBlogHighlights />
-      <SectionDivider />
+      {/* <SectionDivider /> */}
       <HomeNewsletterSignup />
-      <SectionDivider flip />
+      {/* <SectionDivider flip /> */}
       <HomeCTABanner />
-      <SectionDivider />
+      {/* <SectionDivider /> */}
       <HomePartners />
     </Box>
   );

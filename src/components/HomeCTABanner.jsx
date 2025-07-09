@@ -8,11 +8,11 @@ const HomeCTABanner = () => (
       py: 6,
       px: { xs: 2, md: 8 },
       background: 'linear-gradient(90deg, #219653 0%, #6dd5ed 100%)',
-      borderRadius: 3,
+      borderRadius: 0,
       textAlign: 'center',
-      my: 6,
+      my: 0,
       color: 'white',
-      boxShadow: 3,
+      // boxShadow: 3,
     }}
   >
     <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>

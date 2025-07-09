@@ -86,7 +86,7 @@ const OurTeam = () => {
 
     return (
         <Box sx={{ py: 8, px: { xs: 2, md: 8 }, background: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)' }}>
-            <Typography variant="h3" textAlign="center" sx={{ mb: 4, fontWeight: 'bold', color: '#2c3e50' }}>
+            <Typography variant="h3" textAlign="center" sx={{ mb: 4, fontWeight: 'bold', color: 'primary.main' }}>
                 Meet Our Team
             </Typography>
 
@@ -169,8 +169,8 @@ const OurTeam = () => {
 
             {/* Team Members Section */}
             <Box>
-                <Typography variant="h4" textAlign="center" sx={{ mb: 3, color: '#34495e' }}>
-                    Our Team Members
+                <Typography variant="h4" textAlign="center" sx={{ mb: 3, color: 'primary.main' }}>
+                    Team Members
                 </Typography>
                 <Grid container spacing={3} justifyContent="center" alignItems="stretch">
                     {teamData.members.map((member, index) => (

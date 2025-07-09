@@ -31,8 +31,24 @@ const Products = () => {
     setError('');
     try {
       const res = await axios.get(`${baseUrl}/products`);
-      console.log('Fetched products:', res.data.products || res.data);
-      setProducts(res.data.products || res.data);
+      console.log('Raw API response:', res.data);
+      let products = res.data.products || res.data;
+      console.log('Products before normalization:', products);
+      // Normalize: ensure id and price are present and correct
+      products = products.map(p => {
+        console.log('Processing product:', p);
+        const normalized = {
+          ...p,
+          id: p.id || p._id,
+          price: Number(p.price)
+        };
+        console.log('Normalized product:', normalized);
+        console.log('Price value:', normalized.price, 'Type:', typeof normalized.price);
+        return normalized;
+      });
+      console.log('Final products array:', products);
+      console.log('Sample product price check:', products[0]?.price, typeof products[0]?.price);
+      setProducts(products);
     } catch (err) {
       setError('Failed to fetch products.');
     } finally {
@@ -77,7 +93,7 @@ const Products = () => {
       formData.append('price', Number(form.price));
       formData.append('stock', form.stock);
       formData.append('description', form.description);
-      formData.append('quantity', form.quantity);
+      // formData.append('quantity', form.quantity);
       formData.append('stockStatus', form.stockStatus);
       if (form.image) formData.append('image', form.image);
       if (dialogMode === 'add') {
@@ -114,7 +130,11 @@ const Products = () => {
 
   const columns = [
     { field: 'productName', headerName: 'Product Name', flex: 1 },
-    { field: 'price', headerName: 'Price (₵)', flex: 1, valueFormatter: (params) => `₵${Number(params.value || 0).toFixed(2)}` },
+    { 
+      field: 'price', 
+      headerName: 'Price (₵)', 
+      flex: 1
+    },
     { field: 'stock', headerName: 'Stock', flex: 1 },
     {
       field: 'actions',
@@ -152,11 +172,17 @@ const Products = () => {
               <DataGrid
                 rows={products}
                 columns={columns}
-                getRowId={(row) => row.id || row._id}
+                getRowId={(row) => {
+                  console.log('getRowId called with:', row);
+                  return row.id || row._id;
+                }}
                 pageSize={10}
                 rowsPerPageOptions={[10, 20, 50]}
                 disableSelectionOnClick
                 autoHeight
+                onRowClick={(params) => {
+                  console.log('Row clicked:', params.row);
+                }}
               />
             )}
           </div>
@@ -168,7 +194,7 @@ const Products = () => {
           <TextField label="Product Name" name="productName" value={form.productName} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required />
           <TextField label="Price (₵)" name="price" value={form.price} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required type="number" />
           <TextField label="Stock" name="stock" value={form.stock} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required type="number" />
-          <TextField label="Quantity" name="quantity" value={form.quantity} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required type="number" />
+          {/* <TextField label="Quantity" name="quantity" value={form.quantity} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required type="number" /> */}
           <TextField select label="Stock Status" name="stockStatus" value={form.stockStatus} onChange={handleFormChange} fullWidth sx={{ mb: 2 }} required>
             {stockStatusOptions.map((option) => (
               <MenuItem key={option} value={option}>{option}</MenuItem>

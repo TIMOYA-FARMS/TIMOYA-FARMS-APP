@@ -87,7 +87,7 @@ const AdminDashboard = () => {
             <Paper elevation={3} sx={{ p: 2, borderRadius: 3, display: 'flex', alignItems: 'center', gap: 2, minWidth: 0 }}>
               <BarChartIcon color="info" sx={{ fontSize: 36 }} />
               <Box>
-                <Typography variant="subtitle1">Sales</Typography>
+                <Typography variant="subtitle1">Total Sales</Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>₵{Number(stats.sales).toFixed(2)}</Typography>
               </Box>
             </Paper>

@@ -23,11 +23,11 @@ const ContactBanner = () => {
           mb: { xs: 2, md: 0 }, // Margin for small screens
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
-          Contact Us!
+        <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '10px', color: 'primary.main' }}>
+          Let's Connect!
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          We are here for you, you can reach out anytime!
+        <Typography variant="h6" sx={{ marginBottom: '20px', color: 'text.secondary', fontWeight: 400 }}>
+          Questions, feedback, or just want to say hi? We're always happy to hear from you.
         </Typography>
         <Button 
           component={Link} 

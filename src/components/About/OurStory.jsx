@@ -64,9 +64,9 @@ One of our key innovations includes a circular parboiling system designed to red
             alignItems: { xs: 'center', md: 'flex-start' },
             textAlign: { xs: 'center', md: 'left' },
             p: 4,
-            backgroundColor: '#ffffff',
-            borderRadius: 4,
-            boxShadow: 4,
+            // backgroundColor: '#ffffff',
+            // borderRadius: 4,
+            // boxShadow: 4,
           }}
         >
           <Typography
@@ -74,7 +74,7 @@ One of our key innovations includes a circular parboiling system designed to red
             sx={{
               mb: 3,
               fontWeight: 'bold',
-              color: '#2c3e50',
+              color: 'primary.main',
             }}
           >
             Our Story
@@ -84,7 +84,7 @@ One of our key innovations includes a circular parboiling system designed to red
             sx={{
               lineHeight: 2,
               textAlign: 'justify',
-              color: '#555',
+              color: '',
             }}
           >
             {shortText}

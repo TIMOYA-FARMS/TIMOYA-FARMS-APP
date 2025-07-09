@@ -25,9 +25,9 @@ const HomeAboutPreview = () => {
           }}
         >
           <Paper 
-            elevation={8} 
+            elevation={1} 
             sx={{ 
-              borderRadius: 4, 
+              borderRadius: 2, 
               overflow: 'hidden',
               position: 'relative',
               '&:hover': {
@@ -78,7 +78,7 @@ const HomeAboutPreview = () => {
               lineHeight: 1.2,
             }}
           >
-            About Timoya Farms
+            Timoya Farms
           </Typography>
           
           <Typography 

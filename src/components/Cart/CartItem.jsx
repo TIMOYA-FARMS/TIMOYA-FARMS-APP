@@ -9,85 +9,179 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { useContext } from 'react';
 import CartContext from '../../Store/CartContext';
-import { useNotification } from '../../contexts/NotificationContext';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Chip, Stack, Divider } from '@mui/material';
 
 
 const CartItem = (props) => {
 
     const {updateCartItemQty, removeFromCart} = useContext(CartContext);
-    const { showSuccess, showInfo } = useNotification();
 
     // const [productQty, setProductQty] = useState(props.qty || 1);
 
     const qtyIncrementHandler = () => {
         const newQty = props.qty + 1;
         updateCartItemQty(props.id, newQty, props.cartId);
-        showSuccess(`Quantity updated to ${newQty}`, 'Cart Updated');
     }
 
     const qtyDecrementHandler = () => {
         const newQty = props.qty - 1;
         if (newQty > 0) {
             updateCartItemQty(props.id, newQty, props.cartId);
-            showSuccess(`Quantity updated to ${newQty}`, 'Cart Updated');
-        } else {
-            showInfo('Quantity cannot be less than 1', 'Minimum Quantity');
         }
     }
 
     const handleRemoveFromCart = () => {
         removeFromCart(props.id, props.cartItemId);
-        showSuccess(`${props.productName || props.title} removed from cart`, 'Item Removed');
     }
 
     return (
-        <Box sx={{ width: { xs: '100%', sm: '90%', md: '500px' }, maxWidth: '100%', mx: 'auto', my: 2 }}>
-        <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, width: '100%' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <CardContent sx={{ flex: '1 0 auto' }}>
-                    <Typography component="div" variant="h5">
+        <Card sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', sm: 'row' }, 
+            width: '100%',
+            borderRadius: 2,
+            boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+            border: '1px solid rgba(0,0,0,0.05)',
+            overflow: 'hidden',
+            transition: 'all 0.2s ease-in-out',
+            '&:hover': {
+                boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+                transform: 'translateY(-2px)'
+            }
+        }}>
+            {/* Product Image */}
+            <CardMedia
+                component="img"
+                sx={{ 
+                    width: { xs: '100%', sm: 140, md: 160 },
+                    height: { xs: 200, sm: 140, md: 160 },
+                    objectFit: 'cover'
+                }}
+                image={props.image}
+                alt={props.productName || props.title || 'Product image'}
+                loading="lazy"
+            />
+            
+            {/* Product Details */}
+            <Box sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                flex: 1,
+                minWidth: 0 // Prevents flex item from overflowing
+            }}>
+                <CardContent sx={{ 
+                    flex: '1 0 auto',
+                    p: { xs: 2, sm: 3 },
+                    '&:last-child': { pb: { xs: 2, sm: 3 } }
+                }}>
+                    <Typography 
+                        component="div" 
+                        variant="h6" 
+                        sx={{ 
+                            fontWeight: 600,
+                            color: 'text.primary',
+                            mb: 1,
+                            fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                            lineHeight: 1.3
+                        }}
+                    >
                         {props.productName || props.title || 'Product Name Not Available'}
                     </Typography>
-                    <Typography
-                        variant="subtitle1"
-                        component="div"
-                        sx={{ color: 'text.secondary', mt: 2 }}
-                    >
-                        ₵{props.price}
-                    </Typography>
-                    <Typography
-                        variant="subtitle1"
-                        component="div"
-                        sx={{ color: 'text.secondary', mt: 1 }}
-                    >
-                        Qty: {props.qty}
                     
-                    </Typography>
+                    <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+                        <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ 
+                                color: 'primary.main',
+                                fontWeight: 700,
+                                fontSize: { xs: '1.1rem', sm: '1.25rem' }
+                            }}
+                        >
+                            ₵{props.price}
+                        </Typography>
+                        
+                        <Chip 
+                            label={`Qty: ${props.qty}`}
+                            size="small"
+                            color="primary"
+                            variant="outlined"
+                            sx={{ fontWeight: 500 }}
+                        />
+                        
+                        <Typography
+                            variant="body2"
+                            component="div"
+                            sx={{ 
+                                color: 'text.secondary',
+                                fontWeight: 500
+                            }}
+                        >
+                            Total: ₵{(props.price * props.qty).toFixed(2)}
+                        </Typography>
+                    </Stack>
                 </CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                    <IconButton aria-label="increase quantity" onClick={qtyIncrementHandler}>
-                        <AddIcon />
-                    </IconButton>
-
-                    <IconButton aria-label="decrease quantity" onClick={qtyDecrementHandler}>
-                        <RemoveIcon />
-                    </IconButton>
-
-                    <IconButton aria-label="remove from cart" color="error" onClick={handleRemoveFromCart} sx={{ ml: 2 }}>
+                
+                {/* Action Buttons */}
+                <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: { xs: 'center', sm: 'flex-start' },
+                    p: { xs: 2, sm: 3 },
+                    pt: 0,
+                    gap: 1,
+                    flexWrap: 'wrap'
+                }}>
+                    <Stack direction="row" spacing={1} alignItems="center">
+                        <IconButton 
+                            aria-label="decrease quantity" 
+                            onClick={qtyDecrementHandler}
+                            sx={{ 
+                                bgcolor: 'grey.100',
+                                '&:hover': { bgcolor: 'grey.200' }
+                            }}
+                        >
+                            <RemoveIcon />
+                        </IconButton>
+                        
+                        <Typography variant="body2" sx={{ fontWeight: 600, minWidth: 20, textAlign: 'center' }}>
+                            {props.qty}
+                        </Typography>
+                        
+                        <IconButton 
+                            aria-label="increase quantity" 
+                            onClick={qtyIncrementHandler}
+                            sx={{ 
+                                bgcolor: 'grey.100',
+                                '&:hover': { bgcolor: 'grey.200' }
+                            }}
+                        >
+                            <AddIcon />
+                        </IconButton>
+                    </Stack>
+                    
+                    <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+                    
+                    <IconButton 
+                        aria-label="remove from cart" 
+                        color="error" 
+                        onClick={handleRemoveFromCart}
+                        sx={{ 
+                            bgcolor: 'error.light',
+                            color: 'error.contrastText',
+                            '&:hover': { 
+                                bgcolor: 'error.main',
+                                transform: 'scale(1.05)'
+                            },
+                            transition: 'all 0.2s ease-in-out'
+                        }}
+                    >
                         <DeleteIcon />
                     </IconButton>
                 </Box>
             </Box>
-            <CardMedia
-                component="img"
-                height={100}
-                image={props.image}
-                alt="image of an item"
-                loading="lazy"
-            />
         </Card>
-        </Box>
     );
 }
 

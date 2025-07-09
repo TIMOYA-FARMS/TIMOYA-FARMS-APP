@@ -25,47 +25,48 @@ import Farmers from './pages/admin/Farmers'
 import AdminDashboard from './pages/dashboard/AdminDashboard'
 import CustomerDashboard from './pages/dashboard/CustomerDashboard'
 import FarmerDashboard from './pages/dashboard/FarmerDashboard'
-import { NotificationProvider } from './contexts/NotificationContext'
+import AdminGallery from './pages/admin/Gallery';
+import AdminBlog from './pages/admin/Blog';
+import ShowBlog from './pages/ShowBlog';
 
 function App() {
-
-
   return (
     <HelmetProvider>
-      <NotificationProvider>
-        <Routes>
-          {/* Public/shop routes */}
-          <Route element={<Layout />}>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/blog' element={<Blog />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/products' element={<AllProducts />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/products/:productId' element={<ShowProduct />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/checkout' element={<Checkout />} />
-            <Route path='/orders' element={<Orders />} />
-            <Route path='/gallery' element={<Gallery />} />
+      <Routes>
+        {/* Public/shop routes */}
+        <Route element={<Layout />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/blog/:blogId' element={<ShowBlog />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/products' element={<AllProducts />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/products/:productId' element={<ShowProduct />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/checkout' element={<Checkout />} />
+          <Route path='/orders' element={<Orders />} />
+          <Route path='/gallery' element={<Gallery />} />
+        </Route>
+        {/* Dashboard/admin routes */}
+        <Route path='/dashboard' element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path='admin/users' element={<Users />} />
+          <Route path='admin/products' element={<Products />} />
+          <Route path='admin/orders' element={<OrdersAdmin />} />
+          <Route path='admin/farmers' element={<Farmers />} />
+          <Route path='admin/gallery' element={<AdminGallery />} />
+          <Route path='admin/blog' element={<AdminBlog />} />
+          <Route path='customer' >
+            <Route index element={<CustomerDashboard />} />
+            <Route path='orders' element={<Orders />} />
+            <Route path='cart' element={<Cart />} />
+            <Route path='checkout' element={<Checkout />} />
           </Route>
-          {/* Dashboard/admin routes */}
-          <Route path='/dashboard' element={<DashboardLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path='admin/users' element={<Users />} />
-            <Route path='admin/products' element={<Products />} />
-            <Route path='admin/orders' element={<OrdersAdmin />} />
-            <Route path='admin/farmers' element={<Farmers />} />
-            <Route path='customer' >
-              <Route index element={<CustomerDashboard />} />
-              <Route path='orders' element={<Orders />} />
-              <Route path='cart' element={<Cart />} />
-              <Route path='checkout' element={<Checkout />} />
-            </Route>
-            <Route path='farmer' element={<FarmerDashboard />} />
-          </Route>
-        </Routes>
-      </NotificationProvider>
+          <Route path='farmer' element={<FarmerDashboard />} />
+        </Route>
+      </Routes>
     </HelmetProvider>
   )
 }

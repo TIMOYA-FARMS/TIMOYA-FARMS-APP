@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
@@ -23,11 +23,11 @@ const BlogBanner = () => {
           mb: { xs: 2, md: 0 },
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '10px' }}>
-          Blogs!
+        <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '10px', color: 'primary.main' }}>
+          Dive Into Our Stories
         </Typography>
-        <Typography variant="body1" sx={{ marginBottom: '20px' }}>
-          Check out what we have been up to!
+        <Typography variant="h6" sx={{ marginBottom: '20px', color: 'text.secondary', fontWeight: 400 }}>
+          Inspiration, tips, and the latest from the heart of Timoya Farms.
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' } }}>
           <Button 
@@ -64,7 +64,7 @@ const BlogBanner = () => {
       >
         <img
           src="https://timoyafarms.com/wp-content/uploads/2023/10/photo_23_2023-10-19_19-45-24-1.jpg"
-          alt="About us Banner Image"
+          alt="Blog Banner"
           style={{
             width: '100%',
             height: 'auto',
@@ -78,4 +78,4 @@ const BlogBanner = () => {
   );
 };
 
-export default BlogBanner
+export default BlogBanner;

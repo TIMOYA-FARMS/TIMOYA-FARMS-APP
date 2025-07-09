@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Typography,
@@ -13,48 +13,75 @@ import {
   ListItemText,
   Divider,
   Icon,
-  Paper
+  Paper,
+  CircularProgress,
+  Alert
 } from '@mui/material';
 import BlogBanner from '../components/Banner/BlogBanner';
-import HomeIcon from '@mui/icons-material/Home'
+import HomeIcon from '@mui/icons-material/Home';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
+import { getBlogs } from '../Store/blogApi';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { getBlog } from '../Store/blogApi';
 
 const Blog = () => {
-  const allBlogs = [
-    {
-      title: 'Sustainable Farming Practices',
-      description: 'Discover how sustainable farming is changing the world one step at a time.',
-      image: 'https://images.unsplash.com/photo-1560807707-8cc77767d783?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-      link: '#',
-      date: 'May 20, 2025',
-      author: 'Admin',
-    },
-    {
-      title: 'The Art of Growing Rice',
-      description: 'Learn the secrets behind cultivating the perfect rice harvest.',
-      image: 'https://images.unsplash.com/photo-1512997052393-4a22852e4082?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-      link: '#',
-      date: 'May 15, 2025',
-      author: 'Admin',
-    },
-    {
-      title: 'Eco-Friendly Packaging',
-      description: 'Explore innovative eco-friendly packaging solutions for your farm produce.',
-      image: 'https://images.unsplash.com/photo-1518972559570-8f262c164d9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=400',
-      link: '#',
-      date: 'May 10, 2025',
-      author: 'Admin',
-    },
-  ];
-
-  const recentComments = [
-    { name: 'Jane Doe', comment: 'Great insights on eco-friendly packaging!' },
-    { name: 'John Smith', comment: 'I loved the post on growing rice. Keep it up!' },
-    { name: 'Emily Brown', comment: 'The sustainable farming tips are really helpful.' },
-  ];
-
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [search, setSearch] = useState('');
-  const filteredBlogs = allBlogs.filter(blog =>
+  const [openBlogId, setOpenBlogId] = useState(null);
+  const [modalBlog, setModalBlog] = useState(null);
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalError, setModalError] = useState('');
+
+  const handleOpenModal = async (blogId) => {
+    setOpenBlogId(blogId);
+    setModalLoading(true);
+    setModalError('');
+    setModalBlog(null);
+    try {
+      const res = await getBlog(blogId);
+      setModalBlog(res.data);
+    } catch (err) {
+      setModalError('Failed to load blog post.');
+    } finally {
+      setModalLoading(false);
+    }
+  };
+  const handleCloseModal = () => {
+    setOpenBlogId(null);
+    setModalBlog(null);
+    setModalError('');
+  };
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const res = await getBlogs();
+        if (Array.isArray(res.data)) {
+          setBlogs(res.data);
+        } else if (Array.isArray(res.data.blogs)) {
+          setBlogs(res.data.blogs);
+        } else {
+          setBlogs([]);
+        }
+      } catch (err) {
+        setError('Failed to load blogs.');
+        setBlogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  const filteredBlogs = blogs.filter(blog =>
     blog.title.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -79,76 +106,89 @@ const Blog = () => {
         <Breadcrumb links={breadcrumbLinks} />
       </Box>
 
-      <Grid container spacing={8} justifyContent="center" sx={{mt: 8}}>
+      <Grid container spacing={4} justifyContent="center" sx={{mt: 4}}>
         {/* Main Blog Section */}
-        <Grid item xs={12} md={9}>
-          {filteredBlogs.map((post, index) => (
-            <Card
-              key={index}
-              sx={{
-                display: 'flex',
-                alignItems: 'stretch',
-                mb: 3,
-                boxShadow: 3,
-                borderRadius: 3,
-                minHeight: 220,
-                transition: 'transform 0.3s, box-shadow 0.3s',
-                '&:hover': {
-                  transform: 'scale(1.02)',
-                  boxShadow: 5,
-                },
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="250"
-                image={post.image}
-                alt={post.title}
-                loading="lazy"
-                sx={{ width: 220, height: 220, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
-              />
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography
-                  variant="caption"
-                  sx={{ color: '#888', fontStyle: 'italic' }}
-                >
-                  {post.date} • {post.author}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  sx={{ mt: 1, fontWeight: 'bold', color: 'primary.main', mb: 1 }}
-                >
-                  {post.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ mt: 1, textAlign: 'justify', color: '#555' }}
-                >
-                  {post.description}
-                </Typography>
-                <Button
-                  variant="outlined"
-                  href={post.link}
-                  sx={{
-                    mt: 2,
-                    color: 'primary.main',
-                    borderColor: 'primary.main',
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                    '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
-                  }}
-                >
-                  Read More
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+        <Grid item xs={12} md={8}>
+          {loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
+          ) : error ? (
+            <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
+          ) : filteredBlogs.length === 0 ? (
+            <Typography align="center" sx={{ color: 'text.secondary', mt: 4 }}>No blogs found.</Typography>
+          ) : (
+            filteredBlogs.map((post, index) => (
+              <Card
+                key={post._id || index}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'stretch',
+                  mb: 3,
+                  boxShadow: 2,
+                  borderRadius: 3,
+                  minHeight: 200,
+                  background: '#fff',
+                  transition: 'transform 0.3s, box-shadow 0.3s',
+                  '&:hover': {
+                    transform: 'scale(1.015)',
+                    boxShadow: 4,
+                  },
+                }}
+              >
+                {post.imageUrl && (
+                  <CardMedia
+                    component="img"
+                    image={post.imageUrl}
+                    alt={post.title}
+                    loading="lazy"
+                    sx={{ width: 180, height: 180, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
+                  />
+                )}
+                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2 }}>
+                  <Box>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: '#888', fontStyle: 'italic' }}
+                    >
+                      {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''} • {post.author?.name || post.author?.firstName || 'Admin'}
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      sx={{ mt: 1, fontWeight: 'bold', color: 'primary.main', mb: 1 }}
+                    >
+                      {post.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ mt: 1, textAlign: 'justify', color: '#555', minHeight: 48 }}
+                    >
+                      {post.content?.slice(0, 180) || post.description}
+                    </Typography>
+                  </Box>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      mt: 2,
+                      color: 'primary.main',
+                      borderColor: 'primary.main',
+                      textTransform: 'uppercase',
+                      fontWeight: 'bold',
+                      alignSelf: 'flex-start',
+                      '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
+                    }}
+                    onClick={() => handleOpenModal(post._id)}
+                  >
+                    Read More
+                  </Button>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </Grid>
 
         {/* Sidebar */}
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4}>
           {/* Search Blog */}
-          <Box sx={{ mb: 4, boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
+          <Box sx={{ mb: 4, boxShadow: 2, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Search Blog
             </Typography>
@@ -162,33 +202,16 @@ const Blog = () => {
           </Box>
 
           {/* Recent Blogs */}
-          <Box sx={{ mb: 4, boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
+          <Box sx={{ mb: 4, boxShadow: 2, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Recent Blogs
             </Typography>
             <List>
-              {allBlogs.map((blog, index) => (
-                <ListItem key={index} button component="a" href={blog.link}>
+              {blogs.slice(0, 5).map((blog, index) => (
+                <ListItem key={blog._id || index} button component="a" href={"/blog/" + (blog._id || index)} sx={{ borderRadius: 1, mb: 1, '&:hover': { background: '#f0f4f8' } }}>
                   <ListItemText
                     primary={blog.title}
-                    secondary={blog.date}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-
-          {/* Recent Comments */}
-          <Box sx={{ boxShadow: 2, p: 2, backgroundColor: '#fff' }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
-              Recent Comments
-            </Typography>
-            <List>
-              {recentComments.map((comment, index) => (
-                <ListItem key={index}>
-                  <ListItemText
-                    primary={comment.name}
-                    secondary={comment.comment}
+                    secondary={blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
                   />
                 </ListItem>
               ))}
@@ -198,16 +221,16 @@ const Blog = () => {
       </Grid>
 
       {/* Newsletter Subscription */}
-      <Box sx={{ mt: 5, p: 3, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 2 }}>
+      <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 2, borderRadius: 3, maxWidth: 700, mx: 'auto' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
           Subscribe to Our Newsletter
         </Typography>
         <TextField
           fullWidth
           placeholder="Enter your email"
-          sx={{ mt: 2, maxWidth: 400 }}
+          sx={{ mt: 2, maxWidth: 400, background: '#fff', borderRadius: 1 }}
         />
-        <br></br>
+        <br />
         <Button
           variant="contained"
           sx={{
@@ -215,12 +238,41 @@ const Blog = () => {
             backgroundColor: '#2c3e50',
             color: '#fff',
             fontWeight: 'bold',
+            px: 4,
+            borderRadius: 2,
             '&:hover': { backgroundColor: '#34495e' },
           }}
         >
           Subscribe
         </Button>
       </Box>
+      <Dialog open={!!openBlogId} onClose={handleCloseModal} maxWidth="md" fullWidth>
+        <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', pr: 1 }}>
+          {modalBlog ? modalBlog.title : 'Blog Post'}
+          <IconButton onClick={handleCloseModal} size="large"><CloseIcon /></IconButton>
+        </DialogTitle>
+        <DialogContent dividers sx={{ p: { xs: 2, sm: 4 } }}>
+          {modalLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
+          ) : modalError ? (
+            <Alert severity="error">{modalError}</Alert>
+          ) : modalBlog && (
+            <Box>
+              {modalBlog.imageUrl && (
+                <Box sx={{ mb: 3, textAlign: 'center' }}>
+                  <img src={modalBlog.imageUrl} alt={modalBlog.title} style={{ maxWidth: '100%', maxHeight: 400, borderRadius: 12, objectFit: 'cover', boxShadow: '0 2px 16px rgba(0,0,0,0.08)' }} />
+                </Box>
+              )}
+              <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: 3 }}>
+                By {modalBlog.author?.name || modalBlog.author?.firstName || 'Admin'} • {modalBlog.createdAt ? new Date(modalBlog.createdAt).toLocaleDateString() : ''}
+              </Typography>
+              <Typography variant="body1" sx={{ color: '#444', lineHeight: 1.8, mb: 2, whiteSpace: 'pre-line' }}>
+                {modalBlog.content}
+              </Typography>
+            </Box>
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

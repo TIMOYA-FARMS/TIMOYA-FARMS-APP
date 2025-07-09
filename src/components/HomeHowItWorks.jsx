@@ -28,9 +28,9 @@ const HomeHowItWorks = () => (
     <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
       How It Works
     </Typography>
-    <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', overflowX: 'auto', pb: 2 }}>
+    <Box sx={{ display: 'flex', gap: 4, justifyContent: 'center', pb: 2, overflowX: { xs: 'auto', md: 'visible' } }}>
       {steps.map((step, idx) => (
-        <Paper key={idx} sx={{ minWidth: 260, maxWidth: 320, flex: '0 0 auto', p: 4, borderRadius: 3, textAlign: 'center', height: '100%' }} elevation={2}>
+        <Paper key={idx} sx={{ minWidth: 260, maxWidth: 320, flex: '0 0 auto', p: 4, borderRadius: 3, textAlign: 'center', height: '100%' }} elevation={1}>
           {step.icon}
           <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 2, mb: 1, color: 'primary.main' }}>{step.title}</Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>{step.desc}</Typography>

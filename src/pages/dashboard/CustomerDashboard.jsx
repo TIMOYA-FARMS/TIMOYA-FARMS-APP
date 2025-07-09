@@ -140,8 +140,8 @@ const CustomerDashboard = () => {
               <PaidIcon sx={{ fontSize: 32 }} />
             </Box>
             <Box>
-              <Typography variant="h6" sx={{ color: 'secondary.main', fontWeight: 700 }}>Your Total Spent</Typography>
-              <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main' }}>₵{totalSpent.toFixed(2)}</Typography>
+              <Typography variant="h6" sx={{ color: 'secondary.main', fontWeight: 700 }}>Total Spent</Typography>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main' }}>₵{Number(totalSpent).toFixed(2)}</Typography>
             </Box>
           </Paper>
         </Grid>

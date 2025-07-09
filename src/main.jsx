@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CartContextProvider } from './Store/CartContext.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
+import { NotificationProvider } from './contexts/NotificationContext';
 
 
 const theme = createTheme({
@@ -49,9 +50,11 @@ createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <AuthProvider>
-          <CartContextProvider>
-            <App />
-          </CartContextProvider>
+          <NotificationProvider>
+            <CartContextProvider>
+              <App />
+            </CartContextProvider>
+          </NotificationProvider>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

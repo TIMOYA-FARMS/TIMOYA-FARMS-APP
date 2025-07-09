@@ -233,30 +233,34 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button 
-                  color="inherit" 
-                  component={NavLink} 
-                  to="/login" 
-                  sx={{ 
-                    mx: { xs: 0.5, sm: 1 },
-                    fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                    px: { xs: 1, sm: 2 }
+                <Tooltip title="Account">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
+                    <AccountCircle sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 } }} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "40px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
-                >
-                  Login
-                </Button>
-                <Button 
-                  color="inherit" 
-                  component={NavLink} 
-                  to="/register" 
-                  sx={{ 
-                    mx: { xs: 0.5, sm: 1 },
-                    fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                    px: { xs: 1, sm: 2 }
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
                 >
-                  Register
-                </Button>
+                  <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/login');}}>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/register');}}>
+                    <Typography textAlign="center">Register</Typography>
+                  </MenuItem>
+                </Menu>
               </>
             )}
           </Box>

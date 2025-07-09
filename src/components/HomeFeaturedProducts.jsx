@@ -46,7 +46,7 @@ const HomeFeaturedProducts = () => (
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: 3,
+              // boxShadow: 3,
               borderRadius: 3,
               transition: 'transform 0.25s, box-shadow 0.25s',
               '&:hover': {

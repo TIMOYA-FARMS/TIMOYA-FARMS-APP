@@ -7,6 +7,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNotification } from '../contexts/NotificationContext';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { guestCheckout } from '../Store/guestCartApi';
+import { clearGuestId } from '../utils/guestId';
 
 const Checkout = () => {
   const { cart, clearCart } = useContext(CartContext);
@@ -39,11 +41,6 @@ const Checkout = () => {
     } else {
       setEmailError('');
     }
-    if (!isAuthenticated) {
-      setError('You must be logged in to checkout.');
-      showError('You must be logged in to checkout.', 'Authentication Required');
-      return;
-    }
     if (cart.length === 0) {
       setError('Your cart is empty.');
       showError('Your cart is empty.', 'Empty Cart');
@@ -54,7 +51,7 @@ const Checkout = () => {
     setPaymentRef(reference);
     setLoading(true);
     showInfo('Processing your payment...', 'Payment in Progress');
-    
+
     payWithPaystack({
       email: form.email,
       amount: totalAmount,
@@ -70,24 +67,32 @@ const Checkout = () => {
       callback: function(response) {
         (async () => {
           try {
-            // 1. Create the order with paymentRef
-            const orderRes = await axios.post(`${baseUrl}/checkout`, {
-              name: form.name,
-              address: form.address,
-              email: form.email,
-              products: cart.map(item => ({ product: item.id, quantity: item.qty })),
-              paymentRef: reference, // Always set paymentRef
-              amount: totalAmount,
-            });
+            if (isAuthenticated) {
+              // Authenticated user order
+              await axios.post(`${baseUrl}/checkout`, {
+                shippingAddress: { email: form.email },
+                products: cart.map(item => ({ product: item.id, quantity: item.qty })),
+                paymentRef: reference,
+                amount: totalAmount,
+              });
+            } else {
+              // Guest order
+              await guestCheckout({
+                shippingAddress: { email: form.email },
+                products: cart.map(item => ({ product: item.id, quantity: item.qty })),
+                paymentRef: reference,
+                amount: totalAmount,
+              });
+            }
             // 2. Verify payment
-            const verifyRes = await axios.get(`${baseUrl}/payment/verify/${reference}`);
-            // 3. Refetch orders if possible (optional, for immediate UI update)
+            await axios.get(`${baseUrl}/payment/verify/${reference}`);
             if (typeof window !== 'undefined') {
               const event = new Event('orders-updated');
               window.dispatchEvent(event);
             }
             setOrderPlaced(true);
             clearCart();
+            if (!isAuthenticated) clearGuestId();
             showSuccess('Order placed successfully! Check your email for confirmation.', 'Order Confirmed');
           } catch (err) {
             const errorMessage = err.response?.data?.message || 'Order creation or payment verification failed. Please contact support.';
@@ -122,11 +127,6 @@ const Checkout = () => {
           <ShoppingCartCheckoutIcon sx={{ fontSize: 36, color: 'primary.main', mr: 1 }} />
           <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 0, letterSpacing: 1, textAlign: 'center' }}>Checkout</Typography>
         </Box>
-        {!isAuthenticated && (
-          <Typography variant="body2" sx={{ color: 'error.main', mb: 2, fontWeight: 'bold', textAlign: 'center' }}>
-            Please <a href="/login" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Login</a> or <a href="/register" style={{ color: '#1976d2', textDecoration: 'underline', fontWeight: 700 }}>Register</a> to place your order.
-          </Typography>
-        )}
         <Paper sx={{ mb: 3, p: 2, borderRadius: 3, background: 'linear-gradient(90deg, #fffde4 60%, #e0ffe7 100%)', boxShadow: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>Order Summary</Typography>
           <List>
@@ -151,7 +151,7 @@ const Checkout = () => {
             fullWidth
             required
             sx={{ mb: 2, background: '#fff', borderRadius: 2 }}
-            disabled={!isAuthenticated || loading}
+            disabled={loading}
           />
           <TextField
             label="Address"
@@ -161,7 +161,7 @@ const Checkout = () => {
             fullWidth
             required
             sx={{ mb: 2, background: '#fff', borderRadius: 2 }}
-            disabled={!isAuthenticated || loading}
+            disabled={loading}
           />
           <TextField
             label="Email"
@@ -174,7 +174,7 @@ const Checkout = () => {
             error={!!emailError}
             helperText={emailError}
             sx={{ mb: 2, background: '#fff', borderRadius: 2 }}
-            disabled={!isAuthenticated || loading}
+            disabled={loading}
           />
           {emailError && <Alert severity="error" sx={{ mb: 2 }}>{emailError}</Alert>}
           {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
@@ -183,7 +183,7 @@ const Checkout = () => {
             variant="contained"
             color="primary"
             fullWidth
-            disabled={cart.length === 0 || !isAuthenticated || loading}
+            disabled={cart.length === 0 || loading}
             sx={{ py: 1.5, fontWeight: 700, fontSize: '1.1rem', borderRadius: 2, boxShadow: 2, letterSpacing: 1, textTransform: 'uppercase', mt: 1 }}
           >
             {loading ? 'Processing...' : 'Pay & Place Order'}

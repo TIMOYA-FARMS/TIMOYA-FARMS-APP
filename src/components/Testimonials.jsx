@@ -6,17 +6,17 @@ const testimonials = [
   {
     name: 'Ama Boateng',
     feedback: 'Timoya Farms rice is the best I have ever tasted! The quality and freshness are unmatched. I love supporting local farmers.',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurly&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
   {
     name: 'Kwame Mensah',
     feedback: 'I switched to Timoya rice for my restaurant and my customers noticed the difference immediately. Highly recommended!',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Black&clotheType=CollarSweater&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
   {
     name: 'Efua Sarpong',
     feedback: 'The eco-friendly packaging and the taste of the rice make Timoya Farms my go-to brand. Great job, team!',
-    avatar: 'https://randomuser.me/api/portraits/women/65.jpg',
+    avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Blouse&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
 ];
 
@@ -43,7 +43,7 @@ const Testimonials = () => {
         {testimonials.map((t, idx) => (
           <Paper
             key={idx}
-            elevation={3}
+            elevation={1}
             sx={{
               flex: { xs: '1 1 100%', md: '1 1 33%' },
               minWidth: { xs: '0', md: '300px' },
