@@ -354,24 +354,6 @@ const Home = () => {
                     to { opacity: 1; transform: translateY(0); }
                   }
                 `}</style>
-                {/* Debug indicator - remove in production */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 10,
-                    right: 10,
-                    zIndex: 10,
-                    bgcolor: 'rgba(0,0,0,0.7)',
-                    color: 'white',
-                    px: 1,
-                    py: 0.5,
-                    borderRadius: 1,
-                    fontSize: '0.75rem',
-                    display: { xs: 'block', md: 'none' }, // Only show on mobile for debugging
-                  }}
-                >
-                  {imageSize}
-                </Box>
               </Box>
             </SwiperSlide>
           ))}

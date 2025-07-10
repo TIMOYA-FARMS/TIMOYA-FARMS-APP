@@ -6,6 +6,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Link as RouterLink } from 'react-router-dom';
 
 // Use the provided logo
 const logoUrl = 'https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png';
@@ -71,7 +72,27 @@ const Footer = () => (
           Quick Links
         </Typography>
         <Stack direction="column" spacing={1.5} alignItems="flex-start">
-          {['Home', 'Products', 'About', 'Contact', 'FAQ'].map((item) => (
+          <Link 
+            component={RouterLink}
+            to="/"
+            underline="none" 
+            sx={{ 
+              color: '#fff',
+              fontWeight: 500,
+              fontSize: '1.1rem',
+              px: 2,
+              py: 0.5,
+              borderRadius: 2,
+              '&:hover': { 
+                color: '#FFD600',
+                background: 'rgba(255, 255, 255, 0.1)',
+                textDecoration: 'none'
+              }
+            }}
+          >
+            Home
+          </Link>
+          {['Products', 'About', 'Contact', 'FAQ'].map((item) => (
             <Link 
               key={item}
               href={`/${item.toLowerCase()}`} 

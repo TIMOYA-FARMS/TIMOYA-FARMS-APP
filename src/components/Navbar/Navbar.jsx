@@ -122,11 +122,14 @@ const Navbar = () => {
               src="https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png"
               alt="Timoya-Farms Logo"
               style={{
-                width: "25%",
-                height: "auto",
-                maxWidth: "120px",
-                minWidth: "80px",
+                width: '100%',
+                maxWidth: '120px',
+                minWidth: '70px',
+                height: 'auto',
+                objectFit: 'contain',
+                display: 'block',
               }}
+              className="navbar-logo-responsive"
             />
           </Box>
 

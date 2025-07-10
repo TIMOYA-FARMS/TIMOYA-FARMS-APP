@@ -9,3 +9,16 @@ html, body, #root {
     max-width: 100vw;
     overflow-x: hidden;
 }
+
+.navbar-logo-responsive {
+  width: 90px;
+}
+@media (min-width: 600px) {
+  .navbar-logo-responsive { width: 120px; }
+}
+@media (min-width: 900px) {
+  .navbar-logo-responsive { width: 160px; }
+}
+@media (min-width: 1200px) {
+  .navbar-logo-responsive { width: 200px; }
+}
