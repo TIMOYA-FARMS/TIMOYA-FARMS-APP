@@ -15,12 +15,6 @@ export default function usePaystack() {
   }, []);
 
   const payWithPaystack = ({ email, amount, reference, callback, onClose, metadata = {} }) => {
-    console.log('payWithPaystack called with:', {
-      callback,
-      onClose,
-      typeOfCallback: typeof callback,
-      typeOfOnClose: typeof onClose,
-    });
     const paystackParams = {
       key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
       email,
@@ -31,7 +25,6 @@ export default function usePaystack() {
       callback: typeof callback === 'function' ? callback : () => {},
       onClose: typeof onClose === 'function' ? onClose : () => {},
     };
-    console.log('Paystack setup params:', paystackParams);
     if (!window.PaystackPop) {
       alert('Payment script not loaded. Please try again.');
       return;

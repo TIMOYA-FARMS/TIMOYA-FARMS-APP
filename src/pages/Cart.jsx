@@ -14,7 +14,6 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const Cart = () => {
     const { cart } = useContext(CartContext);
-    console.log('Cart contents:', cart);
     const { isAuthenticated } = useAuth();
     const totalAmount = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
     const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);

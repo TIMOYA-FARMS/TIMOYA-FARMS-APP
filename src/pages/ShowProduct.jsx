@@ -13,7 +13,6 @@ const ShowProduct = () => {
     const cartContext = useContext(CartContext);
     const { data: productResponse, error, loading } = useApi(`${baseUrl}/products/${productId}`);
     const product = productResponse?.product;
-    console.log('Fetched product:', product);
 
     const addToCartHandler = () => {
         if (!product) {

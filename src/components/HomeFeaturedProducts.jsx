@@ -18,7 +18,7 @@ const featured = [
   },
   {
     title: 'Farmer Partnerships',
-    image: 'https://images.unsplash.com/photo-1655102713930-ed68081e6b7d?q=80&w=2083&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752122766/Africa_Rice_qhgjoy.avif',
     desc: 'We empower local farmers with fair compensation, training, and support.',
     badge: 'Community',
   },
@@ -62,17 +62,22 @@ const HomeFeaturedProducts = () => (
               <CardMedia
                 component="img"
                 height={180}
-                image={item.image.replace('/upload/', '/upload/w_320,h_180,c_fill,f_webp/')}
+                image={item.image.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_180,c_fill/')}
                 srcSet={`
-                  ${item.image.replace('/upload/', '/upload/w_160,h_90,c_fill,f_webp/')} 160w,
-                  ${item.image.replace('/upload/', '/upload/w_320,h_180,c_fill,f_webp/')} 320w,
-                  ${item.image.replace('/upload/', '/upload/w_640,h_360,c_fill,f_webp/')} 640w
+                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_160,h_90,c_fill/')} 160w,
+                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_180,c_fill/')} 320w,
+                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_640,h_360,c_fill/')} 640w
                 `}
                 sizes="(max-width: 600px) 160px, (max-width: 900px) 320px, 640px"
                 alt={item.title}
-                loading="lazy"
+                loading={idx === 0 ? 'eager' : 'lazy'}
                 fetchpriority={idx === 0 ? 'high' : undefined}
-                sx={{ height: 180, objectFit: 'cover', borderTopLeftRadius: 12, borderTopRightRadius: 12 }}
+                sx={{
+                  height: 180,
+                  objectFit: 'cover',
+                  borderTopLeftRadius: 12,
+                  borderTopRightRadius: 12,
+                }}
               />
               <Chip
                 label={item.badge}
@@ -93,11 +98,11 @@ const HomeFeaturedProducts = () => (
             <CardContent sx={{ flexGrow: 1 }}>
               <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>{item.title}</Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>{item.desc}</Typography>
-              <Button 
-                component={Link} 
-                to="/products" 
-                variant="contained" 
-                color="secondary" 
+              <Button
+                component={Link}
+                to="/products"
+                variant="contained"
+                color="secondary"
                 size="medium"
                 sx={{
                   fontWeight: 700,

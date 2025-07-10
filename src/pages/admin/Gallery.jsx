@@ -26,7 +26,6 @@ const AdminGallery = () => {
     setLoading(true);
     try {
       const res = await getGallery();
-      console.log('Gallery API response:', res.data);
       if (Array.isArray(res.data)) {
         setGallery(res.data);
       } else if (Array.isArray(res.data.images)) {

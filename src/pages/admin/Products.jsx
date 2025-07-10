@@ -31,23 +31,16 @@ const Products = () => {
     setError('');
     try {
       const res = await axios.get(`${baseUrl}/products`);
-      console.log('Raw API response:', res.data);
       let products = res.data.products || res.data;
-      console.log('Products before normalization:', products);
       // Normalize: ensure id and price are present and correct
       products = products.map(p => {
-        console.log('Processing product:', p);
         const normalized = {
           ...p,
           id: p.id || p._id,
           price: Number(p.price)
         };
-        console.log('Normalized product:', normalized);
-        console.log('Price value:', normalized.price, 'Type:', typeof normalized.price);
         return normalized;
       });
-      console.log('Final products array:', products);
-      console.log('Sample product price check:', products[0]?.price, typeof products[0]?.price);
       setProducts(products);
     } catch (err) {
       setError('Failed to fetch products.');
@@ -173,7 +166,6 @@ const Products = () => {
                 rows={products}
                 columns={columns}
                 getRowId={(row) => {
-                  console.log('getRowId called with:', row);
                   return row.id || row._id;
                 }}
                 pageSize={10}
@@ -181,7 +173,6 @@ const Products = () => {
                 disableSelectionOnClick
                 autoHeight
                 onRowClick={(params) => {
-                  console.log('Row clicked:', params.row);
                 }}
               />
             )}

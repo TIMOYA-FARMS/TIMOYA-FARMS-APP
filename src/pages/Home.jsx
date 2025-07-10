@@ -62,11 +62,68 @@ const SectionDivider = ({ flip }) => (
 );
 
 const Home = () => {
+  const [imageSize, setImageSize] = useState('1200x600');
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [displayedTagline, setDisplayedTagline] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 600) {
+        setImageSize('600x300');
+      } else if (width <= 900) {
+        setImageSize('900x450');
+      } else {
+        setImageSize('1200x600');
+      }
+    };
+
+    handleResize(); // Set initial size
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    const currentTagline = heroSlides[currentSlide]?.tagline || '';
+    // If on small screen, skip typing animation
+    if (imageSize === '600x300') {
+      setDisplayedTagline(currentTagline);
+      setIsTyping(false);
+      return;
+    }
+    setDisplayedTagline('');
+    setIsTyping(true);
+
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < currentTagline.length) {
+        setDisplayedTagline(currentTagline.slice(0, index + 1));
+        index++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typeInterval);
+      }
+    }, 30); // Adjust speed here (lower = faster)
+
+    return () => clearInterval(typeInterval);
+  }, [currentSlide, imageSize]);
+
+  const getResponsiveImageUrl = (imageUrl) => {
+    if (imageUrl.includes('cloudinary.com')) {
+      const [width, height] = imageSize.split('x');
+      const responsiveUrl = imageUrl.replace('/upload/', `/upload/f_auto,q_auto,w_${width},h_${height},c_fill/`);
+      return responsiveUrl;
+    }
+    return imageUrl;
+  };
+
   const heroSlides = [
     {
       image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_farm_1_ffkbu4.jpg',
       title: 'Grown in Ghana, Trusted on Every Table',
-      tagline: `Aviella Rice is proudly cultivated by Ghana's smallholder farmers, bringing rich nutrition and local pride to our plate.`
+      tagline: `Aviella Rice! proudly cultivated by Ghana's smallholder farmers, bringing rich nutrition and local pride to our plate.`
     },
     {
       image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_goldenRice_2_a5qvnt.jpg',
@@ -76,7 +133,7 @@ const Home = () => {
     {
       image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_happyCustomer_4_af7fjs.jpg',
       title: 'Every Bag Empowers a Farmer.',
-      tagline: 'With every purchase, you support smallholder farmers, local livelihoods, and sustainable agriculture in Ghana.'
+      tagline: 'Every purchase, supports smallholder farmers, local livelihoods, & sustainable agriculture in Ghana.'
     },
     {
       image: 'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
@@ -89,19 +146,32 @@ const Home = () => {
     <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
       <Box
         sx={{
-          height: { xs: '60vh', sm: '70vh', md: '80vh' },
-          width: '100%',
-          overflow: 'hidden',
           position: 'relative',
+          width: '100%',
+          height: { xs: '50vh', sm: '65vh', md: '80vh', lg: '90vh', xl: '90vh' },
+          overflow: 'hidden',
+          maxWidth: '100vw',
+          maxHeight: '100vh',
         }}
       >
         <AnimatedLeaves />
         <Swiper
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 15000, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           loop
-          style={{ height: '100%' }}
+          style={{ 
+            height: '100%',
+            width: '100%',
+            overflow: 'hidden'
+          }}
+          wrapperStyle={{
+            height: '100%',
+            width: '100%',
+          }}
+          onSlideChange={(swiper) => {
+            setCurrentSlide(swiper.realIndex);
+          }}
         >
           {heroSlides.map((slide, index) => (
             <SwiperSlide key={index}>
@@ -113,9 +183,30 @@ const Home = () => {
                   display: 'flex',
                   justifyContent: { xs: 'center', md: 'flex-start' },
                   alignItems: 'center',
-                  background: index === 0 ? 'none' : `url(${slide.image}) center/cover no-repeat`,
+                  overflow: 'hidden',
+                  maxWidth: '100%',
                 }}
               >
+                {/* Responsive Background Image for all slides */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 0,
+                    backgroundImage: `url(${getResponsiveImageUrl(slide.image)})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center center',
+                    backgroundRepeat: 'no-repeat',
+                    width: '100%',
+                    height: '100%',
+                    minHeight: '100%',
+                    maxHeight: '100%',
+                  }}
+                />
+
                 {/* Gradient overlay for image contrast */}
                 <Box
                   sx={{
@@ -128,42 +219,22 @@ const Home = () => {
                     background: 'linear-gradient(90deg, rgba(34,43,69,0.55) 40%, rgba(33,150,83,0.25) 100%)',
                   }}
                 />
-                {index === 0 && (
-                  <img
-                    src={slide.image.replace('/upload/', '/upload/w_1200,h_600,c_fill/')}
-                    alt={slide.title}
-                    width="1200"
-                    height="600"
-                    fetchpriority="high"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      zIndex: 0,
-                    }}
-                  />
-                )}
                 <Box
                   sx={{
                     position: 'relative',
                     zIndex: 2,
-                    // background: 'rgba(255,255,255,0.10)',
                     backdropFilter: 'blur(1px)',
-                    // boxShadow: 3,
                     borderRadius: 3,
-                    padding: { xs: 2, sm: 4, md: 6 },
+                    padding: { xs: 3, sm: 4, md: 6 },
                     textAlign: { xs: 'center', md: 'left' },
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: { xs: 'center', md: 'flex-start' },
-                    maxWidth: { xs: '95%', sm: '80%', md: '45%' },
+                    maxWidth: { xs: '90%', sm: '80%', md: '45%' },
                     left: { xs: 0, md: 40 },
-                    minHeight: { xs: 180, sm: 220, md: 260 },
-                    maxHeight: { xs: 220, sm: 260, md: 300 },
+                    minHeight: { xs: 200, sm: 220, md: 260 },
+                    maxHeight: { xs: 280, sm: 300, md: 520 },
                   }}
                 >
                   <Typography
@@ -175,7 +246,9 @@ const Home = () => {
                       mb: 2,
                       letterSpacing: 1,
                       textShadow: '0 4px 24px rgba(0,0,0,0.5)',
-                      fontSize: { xs: '2rem', sm: '2.8rem', md: '3.5rem' },
+                      fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem', lg: '3.5rem' },
+                      lineHeight: { xs: 1.2, sm: 1.3, md: 1.4 },
+                      animation: index === currentSlide ? 'fadeIn 0.8s ease-in' : 'none',
                     }}
                   >
                     {slide.title}
@@ -188,21 +261,41 @@ const Home = () => {
                       mb: 3,
                       fontWeight: 400,
                       textShadow: '0 2px 12px rgba(0,0,0,0.3)',
-                      fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
+                      fontSize: { xs: '0.95rem', sm: '1.05rem', md: '1.15rem' },
                       lineHeight: 1.5,
-                      minHeight: { xs: 40, sm: 48, md: 56 },
+                      minHeight: { xs: 48, sm: 56, md: 64 },
                       transition: 'all 0.5s',
-                      maxHeight: { xs: 80, sm: 120, md: 160 },
+                      maxHeight: { xs: 96, sm: 120, md: 160 },
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
                       WebkitLineClamp: { xs: 3, sm: 4, md: 5 },
                       WebkitBoxOrient: 'vertical',
+                      position: 'relative',
+                      animation: imageSize === '600x300' ? 'fadeIn 0.8s ease-in' : 'none',
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        right: '-2px',
+                        top: '0',
+                        height: '100%',
+                        width: '2px',
+                        backgroundColor: 'white',
+                        animation: isTyping && imageSize !== '600x300' ? 'blink 1s infinite' : 'none',
+                        display: isTyping && imageSize !== '600x300' ? 'block' : 'none',
+                      },
                     }}
                   >
-                    {slide.tagline}
+                    {imageSize === '600x300' ? slide.tagline : (index === currentSlide ? displayedTagline : slide.tagline)}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: 2, 
+                    flexWrap: 'wrap', 
+                    justifyContent: 'center',
+                    width: '100%',
+                    mt: { xs: 1, sm: 2 }
+                  }}>
                     <Button
                       component={Link}
                       to="/products"
@@ -211,13 +304,14 @@ const Home = () => {
                       size="large"
                       sx={{
                         fontWeight: 700,
-                        px: 5,
-                        py: 1.5,
+                        px: { xs: 4, sm: 5 },
+                        py: { xs: 1.2, sm: 1.5 },
                         borderRadius: 3,
                         boxShadow: '0 2px 8px rgba(255,184,0,0.2)',
-                        fontSize: { xs: '1rem', sm: '1.2rem' },
+                        fontSize: { xs: '0.9rem', sm: '1rem', md: '1.2rem' },
                         textTransform: 'uppercase',
                         transition: 'all 0.3s',
+                        minWidth: { xs: '140px', sm: '160px' },
                         '&:hover': {
                           backgroundColor: 'primary.main',
                           color: 'white',
@@ -230,15 +324,54 @@ const Home = () => {
                   </Box>
                 </Box>
                 {/* Scroll Down Indicator */}
-                <Box sx={{ position: 'absolute', left: 0, right: 0, bottom: 24, display: 'flex', justifyContent: 'center', zIndex: 3 }}>
-                  <KeyboardArrowDownIcon sx={{ fontSize: 48, color: 'white', opacity: 0.7, animation: 'bounce 2s infinite' }} />
+                <Box sx={{ 
+                  position: 'absolute', 
+                  left: 0, 
+                  right: 0, 
+                  bottom: { xs: 16, sm: 24 }, 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  zIndex: 3 
+                }}>
+                  <KeyboardArrowDownIcon sx={{ 
+                    fontSize: { xs: 36, sm: 48 }, 
+                    color: 'white', 
+                    opacity: 0.7, 
+                    animation: 'bounce 2s infinite' 
+                  }} />
                 </Box>
                 <style>{`
                   @keyframes bounce {
                     0%, 100% { transform: translateY(0); }
                     50% { transform: translateY(12px); }
                   }
+                  @keyframes blink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                  }
+                  @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                  }
                 `}</style>
+                {/* Debug indicator - remove in production */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 10,
+                    right: 10,
+                    zIndex: 10,
+                    bgcolor: 'rgba(0,0,0,0.7)',
+                    color: 'white',
+                    px: 1,
+                    py: 0.5,
+                    borderRadius: 1,
+                    fontSize: '0.75rem',
+                    display: { xs: 'block', md: 'none' }, // Only show on mobile for debugging
+                  }}
+                >
+                  {imageSize}
+                </Box>
               </Box>
             </SwiperSlide>
           ))}

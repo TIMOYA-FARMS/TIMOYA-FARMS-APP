@@ -44,12 +44,10 @@ const Orders = () => {
         res = await axios.get(`${baseUrl}/orders`);
       }
       
-      console.log('Raw admin orders response:', res.data);
       let orders = res.data.orders || res.data;
       
       // Normalize: ensure id, totalPrice, and createdAt are present and correct
       orders = orders.map(o => {
-        console.log('Processing order:', o);
         const normalized = {
           ...o,
           // Ensure we have a valid ID
@@ -69,11 +67,8 @@ const Orders = () => {
             price: Number(item.price || 0)
           })) : []
         };
-        console.log('Normalized order:', normalized);
         return normalized;
       });
-      
-      console.log('Final orders array:', orders);
       
       // Ensure we have a valid array
       if (!Array.isArray(orders)) {
