@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Card, CardMedia, Button, CircularProgress, Alert } from '@mui/material';
+import { Box, Typography, Grid, Card, CardMedia, Button, CircularProgress, Alert, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getGallery } from '../Store/galleryApi';
 
@@ -9,6 +9,9 @@ const HomeGalleryPreview = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -33,6 +36,15 @@ const HomeGalleryPreview = () => {
     fetchImages();
   }, []);
 
+  const handleOpenLightbox = (img) => {
+    setLightboxImg(img);
+    setLightboxOpen(true);
+  };
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxImg(null);
+  };
+
   return (
     <Box sx={{ py: 6, px: { xs: 2, md: 8 }, backgroundColor: '#fff' }}>
       <Typography variant="h4" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
@@ -48,7 +60,7 @@ const HomeGalleryPreview = () => {
         <Grid container spacing={2} justifyContent="center" alignItems="stretch">
           {images.map((img, idx) => (
             <Grid item xs={6} sm={3} key={img._id || idx}>
-              <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: heights[idx % heights.length], position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 } }}>
+              <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: heights[idx % heights.length], position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 }, cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
                 <CardMedia
                   component="img"
                   height={heights[idx % heights.length]}
@@ -68,6 +80,30 @@ const HomeGalleryPreview = () => {
           ))}
         </Grid>
       )}
+      {/* Lightbox Modal */}
+      <Dialog open={lightboxOpen} onClose={handleCloseLightbox} maxWidth="md" fullWidth>
+        <DialogTitle>{lightboxImg?.title || 'Gallery Image'}</DialogTitle>
+        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 0 }}>
+          {lightboxImg && (
+            <img
+              src={lightboxImg.url}
+              alt={lightboxImg.title || 'Gallery Image'}
+              style={{
+                width: '100%',
+                maxWidth: '900px',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: 8,
+                margin: 'auto',
+                display: 'block',
+              }}
+            />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseLightbox} color="primary" variant="outlined">Close</Button>
+        </DialogActions>
+      </Dialog>
       <Box sx={{ textAlign: 'center', mt: 4 }}>
         <Button component={Link} to="/gallery" variant="contained" color="secondary" size="large" sx={{ fontWeight: 'bold', px: 6, py: 1.5, borderRadius: 3, letterSpacing: 1, boxShadow: 2, textTransform: 'uppercase' }}>
           View Full Gallery

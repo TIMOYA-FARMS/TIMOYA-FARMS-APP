@@ -45,7 +45,7 @@ const Blog = () => {
     setModalBlog(null);
     try {
       const res = await getBlog(blogId);
-      setModalBlog(res.data);
+      setModalBlog(res.data.blog || res.data);
     } catch (err) {
       setModalError('Failed to load blog post.');
     } finally {
@@ -106,7 +106,7 @@ const Blog = () => {
         <Breadcrumb links={breadcrumbLinks} />
       </Box>
 
-      <Grid container spacing={4} justifyContent="center" sx={{mt: 4}}>
+      <Grid container spacing={12} justifyContent="center" sx={{mt: 4}}>
         {/* Main Blog Section */}
         <Grid item xs={12} md={8}>
           {loading ? (
@@ -123,7 +123,7 @@ const Blog = () => {
                   display: 'flex',
                   alignItems: 'stretch',
                   mb: 3,
-                  boxShadow: 2,
+                  boxShadow: 0,
                   borderRadius: 3,
                   minHeight: 200,
                   background: '#fff',
@@ -140,7 +140,7 @@ const Blog = () => {
                     image={post.imageUrl}
                     alt={post.title}
                     loading="lazy"
-                    sx={{ width: 180, height: 180, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
+                    sx={{ width: 190, height: 180, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
                   />
                 )}
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2 }}>
@@ -153,7 +153,7 @@ const Blog = () => {
                     </Typography>
                     <Typography
                       variant="h6"
-                      sx={{ mt: 1, fontWeight: 'bold', color: 'primary.main', mb: 1 }}
+                      sx={{ mt: 1, fontWeight: 'bold', color: 'orange', mb: 1 }}
                     >
                       {post.title}
                     </Typography>
@@ -188,28 +188,28 @@ const Blog = () => {
         {/* Sidebar */}
         <Grid item xs={12} md={4}>
           {/* Search Blog */}
-          <Box sx={{ mb: 4, boxShadow: 2, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
+          <Box sx={{ mb: 4, boxShadow: 0, p: 4, backgroundColor: '#ffff', borderRadius: 2 }}>
+            {/* <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
               Search Blog
-            </Typography>
+            </Typography> */}
             <TextField
-              fullWidth
+              fullWidth: true
               placeholder="Search..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              sx={{ mt: 2 }}
+              sx={{ mt: 0 }}
             />
           </Box>
 
           {/* Recent Blogs */}
-          <Box sx={{ mb: 4, boxShadow: 2, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
+          <Box sx={{ mb: 4, boxShadow: 1, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.light', mb: 2 }}>
               Recent Blogs
             </Typography>
             <List>
               {blogs.slice(0, 5).map((blog, index) => (
                 <ListItem key={blog._id || index} button component="a" href={"/blog/" + (blog._id || index)} sx={{ borderRadius: 1, mb: 1, '&:hover': { background: '#f0f4f8' } }}>
-                  <ListItemText
+                  <ListItemText sx={{ color: 'orange' }}
                     primary={blog.title}
                     secondary={blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
                   />
@@ -221,7 +221,7 @@ const Blog = () => {
       </Grid>
 
       {/* Newsletter Subscription */}
-      <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 2, borderRadius: 3, maxWidth: 700, mx: 'auto' }}>
+      <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 0, borderRadius: 3, maxWidth: '100%', mx: 'auto' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
           Subscribe to Our Newsletter
         </Typography>
@@ -256,7 +256,7 @@ const Blog = () => {
             <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
           ) : modalError ? (
             <Alert severity="error">{modalError}</Alert>
-          ) : modalBlog && (
+          ) : modalBlog && (modalBlog.content || modalBlog.imageUrl) ? (
             <Box>
               {modalBlog.imageUrl && (
                 <Box sx={{ mb: 3, textAlign: 'center' }}>
@@ -270,6 +270,10 @@ const Blog = () => {
                 {modalBlog.content}
               </Typography>
             </Box>
+          ) : (
+            <Typography align="center" sx={{ color: 'text.secondary', my: 4 }}>
+              No content found for this blog post.
+            </Typography>
           )}
         </DialogContent>
       </Dialog>

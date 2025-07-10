@@ -7,7 +7,7 @@ const ProductList = (props) => {
         <Box sx={{ mb: 2 }}>
             <Grid
                 container
-                spacing={2}
+                spacing={8}
                 sx={{
                     justifyContent: 'center',
                     alignItems: 'stretch',

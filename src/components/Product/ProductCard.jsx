@@ -8,14 +8,14 @@ const ProductCard = (props) => {
             maxWidth: 345,
             mt: 5,
             borderRadius: 4,
-            boxShadow: 6,
+            boxShadow: 4,
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
             transition: 'transform 0.2s, box-shadow 0.2s',
             '&:hover': {
                 transform: 'translateY(-4px) scale(1.03)',
-                boxShadow: 12,
+                boxShadow: 6,
                 borderColor: 'primary.main',
             },
         }}>

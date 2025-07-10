@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Card, CardMedia, CircularProgress, Alert } from '@mui/material';
+import { Box, Typography, Grid, Card, CardMedia, CircularProgress, Alert, Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import GalleryBanner from '../components/Banner/GalleryBanner';
 import { getGallery } from '../Store/galleryApi';
@@ -8,6 +8,9 @@ const Gallery = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -31,6 +34,15 @@ const Gallery = () => {
     };
     fetchImages();
   }, []);
+
+  const handleOpenLightbox = (img) => {
+    setLightboxImg(img);
+    setLightboxOpen(true);
+  };
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxImg(null);
+  };
 
   return (
     <Box sx={{ backgroundColor: '#f9f9f9', minHeight: '100vh', py: 0 }}>
@@ -64,10 +76,10 @@ const Gallery = () => {
       ) : images.length === 0 ? (
         <Typography align="center" sx={{ color: 'text.secondary', mt: 4 }}>No images found.</Typography>
       ) : (
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={3} justifyContent="center" sx={{mb: 2}}>
           {images.map((img, idx) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={img._id || idx}>
-              <Card sx={{ boxShadow: 3, borderRadius: 3, overflow: 'hidden', height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Card sx={{ boxShadow: 3, borderRadius: 3, overflow: 'hidden', height: 280, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
                 <CardMedia
                   component="img"
                   height={250}
@@ -88,6 +100,30 @@ const Gallery = () => {
           ))}
         </Grid>
       )}
+      {/* Lightbox Modal */}
+      <Dialog open={lightboxOpen} onClose={handleCloseLightbox} maxWidth="md" fullWidth>
+        <DialogTitle>{lightboxImg?.title || 'Gallery Image'}</DialogTitle>
+        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 0 }}>
+          {lightboxImg && (
+            <img
+              src={lightboxImg.url}
+              alt={lightboxImg.title || 'Gallery Image'}
+              style={{
+                width: '100%',
+                maxWidth: '900px',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: 8,
+                margin: 'auto',
+                display: 'block',
+              }}
+            />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseLightbox} color="primary" variant="outlined">Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

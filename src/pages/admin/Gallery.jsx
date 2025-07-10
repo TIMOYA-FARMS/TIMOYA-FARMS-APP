@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Paper, Button, TextField, CircularProgress, IconButton, Snackbar, Alert } from '@mui/material';
+import { Box, Typography, Grid, Paper, Button, TextField, CircularProgress, IconButton, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { getGallery, addGalleryImage, deleteGalleryImage } from '../../Store/galleryApi';
 import { useAuth } from '../../contexts/AuthContext';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 
 const AdminGallery = () => {
@@ -21,6 +17,9 @@ const AdminGallery = () => {
   const [title, setTitle] = useState('');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState(null);
+  // Lightbox state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState(null);
 
   const fetchGallery = async () => {
     setLoading(true);
@@ -97,10 +96,20 @@ const AdminGallery = () => {
     setDeleteTargetId(null);
   };
 
+  // Lightbox handlers
+  const handleOpenLightbox = (img) => {
+    setLightboxImg(img);
+    setLightboxOpen(true);
+  };
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false);
+    setLightboxImg(null);
+  };
+
   return (
     <Box sx={{ maxWidth: 1100, mx: 'auto', mt: 4, p: 2 }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: 'primary.main' }}>Admin Gallery Management</Typography>
-      <Paper sx={{ p: 3, mb: 4, borderRadius: 3 }}>
+      <Paper sx={{ p: 3, mb: 4, borderRadius: 4 }}>
         <form onSubmit={handleUpload} style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
           <Button
             variant="contained"
@@ -133,18 +142,18 @@ const AdminGallery = () => {
       {success && <Snackbar open autoHideDuration={3000} onClose={() => setSuccess('')} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={() => setSuccess('')} severity="success" sx={{ width: '100%' }}>{success}</Alert>
       </Snackbar>}
-      <Paper sx={{ p: 3, borderRadius: 3 }}>
+      <Paper sx={{ p: 2,  backgroundColor: 'inherit' }} elevation={0}>
         <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>Gallery Images</Typography>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
         ) : Array.isArray(gallery) && gallery.length > 0 ? (
-          <Grid container spacing={3}>
+          <Grid container spacing={8} justifyContent="center">
             {gallery.map(img => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={img._id}>
-                <Paper sx={{ p: 2, borderRadius: 2, position: 'relative', height: 320, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                  <img src={img.url} alt={img.title || 'Gallery Image'} style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 8, marginBottom: 12 }} />
+                <Paper sx={{ p: 2, borderRadius: 2, position: 'relative', height: 320, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
+                  <img src={img.url} alt={img.title || 'Gallery Image'} style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 8, marginBottom: 12, }} />
                   <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, textAlign: 'center' }}>{img.title || 'Untitled'}</Typography>
-                  <IconButton aria-label="delete" color="error" onClick={() => handleDeleteClick(img._id)} sx={{ position: 'absolute', top: 8, right: 8 }}>
+                  <IconButton aria-label="delete" color="error" onClick={e => { e.stopPropagation(); handleDeleteClick(img._id); }} sx={{ position: 'absolute', top: 22, right: 8 }}>
                     <DeleteIcon />
                   </IconButton>
                   <Typography variant="caption" sx={{ mt: 1, color: 'text.secondary' }}>Uploaded: {new Date(img.createdAt).toLocaleString()}</Typography>
@@ -156,6 +165,30 @@ const AdminGallery = () => {
           <Typography>No images found.</Typography>
         )}
       </Paper>
+      {/* Lightbox Modal */}
+      <Dialog open={lightboxOpen} onClose={handleCloseLightbox} maxWidth="md" fullWidth>
+        <DialogTitle>{lightboxImg?.title || 'Gallery Image'}</DialogTitle>
+        <DialogContent sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', p: 0 }}>
+          {lightboxImg && (
+            <img
+              src={lightboxImg.url}
+              alt={lightboxImg.title || 'Gallery Image'}
+              style={{
+                width: '100%',
+                maxWidth: '900px',
+                maxHeight: '80vh',
+                objectFit: 'contain',
+                borderRadius: 8,
+                margin: 'auto',
+                display: 'block',
+              }}
+            />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseLightbox} color="primary" variant="outlined">Close</Button>
+        </DialogActions>
+      </Dialog>
       <Dialog
         open={deleteDialogOpen}
         onClose={handleDeleteCancel}

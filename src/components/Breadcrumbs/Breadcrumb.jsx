@@ -9,11 +9,12 @@ const Breadcrumb = ({ links }) => {
   return (
     <Box
       sx={{
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        // backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: 'inherit',
         borderRadius: 2,
         px: 2,
         py: 1,
-        boxShadow: 1,
+        boxShadow: 0,
         mt: isSmallScreen ? 2 : 0,
         position: isSmallScreen ? 'static' : 'absolute',
         top: !isSmallScreen ? 16 : 'auto',

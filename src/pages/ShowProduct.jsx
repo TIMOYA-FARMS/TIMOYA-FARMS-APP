@@ -48,8 +48,8 @@ const ShowProduct = () => {
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        mt: { xs: 2, md: 3 },
-                        mb: { xs: 2, md: 4 },
+                        pt: { xs: 2, md: 6 },
+                        mb: { xs: 2, md: 3 },
                         width: '100%',
                     }}
                 >
@@ -62,7 +62,7 @@ const ShowProduct = () => {
                     />
                 </Box>
             </Box>
-            <Card sx={{ maxWidth: 350, margin: 'auto', mt: 5, p: 2 }}>
+            <Card sx={{ maxWidth: 450, margin: 'auto', mt: 5, mb: 2, p: 2 }}>
                 <CardMedia
                     component="img"
                     height="350"

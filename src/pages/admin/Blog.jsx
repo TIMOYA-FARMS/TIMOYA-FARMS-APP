@@ -118,7 +118,7 @@ const AdminBlog = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 900, mx: 'auto', mt: 4, p: { xs: 1, sm: 2 } }}>
+    <Box sx={{ maxWidth: 800, mx: 'auto', mt: 4, p: { xs: 1, sm: 2 } }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3, color: 'primary.main', textAlign: 'center' }}>Admin Blog Management</Typography>
       <Paper sx={{ p: 3, mb: 4, borderRadius: 3, boxShadow: 4 }}>
         <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -128,7 +128,7 @@ const AdminBlog = () => {
             value={title}
             onChange={e => setTitle(e.target.value)}
             required
-            sx={{ mb: 2 }}
+            sx={{ mb: 2, width: '50%' }}
           />
           <TextField
             label="Content"
@@ -163,8 +163,8 @@ const AdminBlog = () => {
       {success && <Snackbar open autoHideDuration={3000} onClose={() => setSuccess('')} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
         <Alert onClose={() => setSuccess('')} severity="success" sx={{ width: '100%' }}>{success}</Alert>
       </Snackbar>}
-      <Paper sx={{ p: 3, borderRadius: 3, boxShadow: 3 }}>
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>All Blogs</Typography>
+      <Paper sx={{ p: 3, backgroundColor: 'inherit' }} elevation={0}>
+        <Typography variant="h6" sx={{ color: 'primary.light', mb: 2, fontWeight: 'bold' }}>All Blogs</Typography>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
         ) : blogs.length === 0 ? (
@@ -181,7 +181,7 @@ const AdminBlog = () => {
                   )}
                   <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>{blog.title}</Typography>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, textDecoration: 'none' }}>{blog.title}</Typography>
                       <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1, minHeight: 48 }}>{blog.content?.slice(0, 120)}...</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 2 }}>
