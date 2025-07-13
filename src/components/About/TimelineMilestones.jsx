@@ -22,7 +22,7 @@ const milestones = [
     gradient: 'linear-gradient(135deg, #f39c12 0%, #f1c40f 100%)',
   },
   {
-    year: '2022',
+    year: '2023',
     label: 'Parboiling Innovation',
     desc: 'Developed and implemented a circular parboiling system, reducing processing time and improving rice quality.',
     icon: <AutorenewIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
