@@ -42,8 +42,8 @@ const About = () => {
         </Box>
       </Box>
       <MissionVisionValues />
-      <ByTheNumbers />
       <OurStory />
+      <ByTheNumbers />
       <TimelineMilestones />
       <SustainabilityImpact />
       {/* Only show CertificationsAwards if real content exists */}

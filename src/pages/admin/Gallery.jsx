@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Grid, Paper, Button, TextField, CircularProgress, IconButton, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText } from '@mui/material';
+import { Box, Typography, Grid, Paper, Button, TextField, CircularProgress, IconButton, Snackbar, Alert, Dialog, DialogTitle, DialogContent, DialogContentText, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { getGallery, addGalleryImage, deleteGalleryImage } from '../../Store/galleryApi';
+import { getAllCategories } from '../../Store/categoryApi';
 import { useAuth } from '../../contexts/AuthContext';
 import DialogActions from '@mui/material/DialogActions';
 
 const AdminGallery = () => {
   const { token } = useAuth();
   const [gallery, setGallery] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState(null);
   // Lightbox state
@@ -40,8 +43,25 @@ const AdminGallery = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const res = await getAllCategories();
+      if (Array.isArray(res.data)) {
+        setCategories(res.data.filter(cat => cat.isActive !== false));
+      } else if (Array.isArray(res.data.categories)) {
+        setCategories(res.data.categories.filter(cat => cat.isActive !== false));
+      } else {
+        setCategories([]);
+      }
+    } catch (err) {
+      console.error('Failed to load categories:', err);
+      setCategories([]);
+    }
+  };
+
   useEffect(() => {
     fetchGallery();
+    fetchCategories();
   }, []);
 
   const handleImageChange = (e) => {
@@ -57,10 +77,11 @@ const AdminGallery = () => {
     setUploading(true);
     setError('');
     try {
-      await addGalleryImage({ image, title, token });
+      await addGalleryImage({ image, title, category, token });
       setSuccess('Image uploaded successfully!');
       setImage(null);
       setTitle('');
+      setCategory('');
       fetchGallery();
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to upload image.');
@@ -126,6 +147,23 @@ const AdminGallery = () => {
             onChange={e => setTitle(e.target.value)}
             sx={{ minWidth: 200, mr: 2 }}
           />
+          <FormControl sx={{ minWidth: 200, mr: 2 }}>
+            <InputLabel>Category (optional)</InputLabel>
+            <Select
+              value={category}
+              label="Category (optional)"
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <MenuItem value="">
+                <em>No Category</em>
+              </MenuItem>
+              {categories.map((cat) => (
+                <MenuItem key={cat._id} value={cat._id}>
+                  {cat.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Button
             type="submit"
             variant="contained"
@@ -147,13 +185,18 @@ const AdminGallery = () => {
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
         ) : Array.isArray(gallery) && gallery.length > 0 ? (
-          <Grid container spacing={8} justifyContent="center">
+          <Grid container spacing={3}>
             {gallery.map(img => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={img._id}>
                 <Paper sx={{ p: 2, borderRadius: 2, position: 'relative', height: 320, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
-                  <img src={img.url} alt={img.title || 'Gallery Image'} style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 8, marginBottom: 12, }} />
+                  <img src={img.url} alt={img.title || 'Gallery Image'} style={{ maxWidth: '100%', maxHeight: 180, borderRadius: 8, marginBottom: 12 }} />
                   <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1, textAlign: 'center' }}>{img.title || 'Untitled'}</Typography>
-                  <IconButton aria-label="delete" color="error" onClick={e => { e.stopPropagation(); handleDeleteClick(img._id); }} sx={{ position: 'absolute', top: 22, right: 8 }}>
+                  {img.category && (
+                    <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 500, mb: 1 }}>
+                      {categories.find(cat => cat._id === img.category)?.name || 'Category'}
+                    </Typography>
+                  )}
+                  <IconButton aria-label="delete" color="error" onClick={e => { e.stopPropagation(); handleDeleteClick(img._id); }} sx={{ position: 'absolute', top: 8, right: 8 }}>
                     <DeleteIcon />
                   </IconButton>
                   <Typography variant="caption" sx={{ mt: 1, color: 'text.secondary' }}>Uploaded: {new Date(img.createdAt).toLocaleString()}</Typography>

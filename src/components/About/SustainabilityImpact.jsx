@@ -60,7 +60,7 @@ const SustainabilityImpact = () => {
               height: '100%', 
               cursor: 'pointer', 
               transition: 'all 0.3s ease',
-              boxShadow: openIdx === idx ? 12 : 4,
+              boxShadow: openIdx === idx ? 8 : 2,
               background: impact.gradient,
               color: 'white',
               position: 'relative',

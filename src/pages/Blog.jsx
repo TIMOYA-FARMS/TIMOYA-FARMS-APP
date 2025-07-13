@@ -15,7 +15,8 @@ import {
   Icon,
   Paper,
   CircularProgress,
-  Alert
+  Alert,
+  InputAdornment
 } from '@mui/material';
 import BlogBanner from '../components/Banner/BlogBanner';
 import HomeIcon from '@mui/icons-material/Home';
@@ -27,6 +28,7 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { getBlog } from '../Store/blogApi';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -81,9 +83,16 @@ const Blog = () => {
     fetchBlogs();
   }, []);
 
-  const filteredBlogs = blogs.filter(blog =>
-    blog.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredBlogs = blogs
+    .filter(blog =>
+      blog.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const showSidebar = search.trim() === '';
+  const recentBlogs = [...blogs]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3);
 
   const breadcrumbLinks = [
     {href: '/', label: 'Home', icon: <HomeIcon sx={{mr:0.5}} fontSize='small' />},
@@ -91,7 +100,7 @@ const Blog = () => {
   ];
 
   return (
-    <Box sx={{ background: '#f9f9f9', minHeight: '100vh', position: 'relative', }}>
+    <Box sx={{ background: '#f9f9f9', minHeight: '100vh', position: 'relative' }}>
       <BlogBanner />
       <Box
         sx={{
@@ -105,121 +114,132 @@ const Blog = () => {
       >
         <Breadcrumb links={breadcrumbLinks} />
       </Box>
-
-      <Grid container spacing={12} justifyContent="center" sx={{mt: 4}}>
-        {/* Main Blog Section */}
-        <Grid item xs={12} md={8}>
-          {loading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
-          ) : error ? (
-            <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
-          ) : filteredBlogs.length === 0 ? (
-            <Typography align="center" sx={{ color: 'text.secondary', mt: 4 }}>No blogs found.</Typography>
-          ) : (
-            filteredBlogs.map((post, index) => (
-              <Card
-                key={post._id || index}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'stretch',
-                  mb: 3,
-                  boxShadow: 0,
-                  borderRadius: 3,
-                  minHeight: 200,
-                  background: '#fff',
-                  transition: 'transform 0.3s, box-shadow 0.3s',
-                  '&:hover': {
-                    transform: 'scale(1.015)',
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                {post.imageUrl && (
-                  <CardMedia
-                    component="img"
-                    image={post.imageUrl}
-                    alt={post.title}
-                    loading="lazy"
-                    sx={{ width: 190, height: 180, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
-                  />
-                )}
-                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2 }}>
-                  <Box>
-                    <Typography
-                      variant="caption"
-                      sx={{ color: '#888', fontStyle: 'italic' }}
+      <Box sx={{ maxWidth: 1100, mx: 'auto', px: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+          <TextField
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Search blogs..."
+            variant="outlined"
+            size="small"
+            sx={{ width: { xs: '100%', sm: 400 } }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} md={showSidebar ? 8 : 12}>
+            {loading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
+            ) : error ? (
+              <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
+            ) : filteredBlogs.length === 0 ? (
+              <Typography align="center" sx={{ color: 'text.secondary', mt: 4 }}>No blogs found.</Typography>
+            ) : (
+              filteredBlogs.map((post, index) => (
+                <Card
+                  key={post._id || index}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'stretch',
+                    mb: 3,
+                    boxShadow: 0,
+                    borderRadius: 3,
+                    minHeight: 200,
+                    background: '#fff',
+                    transition: 'transform 0.3s, box-shadow 0.3s',
+                    '&:hover': {
+                      transform: 'scale(1.015)',
+                      boxShadow: 4,
+                    },
+                  }}
+                >
+                  {post.imageUrl && (
+                    <CardMedia
+                      component="img"
+                      image={post.imageUrl}
+                      alt={post.title}
+                      loading="lazy"
+                      sx={{ width: 190, height: 180, objectFit: 'cover', borderRadius: '12px 0 0 12px' }}
+                    />
+                  )}
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2 }}>
+                    <Box>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: '#888', fontStyle: 'italic' }}
+                      >
+                        {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''} • {post.author?.name || post.author?.firstName || 'Admin'}
+                      </Typography>
+                      <Typography
+                        variant="h6"
+                        sx={{ mt: 1, fontWeight: 'bold', color: 'orange', mb: 1 }}
+                      >
+                        {post.title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ mt: 1, textAlign: 'justify', color: '#555', minHeight: 48 }}
+                      >
+                        {post.content?.slice(0, 180) || post.description}
+                      </Typography>
+                    </Box>
+                    <Button
+                      variant="outlined"
+                      sx={{
+                        mt: 2,
+                        color: 'primary.main',
+                        borderColor: 'primary.main',
+                        textTransform: 'uppercase',
+                        fontWeight: 'bold',
+                        alignSelf: 'flex-start',
+                        '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
+                      }}
+                      onClick={() => handleOpenModal(post._id)}
                     >
-                      {post.createdAt ? new Date(post.createdAt).toLocaleDateString() : ''} • {post.author?.name || post.author?.firstName || 'Admin'}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      sx={{ mt: 1, fontWeight: 'bold', color: 'orange', mb: 1 }}
-                    >
-                      {post.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      sx={{ mt: 1, textAlign: 'justify', color: '#555', minHeight: 48 }}
-                    >
-                      {post.content?.slice(0, 180) || post.description}
-                    </Typography>
-                  </Box>
-                  <Button
-                    variant="outlined"
-                    sx={{
-                      mt: 2,
-                      color: 'primary.main',
-                      borderColor: 'primary.main',
-                      textTransform: 'uppercase',
-                      fontWeight: 'bold',
-                      alignSelf: 'flex-start',
-                      '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
-                    }}
-                    onClick={() => handleOpenModal(post._id)}
-                  >
-                    Read More
-                  </Button>
-                </CardContent>
-              </Card>
-            ))
+                      Read More
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </Grid>
+          {showSidebar && (
+            <Grid item xs={12} md={4}>
+              {/* Enhanced Recent Blogs */}
+              <Box sx={{ mb: 4, boxShadow: 1, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.light', mb: 2 }}>
+                  Recent Blogs
+                </Typography>
+                <List>
+                  {recentBlogs.map((blog, index) => (
+                    <ListItem key={blog._id || index} alignItems="flex-start" sx={{ borderRadius: 1, mb: 2, p: 0 }}>
+                      {blog.imageUrl && (
+                        <Box sx={{ minWidth: 60, minHeight: 60, maxWidth: 60, maxHeight: 60, mr: 2, borderRadius: 1, overflow: 'hidden', boxShadow: 1 }}>
+                          <img src={blog.imageUrl} alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
+                        </Box>
+                      )}
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 0.5, lineHeight: 1.2 }}>
+                          {blog.title}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                          {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
+                        </Typography>
+                      </Box>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            </Grid>
           )}
         </Grid>
-
-        {/* Sidebar */}
-        <Grid item xs={12} md={4}>
-          {/* Search Blog */}
-          <Box sx={{ mb: 4, boxShadow: 0, p: 4, backgroundColor: '#ffff', borderRadius: 2 }}>
-            {/* <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
-              Search Blog
-            </Typography> */}
-            <TextField
-              fullWidth: true
-              placeholder="Search..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              sx={{ mt: 0 }}
-            />
-          </Box>
-
-          {/* Recent Blogs */}
-          <Box sx={{ mb: 4, boxShadow: 1, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.light', mb: 2 }}>
-              Recent Blogs
-            </Typography>
-            <List>
-              {blogs.slice(0, 5).map((blog, index) => (
-                <ListItem key={blog._id || index} button component="a" href={"/blog/" + (blog._id || index)} sx={{ borderRadius: 1, mb: 1, '&:hover': { background: '#f0f4f8' } }}>
-                  <ListItemText sx={{ color: 'orange' }}
-                    primary={blog.title}
-                    secondary={blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Grid>
-      </Grid>
-
+      </Box>
       {/* Newsletter Subscription */}
       <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 0, borderRadius: 3, maxWidth: '100%', mx: 'auto' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>

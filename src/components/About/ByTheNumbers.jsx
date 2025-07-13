@@ -8,7 +8,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 const stats = [
   {
     label: 'Farmers Supported',
-    value: 100,
+    value: 1000,
     suffix: '+',
     icon: <GroupsIcon sx={{ fontSize: 48, color: 'white' }} />,
     gradient: 'linear-gradient(135deg, #219653 0%, #27ae60 100%)',
@@ -22,14 +22,14 @@ const stats = [
   },
   {
     label: 'Processing Facilities',
-    value: 2,
+    value: 1,
     suffix: '',
     icon: <RiceBowlIcon sx={{ fontSize: 48, color: 'white' }} />,
     gradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
   },
   {
     label: 'Years in Business',
-    value: 4,
+    value: 3,
     suffix: '+',
     icon: <CalendarMonthIcon sx={{ fontSize: 48, color: 'white' }} />,
     gradient: 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)',
@@ -67,7 +67,7 @@ const ByTheNumbers = () => (
       By the Numbers
     </Typography>
     <Box sx={{ maxWidth: 1200, mx: 'auto' }}>
-      <Grid container spacing={2} justifyContent="center">
+      <Grid container spacing={8} justifyContent="center">
         {stats.map((stat, idx) => (
           <Grid item xs={6} lg={3} md={3} key={idx}>
             <Paper 
@@ -75,7 +75,7 @@ const ByTheNumbers = () => (
                 p: 3, 
                 borderRadius: 4, 
                 textAlign: 'center', 
-                boxShadow: 8, 
+                boxShadow: 2, 
                 background: stat.gradient,
                 color: 'white',
                 position: 'relative',

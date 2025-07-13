@@ -27,6 +27,7 @@ import CustomerDashboard from './pages/dashboard/CustomerDashboard'
 import FarmerDashboard from './pages/dashboard/FarmerDashboard'
 import AdminGallery from './pages/admin/Gallery';
 import AdminBlog from './pages/admin/Blog';
+import Categories from './pages/admin/Categories';
 import ShowBlog from './pages/ShowBlog';
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path='admin/farmers' element={<Farmers />} />
           <Route path='admin/gallery' element={<AdminGallery />} />
           <Route path='admin/blog' element={<AdminBlog />} />
+          <Route path='admin/categories' element={<Categories />} />
           <Route path='customer' >
             <Route index element={<CustomerDashboard />} />
             <Route path='orders' element={<Orders />} />

@@ -58,26 +58,33 @@ const HomeGalleryPreview = () => {
         <Typography align="center" sx={{ color: 'text.secondary', mt: 2 }}>No images found.</Typography>
       ) : (
         <Grid container spacing={2} justifyContent="center" alignItems="stretch">
-          {images.map((img, idx) => (
-            <Grid item xs={6} sm={3} key={img._id || idx}>
-              <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: heights[idx % heights.length], position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 }, cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
-                <CardMedia
-                  component="img"
-                  height={heights[idx % heights.length]}
-                  image={img.url.replace('/upload/', `/upload/w_${heights[idx % heights.length]*2},h_${heights[idx % heights.length]},c_fill,f_webp/`)}
-                  srcSet={`
-                    ${img.url.replace('/upload/', `/upload/w_${heights[idx % heights.length]},h_${heights[idx % heights.length]},c_fill,f_webp/`)} ${heights[idx % heights.length]}w,
-                    ${img.url.replace('/upload/', `/upload/w_${heights[idx % heights.length]*2},h_${heights[idx % heights.length]},c_fill,f_webp/`)} ${heights[idx % heights.length]*2}w
-                  `}
-                  sizes={`(max-width: 600px) ${heights[idx % heights.length]}px, ${heights[idx % heights.length]*2}px`}
-                  alt={img.title || `Gallery Preview ${idx + 1}`}
-                  loading="lazy"
-                  fetchpriority={idx === 0 ? 'high' : undefined}
-                  sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', '&:hover': { transform: 'scale(1.08)' } }}
-                />
-              </Card>
-            </Grid>
-          ))}
+          {images.map((img, idx) => {
+            const height = heights[idx % heights.length];
+            const width2x = height * 2;
+            const width3x = height * 3;
+            const height2x = height * 2;
+            
+            return (
+              <Grid item xs={6} sm={3} key={img._id || idx}>
+                <Card sx={{ boxShadow: 2, borderRadius: 2, overflow: 'hidden', height: height, position: 'relative', transition: 'transform 0.25s, box-shadow 0.25s', '&:hover': { transform: 'scale(1.045)', boxShadow: 6 }, cursor: 'pointer' }} onClick={() => handleOpenLightbox(img)}>
+                  <CardMedia
+                    component="img"
+                    height={height}
+                    image={img.url.replace('/upload/', `/upload/w_${width3x},h_${height2x},c_fill,q_auto,f_auto/`)}
+                    srcSet={`
+                      ${img.url.replace('/upload/', `/upload/w_${width2x},h_${height},c_fill,q_auto,f_auto/`)} ${width2x}w,
+                      ${img.url.replace('/upload/', `/upload/w_${width3x},h_${height2x},c_fill,q_auto,f_auto/`)} ${width3x}w
+                    `}
+                    sizes={`(max-width: 600px) ${width2x}px, ${width3x}px`}
+                    alt={img.title || `Gallery Preview ${idx + 1}`}
+                    loading="lazy"
+                    fetchpriority={idx === 0 ? 'high' : undefined}
+                    sx={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s', '&:hover': { transform: 'scale(1.08)' } }}
+                  />
+                </Card>
+              </Grid>
+            );
+          })}
         </Grid>
       )}
       {/* Lightbox Modal */}

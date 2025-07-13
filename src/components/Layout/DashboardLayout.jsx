@@ -13,6 +13,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import ArticleIcon from '@mui/icons-material/Article';
+import CategoryIcon from '@mui/icons-material/Category';
 import { Link, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -24,6 +25,7 @@ const adminNav = [
   { label: 'Products', icon: <StoreIcon />, path: '/dashboard/admin/products' },
   { label: 'Orders', icon: <ShoppingBagIcon />, path: '/dashboard/admin/orders' },
   { label: 'Farmers', icon: <AgricultureIcon />, path: '/dashboard/admin/farmers' },
+  { label: 'Categories', icon: <CategoryIcon />, path: '/dashboard/admin/categories' },
   { label: 'Gallery', icon: <CloudUploadIcon />, path: '/dashboard/admin/gallery' },
   { label: 'Blog', icon: <ArticleIcon />, path: '/dashboard/admin/blog' },
 ];

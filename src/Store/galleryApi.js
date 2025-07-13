@@ -6,10 +6,11 @@ export async function getGallery() {
   return axios.get(`${baseUrl}/gallery`);
 }
 
-export async function addGalleryImage({ image, title, token }) {
+export async function addGalleryImage({ image, title, category, token }) {
   const formData = new FormData();
   formData.append('image', image);
   if (title) formData.append('title', title);
+  if (category) formData.append('category', category);
   return axios.post(`${baseUrl}/gallery`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

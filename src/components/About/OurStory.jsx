@@ -103,7 +103,7 @@ One of our key innovations includes a circular parboiling system designed to red
             </Typography>
           </Collapse>
           <Button
-            variant="text"
+            variant="outlined"
             onClick={() => setExpanded((prev) => !prev)}
             sx={{ mt: 2, textTransform: 'none', color: '#2c3e50', fontWeight: 600 }}
           >

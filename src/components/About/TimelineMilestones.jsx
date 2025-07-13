@@ -8,14 +8,14 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 const milestones = [
   {
-    year: '2020',
+    year: '2022',
     label: 'Timoya Farms Founded',
     desc: 'Timoya Farms is established with a mission to empower local rice farmers and deliver quality rice to consumers.',
     icon: <FlagIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #219653 0%, #27ae60 100%)',
   },
   {
-    year: '2021',
+    year: '2022',
     label: 'Saboba Facility Launch',
     desc: 'Opened the Saboba processing facility, enabling local women to lead the parboiling process.',
     icon: <FactoryIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
@@ -23,7 +23,7 @@ const milestones = [
   },
   {
     year: '2022',
-    label: 'Circular Parboiling Innovation',
+    label: 'Parboiling Innovation',
     desc: 'Developed and implemented a circular parboiling system, reducing processing time and improving rice quality.',
     icon: <AutorenewIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',

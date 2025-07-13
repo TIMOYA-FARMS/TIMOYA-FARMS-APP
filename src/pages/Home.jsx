@@ -126,7 +126,7 @@ const Home = () => {
       tagline: `Aviella Rice! proudly cultivated by Ghana's smallholder farmers, bringing rich nutrition and local pride to our plate.`
     },
     {
-      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752066985/Hero_goldenRice_2_a5qvnt.jpg',
+      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752391017/processing_machine_ibuugb.jpg',
       title: 'Parboiled to Perfection',
       tagline: 'Enjoy wholesome, fluffy grains - carefully processed through our clean-energy system for maximum nutrition.'
     },
@@ -136,7 +136,7 @@ const Home = () => {
       tagline: 'Every purchase, supports smallholder farmers, local livelihoods, & sustainable agriculture in Ghana.'
     },
     {
-      image: 'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
+      image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752391017/Happy_Customers_lwmnkw.jpg',
       title: 'Happy Customers',
       tagline: 'Join our community of happy, healthy customers!'
     },
@@ -148,7 +148,7 @@ const Home = () => {
         sx={{
           position: 'relative',
           width: '100%',
-          height: { xs: '50vh', sm: '65vh', md: '80vh', lg: '90vh', xl: '90vh' },
+          height: { xs: '50vh', sm: '65vh', md: '80vh', lg: '90vh', xl: '95vh' },
           overflow: 'hidden',
           maxWidth: '100vw',
           maxHeight: '100vh',
@@ -198,7 +198,7 @@ const Home = () => {
                     zIndex: 0,
                     backgroundImage: `url(${getResponsiveImageUrl(slide.image)})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center center',
+                    backgroundPosition: 'center top',
                     backgroundRepeat: 'no-repeat',
                     width: '100%',
                     height: '100%',
