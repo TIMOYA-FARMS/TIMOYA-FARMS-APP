@@ -56,7 +56,7 @@ const Navbar = () => {
   const logoUrl = 'https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png';
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" sx={{ backgroundColor: '#fff', color: '#222', boxShadow: 2, zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ minHeight: 64, px: { xs: 1, sm: 2 } }}>
           {/* Mobile Menu Icon */}
@@ -77,7 +77,7 @@ const Navbar = () => {
               color="inherit"
               sx={{ p: 1 }}
             >
-              <MenuIcon />
+              <MenuIcon sx={{ color: 'primary.main' }} />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -99,7 +99,14 @@ const Navbar = () => {
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   <NavLink
                     to={page.path}
-                    style={{ textDecoration: "none", color: "inherit" }}
+                    style={({ isActive }) => ({
+                      textDecoration: "none",
+                      color: isActive ? '#219653' : '#222',
+                      fontWeight: 600,
+                      background: isActive ? 'rgba(33,150,83,0.08)' : 'none',
+                      borderRadius: 6,
+                      padding: '2px 8px',
+                    })}
                   >
                     <Typography textAlign="center">{page.name}</Typography>
                   </NavLink>
@@ -122,12 +129,12 @@ const Navbar = () => {
             to="/"
           >
             <Stack direction="row" spacing={2} alignItems="center" sx={{ py: 1 }}>
-              <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 48, height: 48, bgcolor: '#fff', border: '2px solid #FFD600' }} />
+              <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 54, height: 54, bgcolor: '#fff', border: '2.5px solid #219653', boxShadow: 2 }} />
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#fff', letterSpacing: 1, lineHeight: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', letterSpacing: 1, lineHeight: 1 }}>
                   Timoya~Farms
                 </Typography>
-                <Typography variant="caption" sx={{ fontStyle: 'italic', color: '#FFD600', lineHeight: 1 }}>
+                <Typography variant="caption" sx={{ fontStyle: 'italic', color: 'secondary.main', lineHeight: 1 }}>
                   Local. Natural. Sustainable
                 </Typography>
               </Box>
@@ -142,10 +149,10 @@ const Navbar = () => {
               flexGrow: 1,
               alignItems: "center",
               mx: 2,
-              gap: 2,
+              gap: 0,
               borderRightStyle: "solid",
               borderRightWidth: 1,
-              borderRightColor: "white",
+              borderRightColor: "#e0e0e0",
               pr: 2,
             }}
           >
@@ -155,12 +162,17 @@ const Navbar = () => {
                 to={page.path}
                 style={({ isActive }) => ({
                   textDecoration: "none",
-                  color: isActive ? "yellow" : "white",
+                  color: isActive ? '#219653' : '#222',
+                  fontWeight: 700,
+                  background: isActive ? 'rgba(33,150,83,0.08)' : 'none',
+                  borderRadius: 6,
+                  padding: '4px 16px',
+                  transition: 'all 0.2s',
                 })}
               >
                 <Typography
                   variant="button"
-                  sx={{ mx: 2, fontWeight: "bold", fontSize: "0.9rem" }}
+                  sx={{ mx: 2, fontWeight: "bold", fontSize: "0.8rem", letterSpacing: 0.5 }}
                 >
                   {page.name}
                 </Typography>
@@ -182,10 +194,10 @@ const Navbar = () => {
                 <IconButton
                   component={NavLink}
                   to="/cart"
-                  sx={{ p: 0, color: "inherit" }}
+                  sx={{ p: 0, color: 'primary.main', '&:hover': { color: '#17643A', background: 'rgba(33,150,83,0.08)' } }}
                   style={({ isActive }) => ({
                     textDecoration: "none",
-                    color: isActive ? "yellow" : "white",
+                    color: isActive ? '#219653' : '#222',
                   })}
                 >
                   <Badge
@@ -194,7 +206,7 @@ const Navbar = () => {
                     sx={{ color: "inherit" }}
                   >
                     <ShoppingCartCheckoutTwoTone 
-                    sx={{ fontSize: { xs: 24, sm: 30 }, color: "inherit" }}
+                    sx={{ fontSize: { xs: 24, sm: 30 }, color: 'inherit' }}
                     />
                   </Badge>
                 </IconButton>
@@ -202,7 +214,7 @@ const Navbar = () => {
             </Box>
             {/* User Menu (with cart for mobile) */}
             <Tooltip title={user?.firstName ? `Logged in as ${user.firstName}${user.lastName ? ' ' + user.lastName : ''}${user.role ? ' (' + user.role + ')' : ''}` : "Profile"}>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit', ml: { xs: 0.5, md: 1 } }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'primary.main', ml: { xs: 0.5, md: 1 }, '&:hover': { color: '#17643A', background: 'rgba(33,150,83,0.08)' } }}>
                 <Badge
                   color="secondary"
                   variant={context.cartLength > 0 ? 'dot' : undefined}
@@ -236,11 +248,11 @@ const Navbar = () => {
                   <Badge
                     badgeContent={context.cartLength}
                     color="secondary"
-                    sx={{ color: "inherit", mr: 1 }}
+                    sx={{ color: 'primary.main', mr: 1 }}
                   >
-                    <ShoppingCartCheckoutTwoTone sx={{ fontSize: 22 }} />
+                    <ShoppingCartCheckoutTwoTone sx={{ fontSize: 22, color: 'primary.main' }} />
                   </Badge>
-                  <Typography textAlign="center">Cart</Typography>
+                  <Typography textAlign="center" sx={{ color: 'primary.main', fontWeight: 700 }}>Cart</Typography>
                 </MenuItem>
                 <Box sx={{ borderBottom: '1px solid #eee', my: 1 }} />
               </Box>
