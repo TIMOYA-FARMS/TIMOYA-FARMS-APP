@@ -41,7 +41,7 @@ const Footer = () => (
               Timoya~Farms
             </Typography>
             <Typography variant="body2" sx={{ fontStyle: 'italic', color: '#FFD600' }}>
-              Fresh. Healthy. Sustainable.
+              Local. Natural. Sustainable
             </Typography>
           </Box>
         </Stack>

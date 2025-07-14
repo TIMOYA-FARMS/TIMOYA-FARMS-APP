@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import CartContext from "../../Store/CartContext";
-import { Badge, Button } from "@mui/material";
+import { Badge, Button, Avatar, Stack } from "@mui/material";
 import { ShoppingCartCheckoutTwoTone } from "@mui/icons-material";
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -52,6 +52,8 @@ const Navbar = () => {
     handleCloseUserMenu();
     navigate('/login');
   };
+
+  const logoUrl = 'https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png';
 
   return (
     <AppBar position="static">
@@ -106,7 +108,7 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          {/* Logo */}
+          {/* Logo + Name + Tagline (Footer style) */}
           <Box
             sx={{
               display: "flex",
@@ -114,23 +116,22 @@ const Navbar = () => {
               flexGrow: 1,
               alignItems: "center",
               maxHeight: 74,
+              textDecoration: 'none',
             }}
             component={NavLink}
             to="/"
           >
-            <img
-              src="https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png"
-              alt="Timoya-Farms Logo"
-              style={{
-                width: '100%',
-                maxWidth: '120px',
-                minWidth: '70px',
-                height: 'auto',
-                objectFit: 'contain',
-                display: 'block',
-              }}
-              className="navbar-logo-responsive"
-            />
+            <Stack direction="row" spacing={2} alignItems="center" sx={{ py: 1 }}>
+              <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 48, height: 48, bgcolor: '#fff', border: '2px solid #FFD600' }} />
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#fff', letterSpacing: 1, lineHeight: 1 }}>
+                  Timoya~Farms
+                </Typography>
+                <Typography variant="caption" sx={{ fontStyle: 'italic', color: '#FFD600', lineHeight: 1 }}>
+                  Local. Natural. Sustainable
+                </Typography>
+              </Box>
+            </Stack>
           </Box>
 
           {/* Centered Desktop Menu */}
@@ -167,7 +168,6 @@ const Navbar = () => {
             ))}
           </Box>
 
-
           {/* Cart | User Menu */}
           <Box sx={{ 
             flexGrow: 0, 
@@ -176,50 +176,76 @@ const Navbar = () => {
             alignItems: "center",
             gap: { xs: 0.5, sm: 1 }
           }}>
-            <Tooltip title="Cart">
-              <IconButton
-                component={NavLink}
-                to="/cart"
-                sx={{ p: 0, color: "inherit" }}
-                style={({ isActive }) => ({
-                  textDecoration: "none",
-                  color: isActive ? "yellow" : "white",
-                })}
-              >
-                <Badge
-                  badgeContent={context.cartLength}
-                  color="secondary"
-                  sx={{ color: "inherit" }}
+            {/* Desktop: Cart icon in top bar */}
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+              <Tooltip title="Cart">
+                <IconButton
+                  component={NavLink}
+                  to="/cart"
+                  sx={{ p: 0, color: "inherit" }}
+                  style={({ isActive }) => ({
+                    textDecoration: "none",
+                    color: isActive ? "yellow" : "white",
+                  })}
                 >
-                  <ShoppingCartCheckoutTwoTone 
-                  sx={{ fontSize: { xs: 24, sm: 30 }, color: "inherit" }}
-                  />
+                  <Badge
+                    badgeContent={context.cartLength}
+                    color="secondary"
+                    sx={{ color: "inherit" }}
+                  >
+                    <ShoppingCartCheckoutTwoTone 
+                    sx={{ fontSize: { xs: 24, sm: 30 }, color: "inherit" }}
+                    />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+            </Box>
+            {/* User Menu (with cart for mobile) */}
+            <Tooltip title={user?.firstName ? `Logged in as ${user.firstName}${user.lastName ? ' ' + user.lastName : ''}${user.role ? ' (' + user.role + ')' : ''}` : "Profile"}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit', ml: { xs: 0.5, md: 1 } }}>
+                <Badge
+                  color="secondary"
+                  variant={context.cartLength > 0 ? 'dot' : undefined}
+                  overlap="circular"
+                  invisible={context.cartLength === 0}
+                  sx={{ '& .MuiBadge-dot': { right: 2, top: 2 } }}
+                >
+                  <AccountCircle sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 } }} />
                 </Badge>
               </IconButton>
             </Tooltip>
-            {isAuthenticated ? (
-              <>
-                <Tooltip title={user?.firstName ? `Logged in as ${user.firstName}${user.lastName ? ' ' + user.lastName : ''}${user.role ? ' (' + user.role + ')' : ''}` : "Profile"}>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
-                    <AccountCircle sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 } }} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "40px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
+            <Menu
+              sx={{ mt: "40px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {/* Mobile: Cart in user menu */}
+              <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                <MenuItem onClick={() => { handleCloseUserMenu(); navigate('/cart'); }}>
+                  <Badge
+                    badgeContent={context.cartLength}
+                    color="secondary"
+                    sx={{ color: "inherit", mr: 1 }}
+                  >
+                    <ShoppingCartCheckoutTwoTone sx={{ fontSize: 22 }} />
+                  </Badge>
+                  <Typography textAlign="center">Cart</Typography>
+                </MenuItem>
+                <Box sx={{ borderBottom: '1px solid #eee', my: 1 }} />
+              </Box>
+              {isAuthenticated ? (
+                <>
                   <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/dashboard');}}>
                     <Typography textAlign="center">Dashboard</Typography>
                   </MenuItem>
@@ -232,40 +258,18 @@ const Navbar = () => {
                   <MenuItem onClick={handleLogout} disabled={loading}>
                     <Typography textAlign="center">Logout</Typography>
                   </MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <>
-                <Tooltip title="Account">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: 'inherit' }}>
-                    <AccountCircle sx={{ width: { xs: 32, sm: 36 }, height: { xs: 32, sm: 36 } }} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "40px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
+                </>
+              ) : (
+                <>
                   <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/login');}}>
                     <Typography textAlign="center">Login</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => {handleCloseUserMenu(); navigate('/register');}}>
                     <Typography textAlign="center">Register</Typography>
                   </MenuItem>
-                </Menu>
-              </>
-            )}
+                </>
+              )}
+            </Menu>
           </Box>
         </Toolbar>
 
