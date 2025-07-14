@@ -4,10 +4,11 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import RiceBowlIcon from '@mui/icons-material/RiceBowl';
 import StoreIcon from '@mui/icons-material/Store';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import FemaleIcon from '@mui/icons-material/Female'
 
 const stats = [
   {
-    label: 'Farmers Supported',
+    label: 'Smallholder Farmers',
     value: 1000,
     suffix: '+',
     icon: <GroupsIcon sx={{ fontSize: 48, color: 'white' }} />,
@@ -21,10 +22,10 @@ const stats = [
     gradient: 'linear-gradient(135deg, #f39c12 0%, #f1c40f 100%)',
   },
   {
-    label: 'Processing Facilities',
-    value: 1,
-    suffix: '',
-    icon: <RiceBowlIcon sx={{ fontSize: 48, color: 'white' }} />,
+    label: 'Women Empowered',
+    value: 600,
+    suffix: '+',
+    icon: <FemaleIcon sx={{ fontSize: 48, color: 'white' }} />,
     gradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
   },
   {

@@ -26,7 +26,7 @@ const HomeBlogHighlights = () => {
     setModalBlog(null);
     try {
       const res = await getBlog(blogId);
-      setModalBlog(res.data);
+      setModalBlog(res.data.blog || res.data);
     } catch (err) {
       setModalError('Failed to load blog post.');
     } finally {
