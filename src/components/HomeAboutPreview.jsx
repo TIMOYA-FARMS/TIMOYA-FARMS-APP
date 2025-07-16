@@ -103,10 +103,7 @@ const HomeAboutPreview = () => {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            Timoya Farms is dedicated to providing fresh, healthy, and sustainably grown rice and produce. 
-            Our mission is to bridge the gap between local farmers and consumers, empower communities, 
-            and promote eco-friendly practices. We believe in the power of sustainable agriculture to 
-            transform lives and create a better future for generations to come.
+            Timoya Farms is a Ghanaian agribusiness transforming the rice value chain through clean energy, circular processing, and smallholder farmer empowerment. We produce premium-quality parboiled rice while improving farmer incomes, advancing climate-smart agriculture, and promoting local sustainability.
           </Typography>
 
           <Box sx={{ 

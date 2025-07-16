@@ -43,7 +43,7 @@ const About = () => {
       </Box>
       <MissionVisionValues />
       <OurStory />
-      <ByTheNumbers />
+      {/* <ByTheNumbers /> */}
       <TimelineMilestones />
       <SustainabilityImpact />
       {/* Only show CertificationsAwards if real content exists */}

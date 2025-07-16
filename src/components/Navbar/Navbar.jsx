@@ -132,7 +132,7 @@ const Navbar = () => {
               <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 54, height: 54, bgcolor: '#fff', border: '2.5px solid #219653', boxShadow: 2 }} />
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', letterSpacing: 1, lineHeight: 1 }}>
-                  Timoya~Farms
+                  Timoya Farms
                 </Typography>
                 <Typography variant="caption" sx={{ fontStyle: 'italic', color: 'secondary.main', lineHeight: 1 }}>
                   Local. Natural. Sustainable

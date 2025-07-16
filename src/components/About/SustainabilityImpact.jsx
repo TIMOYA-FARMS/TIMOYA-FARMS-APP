@@ -20,7 +20,8 @@ const impacts = [
   },
   {
     title: 'Farmer Partnerships',
-    desc: 'We partner with over 100 local farmers, providing fair compensation, training, and market access.',
+    desc: `Over 1000 smallholder farmers engaged, with a focus on women and youth.
+    As well as building strategic partnerships to scale our model sustainably.`,
     icon: <HandshakeIcon sx={{ fontSize: 48, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
   },
@@ -33,10 +34,10 @@ const impacts = [
 ];
 
 const stats = [
-  { label: 'Local Farmers Supported', value: '100+' },
-  { label: 'Women Empowered', value: '50+' },
   { label: 'Processing Time Reduced', value: '66%' },
-  { label: 'Eco-Friendly Packages Used', value: '10,000+' },
+  { label: 'Women Empowered', value: '600+' },
+  { label: 'Local Farmers Supported', value: '1000+' },
+  { label: 'Eco-Friendly Packages Used', value: '1000+' },
 ];
 
 const SustainabilityImpact = () => {
@@ -105,14 +106,14 @@ const SustainabilityImpact = () => {
           </Paper>
         ))}
       </Box>
-      {/* <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
         {stats.map((stat, idx) => (
           <Paper key={idx} sx={{ flex: 1, minWidth: 0, p: 2, borderRadius: 2, textAlign: 'center', backgroundColor: '#f5f5f5' }} elevation={0}>
             <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'primary.main' }}>{stat.value}</Typography>
             <Typography variant="body2" sx={{ color: '#555' }}>{stat.label}</Typography>
           </Paper>
         ))}
-      </Box> */}
+      </Box>
     </Box>
   );
 };

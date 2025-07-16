@@ -3,14 +3,11 @@ import React, { useState } from 'react';
 
 const OurStory = () => {
   const [expanded, setExpanded] = useState(false);
-  const shortText = `Timoya operates in the agricultural industry with a primary focus on rice processing, specializing in parboiled rice. Our mission is to bridge the gap between local farmers and consumers while extending our services to smallholder farmers and cooperatives.`;
-  const fullText = `Timoya operates in the agricultural industry with a primary focus on rice processing, specializing in parboiled rice. Our mission is to bridge the gap between local farmers and consumers while extending our services to smallholder farmers and cooperatives.
-
-Our facilities in Saboba and Tamale enable comprehensive processing, from boiling and milling to packaging. Women in Saboba handle the parboiling process, while manual sorting and grading take place in Tamale. To centralize operations, we plan to establish a factory in Saboba.
-
-By leveraging innovative technologies and eco-friendly practices, we aim to improve the rice value chain's quality and sustainability. We address critical challenges such as climate change, poor market access, and post-harvest losses while empowering farmers through value addition and knowledge sharing.
-
-One of our key innovations includes a circular parboiling system designed to reduce boiling time from 72 hours to just 24 hours, significantly enhancing the quality of the rice and reducing processing time.`;
+  const shortText = `Timoya Farms is a Ghanaian agribusiness transforming the rice value chain through clean energy, circular processing, and smallholder farmer empowerment. We produce premium-quality parboiled rice while improving farmer incomes, advancing climate-smart agriculture, and promoting local sustainability`;
+  const fullText = `Timoya Farms was founded by Moses Tiborgnan, a rice farmer and entrepreneur from Saboba, Northern Ghana. Raised in a smallholder farming household, Moses experienced firsthand the hardships rural farmers face — poor market access, low yields, and minimal support. When he entered farming himself, these challenges became even more real.
+  Rather than giving in, he turned that experience into a mission to transform the system from within.
+  Timoya Farms was born out of a commitment to empower smallholder farmers — particularly women and youth — through sustainable innovation, clean energy processing, and inclusive agricultural development.
+  We believe that by investing in local farmers, modernizing rice processing, and building market trust, we can grow a stronger, more equitable food system.`;
 
   return (
     <Box sx={{ py: 8, px: { xs: 2, md: 8 }, backgroundColor: '#f8f9fa' }}>

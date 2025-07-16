@@ -38,7 +38,7 @@ const Footer = () => (
           <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 60, height: 60, bgcolor: '#fff', border: '2px solid #FFD600' }} />
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#fff', letterSpacing: 1 }}>
-              Timoya~Farms
+              Timoya Farms
             </Typography>
             <Typography variant="body2" sx={{ fontStyle: 'italic', color: '#FFD600' }}>
               Local. Natural. Sustainable
