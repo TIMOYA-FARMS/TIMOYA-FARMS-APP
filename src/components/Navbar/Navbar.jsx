@@ -129,7 +129,17 @@ const Navbar = () => {
             to="/"
           >
             <Stack direction="row" spacing={2} alignItems="center" sx={{ py: 1 }}>
-              <Avatar src={logoUrl} alt="Timoya Farms Logo" sx={{ width: 54, height: 54, bgcolor: '#fff', border: '2.5px solid #219653', boxShadow: 2 }} />
+              <img
+                src={logoUrl}
+                alt="Timoya Farms Logo"
+                style={{
+                  width: '90px',
+                  height: '90px',
+                  objectFit: 'contain',
+                  display: 'block',
+                }}
+                className="navbar-logo-responsive"
+              />
               <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', letterSpacing: 1, lineHeight: 1 }}>
                   Timoya Farms
