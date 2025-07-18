@@ -133,7 +133,7 @@ const SDGSection = () => (
       ))}
     </Swiper>
     <Box sx={{ textAlign: 'center', mt: 5 }}>
-      <Button variant="contained" color="primary" size="large" component={Button} href="https://sdgs.un.org/goals" target="_blank" rel="noopener" sx={{ fontWeight: 'bold', borderRadius: 3, px: 5 }}>
+      <Button variant="contained" color="secondary" size="large" component={Button} href="https://sdgs.un.org/goals" target="_blank" rel="noopener" sx={{ fontWeight: 'bold', borderRadius: 3, px: 5 }}>
         Learn more about the SDGs
       </Button>
     </Box>
