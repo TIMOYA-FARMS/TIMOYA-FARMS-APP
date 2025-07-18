@@ -12,13 +12,12 @@ html, body, #root {
 
 .navbar-logo-responsive {
   width: 90px;
-  height: 90px;
 }
 @media (min-width: 600px) {
-  .navbar-logo-responsive { width: 70px; height: 70px; }
+  .navbar-logo-responsive { width: 120px; }
 }
 @media (min-width: 900px) {
-  .navbar-logo-responsive { width: 54px; height: 54px; }
+  .navbar-logo-responsive { width: 160px; }
 }
 @media (min-width: 1200px) {
   .navbar-logo-responsive { width: 200px; }

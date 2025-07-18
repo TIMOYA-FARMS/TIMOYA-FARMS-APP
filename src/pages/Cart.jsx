@@ -32,7 +32,7 @@ const Cart = () => {
                     justifyContent: 'center',
                     alignItems: 'flex-start'
                 }}>
-                    {/* Cart Items Section */}
+                {/* Cart Items Section */}
                     <Grid item xs={12} lg={8} xl={9}>
                         <Paper elevation={4} sx={{ 
                             p: { xs: 2, sm: 3, md: 4 }, 
@@ -60,8 +60,8 @@ const Cart = () => {
                                     textAlign: 'center',
                                     fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
                                 }}>
-                                    Cart Items
-                                </Typography>
+                        Cart Items
+                    </Typography>
                                 {!cartEmpty && (
                                     <Chip 
                                         label={`${totalItems} ${totalItemsText}`}
@@ -73,7 +73,7 @@ const Cart = () => {
                                 )}
                             </Box>
                             
-                            {cart.length === 0 ? (
+                        {cart.length === 0 ? (
                                 <Box sx={{ 
                                     textAlign: 'center', 
                                     py: { xs: 4, sm: 6, md: 8 },
@@ -89,8 +89,8 @@ const Cart = () => {
                                         fontWeight: 500,
                                         mb: 1
                                     }}>
-                                        Your cart is empty
-                                    </Typography>
+                                Your cart is empty
+                            </Typography>
                                     <Typography variant="body2" sx={{ 
                                         color: 'text.secondary',
                                         mb: 3
@@ -111,29 +111,29 @@ const Cart = () => {
                             ) : (
                                 <Stack spacing={2}>
                                     {cart.map((item, index) => (
-                                        <Box key={index}>
-                                            <CartItem
-                                                id={item.id}
-                                                cartItemId={item.cartItemId}
-                                                productName={item.productName}
-                                                title={item.title}
-                                                image={item.image}
-                                                price={item.price}
-                                                description={item.description}
-                                                qty={item.qty}
-                                                totalPrice={item.price * item.qty}
-                                            />
-                                            {index !== cart.length - 1 && (
+                                <Box key={index}>
+                                    <CartItem
+                                        id={item.id}
+                                        cartItemId={item.cartItemId}
+                                        productName={item.productName}
+                                        title={item.title}
+                                        image={item.image}
+                                        price={item.price}
+                                        description={item.description}
+                                        qty={item.qty}
+                                        totalPrice={item.price * item.qty}
+                                    />
+                                    {index !== cart.length - 1 && (
                                                 <Divider sx={{ my: 1 }} />
-                                            )}
-                                        </Box>
+                                    )}
+                                </Box>
                                     ))}
                                 </Stack>
-                            )}
-                        </Paper>
-                    </Grid>
+                        )}
+                    </Paper>
+                </Grid>
                     
-                    {/* Order Summary Section */}
+                {/* Order Summary Section */}
                     <Grid item xs={12} lg={4} xl={3}>
                         <Paper elevation={6} sx={{ 
                             p: { xs: 3, sm: 4 }, 
@@ -194,10 +194,10 @@ const Cart = () => {
                                 }}>
                                     <Typography variant="body1" sx={{ color: 'text.secondary' }}>
                                         Total Amount:
-                                    </Typography>
+                        </Typography>
                                     <Typography variant="body1" sx={{ fontWeight: 600, color: 'text.primary' }}>
                                         ₵{totalAmount}
-                                    </Typography>
+                            </Typography>
                                 </Box>
                                 
                                 <Divider />
@@ -213,10 +213,10 @@ const Cart = () => {
                                 }}>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                                         Total Price:
-                                    </Typography>
+                            </Typography>
                                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
                                         ₵{totalPrice}
-                                    </Typography>
+                            </Typography>
                                 </Box>
                             </Stack>
                             
@@ -232,34 +232,34 @@ const Cart = () => {
                                 {cartEmpty ? 'Your cart is empty' : 'Ready to checkout!'}
                             </Typography>
                             
-                            <Button
-                                component={Link}
-                                to="/checkout"
+                        <Button
+                            component={Link}
+                            to="/checkout"
                                 variant="contained"
                                 color="primary"
                                 disabled={cartEmpty}
                                 fullWidth
                                 size="large"
-                                sx={{
-                                    py: 1.5,
-                                    fontWeight: 700,
+                            sx={{
+                                py: 1.5,
+                                fontWeight: 700,
                                     fontSize: '1rem',
-                                    borderRadius: 2,
+                                borderRadius: 2,
                                     boxShadow: 3,
                                     letterSpacing: 0.5,
-                                    textTransform: 'uppercase',
+                                textTransform: 'uppercase',
                                     '&:hover': {
                                         boxShadow: 6,
                                         transform: 'translateY(-1px)'
                                     },
                                     transition: 'all 0.2s ease-in-out'
-                                }}
-                            >
+                            }}
+                        >
                                 {cartEmpty ? 'Checkout Disabled' : 'Proceed to Checkout'}
-                            </Button>
-                        </Paper>
-                    </Grid>
+                        </Button>
+                    </Paper>
                 </Grid>
+            </Grid>
             </Container>
         </Box>
     )
