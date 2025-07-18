@@ -19,6 +19,7 @@ import HomePartners from '../components/HomePartners';
 import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState, useEffect } from 'react';
+import HomeSDGTeaser from '../components/HomeSDGTeaser';
 
 const AnimatedLeaves = () => (
   <Box sx={{
@@ -365,7 +366,8 @@ const Home = () => {
       <HomeFeaturedProducts />
       <SectionDivider />
       <HomeHowItWorks />
-      <SectionDivider flip />
+      <HomeSDGTeaser />
+      {/* <SectionDivider flip /> */}
       <HomeGalleryPreview />
       <SectionDivider />
       <Testimonials />

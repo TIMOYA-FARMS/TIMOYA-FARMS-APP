@@ -15,6 +15,7 @@ import PressMedia from '../components/About/PressMedia';
 import AboutCallToAction from '../components/About/AboutCallToAction';
 import AboutFAQ from '../components/About/AboutFAQ';
 import ByTheNumbers from '../components/About/ByTheNumbers';
+import SDGSection from '../components/About/SDGSection';
 
 
 const breadcrumbLinks = [
@@ -46,6 +47,7 @@ const About = () => {
       {/* <ByTheNumbers /> */}
       <TimelineMilestones />
       <SustainabilityImpact />
+      <SDGSection />
       {/* Only show CertificationsAwards if real content exists */}
       {/* <CertificationsAwards /> */}
       <OurTeam />

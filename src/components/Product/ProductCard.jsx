@@ -22,7 +22,7 @@ const ProductCard = (props) => {
             },
         }}>
             <CardMedia
-                sx={{ height: 180, minHeight: 180, backgroundSize: 'contain', backgroundColor: '#FAFAFA' }}
+                sx={{ height: 180, minHeight: 180, backgroundSize: 'contain', backgroundColor: '#FFF' }}
                 image={props.image}
             />
             <CardContent sx={{ flexGrow: 1, minHeight: 170, maxHeight: 170, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', overflow: 'hidden' }}>
