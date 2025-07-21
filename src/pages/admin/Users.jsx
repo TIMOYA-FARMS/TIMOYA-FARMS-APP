@@ -82,7 +82,7 @@ const Users = () => {
         role: form.role
       };
       
-      await axios.patch(`${baseUrl}/users/update`, updateData);
+      await axios.patch(`${baseUrl}/users/admin/update`, updateData);
       await fetchUsers();
       handleCloseDialog();
       showSuccess(`User ${form.firstName} ${form.lastName} updated successfully!`, 'User Updated');
