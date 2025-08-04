@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, TextField, Button, Paper, Tooltip, Alert } from '@mui/material';
-import { Facebook, Twitter, Instagram, Email, Phone, LocationOn } from '@mui/icons-material';
+import { Box, Typography, IconButton, TextField, Button, Paper, Tooltip, Alert, Stack, useMediaQuery } from '@mui/material';
+import { Facebook, Twitter, Instagram, LinkedIn, Email, Phone, LocationOn, WhatsApp } from '@mui/icons-material';
 import ContactBanner from '../components/Banner/ContactBanner';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 
 const Contact = () => {
+    // Responsive design check - improved breakpoints
+    const isMobile = useMediaQuery('(max-width:600px)');
+    const isTablet = useMediaQuery('(min-width:601px) and (max-width:1024px)');
+    const isDesktop = useMediaQuery('(min-width:1025px)');
+    
     // Form state and handlers
     const [form, setForm] = useState({ name: '', email: '', message: '' });
     const [formError, setFormError] = useState('');
     const [formSuccess, setFormSuccess] = useState(false);
+    
     const handleInputChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
         setFormError('');
     };
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         // Simple validation
@@ -49,92 +56,355 @@ const Contact = () => {
                     ]}
                 />
             </Box>
-            <Box sx={{ py: 4, px: { xs: 2, sm: 4, md: 8 }, display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, alignItems: 'flex-start', justifyContent: 'space-around' }}>
-                {/* Follow Us Section */}
+            
+            {/* Main Content Container - Improved responsive layout */}
+            <Box sx={{ 
+                py: 4, 
+                px: { xs: 2, sm: 3, md: 4, lg: 8 }, 
+                display: 'flex', 
+                flexDirection: { xs: 'column', lg: 'row' }, 
+                gap: { xs: 3, sm: 4, lg: 3 }, 
+                alignItems: { xs: 'center', lg: 'flex-start' }, 
+                justifyContent: 'space-around',
+                maxWidth: '1400px',
+                mx: 'auto'
+            }} className="contact-section">
+                
+                {/* Follow Us Section - Improved responsive design */}
                 <Paper elevation={3} sx={{
-                    minWidth: 0, mb: 4, p: 3, borderRadius: 4,
-                    display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    width: { xs: '100%', sm: '100%', md: '100%', lg: '30%' },
+                    minWidth: { xs: 'auto', sm: '280px' },
+                    maxWidth: { xs: '100%', sm: '400px', lg: '350px' },
+                    mb: { xs: 2, lg: 0 }, 
+                    p: { xs: 2, sm: 3 }, 
+                    borderRadius: 4,
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center',
                     background: 'linear-gradient(135deg, #f0f4ff 60%, #e0f7fa 100%)',
-                }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main', letterSpacing: 1, textAlign: 'center' }}>
+                }} className="contact-card">
+                    <Typography variant="h5" sx={{ 
+                        fontWeight: 'bold', 
+                        mb: 2, 
+                        color: 'primary.main', 
+                        letterSpacing: 1, 
+                        textAlign: 'center',
+                        fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                    }}>
                         Follow Us
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, justifyContent: 'center', mb: 1 }}>
-                        <Tooltip title="Facebook" arrow>
-                            <Box sx={{ background: '#1976d2', borderRadius: '50%', p: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <IconButton color="inherit" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" sx={{ color: '#fff' }}>
-                                    <Facebook fontSize="large" />
-                                </IconButton>
-                            </Box>
+                    <Stack
+                        direction={isMobile ? 'column' : 'row'}
+                        spacing={{ xs: 1, sm: 2 }}
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ flexWrap: 'wrap', gap: { xs: 1, sm: 1.5 } }}
+                        className="social-icons-container"
+                    >
+                        <Tooltip title="Facebook">
+                            <IconButton
+                                component="a"
+                                href="https://m.facebook.com/timoyafarms/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Facebook"
+                                className="social-media-icon"
+                                sx={{
+                                    backgroundColor: '#1877F2',
+                                    color: 'white',
+                                    width: { xs: 40, sm: 48 },
+                                    height: { xs: 40, sm: 48 },
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                        backgroundColor: '#1565C0',
+                                    },
+                                }}
+                            >
+                                <Facebook sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
+                            </IconButton>
                         </Tooltip>
-                        <Tooltip title="Twitter" arrow>
-                            <Box sx={{ background: '#1da1f2', borderRadius: '50%', p: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <IconButton color="inherit" href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" sx={{ color: '#fff' }}>
-                                    <Twitter fontSize="large" />
-                                </IconButton>
-                            </Box>
+
+                        <Tooltip title="Instagram">
+                            <IconButton
+                                component="a"
+                                href="https://www.instagram.com/timoyafarms/?hl=en"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Instagram"
+                                className="social-media-icon"
+                                sx={{
+                                    backgroundColor: '#E1306C',
+                                    color: 'white',
+                                    width: { xs: 40, sm: 48 },
+                                    height: { xs: 40, sm: 48 },
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                        backgroundColor: '#C2185B',
+                                    },
+                                }}
+                            >
+                                <Instagram sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
+                            </IconButton>
                         </Tooltip>
-                        <Tooltip title="Instagram" arrow>
-                            <Box sx={{ background: 'radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)', borderRadius: '50%', p: 1.2, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <IconButton color="inherit" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" sx={{ color: '#fff' }}>
-                                    <Instagram fontSize="large" />
-                                </IconButton>
-                            </Box>
+
+                        <Tooltip title="LinkedIn">
+                            <IconButton
+                                component="a"
+                                href="https://gh.linkedin.com/company/timoya-farms"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                                className="social-media-icon"
+                                sx={{
+                                    backgroundColor: '#0A66C2',
+                                    color: 'white',
+                                    width: { xs: 40, sm: 48 },
+                                    height: { xs: 40, sm: 48 },
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                        backgroundColor: '#004182',
+                                    },
+                                }}
+                            >
+                                <LinkedIn sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
+                            </IconButton>
                         </Tooltip>
-                    </Box>
-                    <Typography variant="body2" sx={{ color: '#555', mt: 2, textAlign: 'center' }}>
+
+                        <Tooltip title="X (Twitter)">
+                            <IconButton
+                                component="a"
+                                href="https://x.com/Timoyafarms"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Twitter"
+                                className="social-media-icon"
+                                sx={{
+                                    backgroundColor: '#000',
+                                    color: 'white',
+                                    width: { xs: 40, sm: 48 },
+                                    height: { xs: 40, sm: 48 },
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                        backgroundColor: '#333',
+                                    },
+                                }}
+                            >
+                                <Twitter sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
+                            </IconButton>
+                        </Tooltip>
+
+                        <Tooltip title="WhatsApp">
+                            <IconButton
+                                component="a"
+                                href="https://wa.me/233540700007"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="WhatsApp"
+                                className="social-media-icon"
+                                sx={{
+                                    backgroundColor: '#25D366',
+                                    color: 'white',
+                                    width: { xs: 40, sm: 48 },
+                                    height: { xs: 40, sm: 48 },
+                                    '&:hover': {
+                                        transform: 'scale(1.1)',
+                                        backgroundColor: '#128C7E',
+                                    },
+                                }}
+                            >
+                                <WhatsApp sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
+                            </IconButton>
+                        </Tooltip>
+                    </Stack>
+                    <Typography variant="body2" sx={{ 
+                        color: '#555', 
+                        mt: 2, 
+                        textAlign: 'center',
+                        fontSize: { xs: '0.875rem', sm: '1rem' }
+                    }}>
                         Stay connected with us on social media!
                     </Typography>
                 </Paper>
 
-                {/* Get in Touch Section */}
+                {/* Get in Touch Section - Improved responsive design */}
                 <Paper elevation={3} sx={{
-                    minWidth: 0, mb: 4, p: 3, borderRadius: 4,
-                    textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center',
+                    width: { xs: '100%', sm: '100%', md: '100%', lg: '35%' },
+                    minWidth: { xs: 'auto', sm: '280px' },
+                    maxWidth: { xs: '100%', sm: '400px', lg: '400px' },
+                    mb: { xs: 2, lg: 0 }, 
+                    p: { xs: 2, sm: 3 }, 
+                    borderRadius: 4,
+                    textAlign: 'center', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center',
                     background: 'linear-gradient(135deg, #f9fbe7 60%, #e0f2f1 100%)',
-                }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main', letterSpacing: 1, textAlign: 'center' }}>
+                }} className="contact-card">
+                    <Typography variant="h5" sx={{ 
+                        fontWeight: 'bold', 
+                        mb: 2, 
+                        color: 'primary.main', 
+                        letterSpacing: 1, 
+                        textAlign: 'center',
+                        fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                    }}>
                         Get in Touch
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: 2 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                            <Box sx={{ background: '#1976d2', borderRadius: '50%', p: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Phone sx={{ color: '#fff' }} />
+                    <Box sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: { xs: 'center', sm: 'flex-start' }, 
+                        width: '100%', 
+                        gap: 2, 
+                        ml: { xs: 0, sm: 2 },
+                        px: { xs: 1, sm: 0 }
+                    }}>
+                        <Box sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: 1, 
+                            mb: 1,
+                            width: '100%',
+                            flexWrap: 'wrap'
+                        }} className="contact-info-item">
+                            <Box sx={{ 
+                                background: '#1976d2', 
+                                borderRadius: '50%', 
+                                p: { xs: 0.8, sm: 1 }, 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                flexShrink: 0
+                            }}>
+                                <Phone sx={{ color: '#fff', fontSize: { xs: '1.1rem', sm: '1.25rem' } }} />
                             </Box>
-                            <a href="tel:+1234567890" style={{ color: '#555', textDecoration: 'none', fontWeight: 500 }}>+123 456 7890</a>
+                            <a 
+                                href="tel:+1234567890" 
+                                className="contact-info-text"
+                                style={{ 
+                                    color: '#555', 
+                                    textDecoration: 'none', 
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem',
+                                    wordBreak: 'break-word'
+                                }}
+                            >
+                                +123 456 7890
+                            </a>
                         </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                            <Box sx={{ background: '#d32f2f', borderRadius: '50%', p: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Email sx={{ color: '#fff' }} />
+                        <Box sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            gap: 1, 
+                            mb: 1,
+                            width: '100%',
+                            flexWrap: 'wrap'
+                        }} className="contact-info-item">
+                            <Box sx={{ 
+                                background: '#d32f2f', 
+                                borderRadius: '50%', 
+                                p: { xs: 0.8, sm: 1 }, 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                flexShrink: 0
+                            }}>
+                                <Email sx={{ color: '#fff', fontSize: { xs: '1.1rem', sm: '1.25rem' } }} />
                             </Box>
-                            <a href="mailto:contact@example.com" style={{ color: '#555', textDecoration: 'none', fontWeight: 500 }}>contact@example.com</a>
+                            <a 
+                                href="mailto:contact@example.com" 
+                                className="contact-info-text"
+                                style={{ 
+                                    color: '#555', 
+                                    textDecoration: 'none', 
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem',
+                                    wordBreak: 'break-word'
+                                }}
+                            >
+                                contact@example.com
+                            </a>
                         </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                            <Box sx={{ background: '#388e3c', borderRadius: '50%', p: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <LocationOn sx={{ color: '#fff' }} />
+                        <Box sx={{ 
+                            display: 'flex', 
+                            alignItems: 'flex-start', 
+                            gap: 1,
+                            width: '100%',
+                            flexWrap: 'wrap'
+                        }} className="contact-info-item">
+                            <Box sx={{ 
+                                background: '#388e3c', 
+                                borderRadius: '50%', 
+                                p: { xs: 0.8, sm: 1 }, 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                justifyContent: 'center',
+                                flexShrink: 0,
+                                mt: { xs: 0.2, sm: 0 }
+                            }}>
+                                <LocationOn sx={{ color: '#fff', fontSize: { xs: '1.1rem', sm: '1.25rem' } }} />
                             </Box>
-                            <span style={{ color: '#555', fontWeight: 500 }}>123 Main Street, City, Country</span>
+                            <span 
+                                className="contact-info-text"
+                                style={{ 
+                                    color: '#555', 
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem',
+                                    wordBreak: 'break-word',
+                                    lineHeight: '1.4'
+                                }}
+                            >
+                                123 Main Street, City, Country
+                            </span>
                         </Box>
                     </Box>
-                    <Typography variant="body2" sx={{ color: '#555', mt: 2, textAlign: 'center' }}>
+                    <Typography variant="body2" sx={{ 
+                        color: '#555', 
+                        mt: 2, 
+                        textAlign: 'center',
+                        fontSize: { xs: '0.875rem', sm: '1rem' }
+                    }}>
                         We're available during business hours for your inquiries.
                     </Typography>
                 </Paper>
 
-                {/* Contact Form */}
-                <Paper elevation={3} sx={{ minWidth: 0, maxWidth: 420, width: '100%', mb: 4, p: 3, borderRadius: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center', color: 'primary.main', letterSpacing: 1 }}>
+                {/* Contact Form - Improved responsive design */}
+                <Paper elevation={3} sx={{ 
+                    width: { xs: '100%', sm: '100%', md: '100%', lg: '35%' },
+                    minWidth: { xs: 'auto', sm: '280px' },
+                    maxWidth: { xs: '100%', sm: '400px', lg: '400px' },
+                    mb: { xs: 2, lg: 0 }, 
+                    p: { xs: 2, sm: 3 }, 
+                    borderRadius: 4, 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center' 
+                }} className="contact-card">
+                    <Typography variant="h5" sx={{ 
+                        fontWeight: 'bold', 
+                        mb: 2, 
+                        textAlign: 'center', 
+                        color: 'primary.main', 
+                        letterSpacing: 1,
+                        fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                    }}>
                         Send Us a Message
                     </Typography>
-                    <Typography variant="body2" sx={{ color: '#555', mb: 2, textAlign: 'center' }}>
+                    <Typography variant="body2" sx={{ 
+                        color: '#555', 
+                        mb: 2, 
+                        textAlign: 'center',
+                        fontSize: { xs: '0.875rem', sm: '1rem' }
+                    }}>
                         We'd love to hear from you! Fill out the form and our team will get back to you soon.
                     </Typography>
-                    {formSuccess && <Alert severity="success" sx={{ mb: 2 }}>Thank you for reaching out! We will get back to you soon.</Alert>}
-                    {formError && <Alert severity="error" sx={{ mb: 2 }}>{formError}</Alert>}
+                    {formSuccess && <Alert severity="success" sx={{ mb: 2, width: '100%' }}>Thank you for reaching out! We will get back to you soon.</Alert>}
+                    {formError && <Alert severity="error" sx={{ mb: 2, width: '100%' }}>{formError}</Alert>}
                     <Box
                         component="form"
                         aria-label="Contact form"
                         onSubmit={handleSubmit}
+                        className="contact-form"
                         sx={{
                             display: 'flex',
                             flexDirection: 'column',
@@ -146,26 +416,81 @@ const Contact = () => {
                             borderRadius: 2,
                         }}
                     >
-                        <TextField label="Name" name="name" value={form.name} onChange={handleInputChange} fullWidth required />
-                        <TextField label="Email" name="email" value={form.email} onChange={handleInputChange} fullWidth required type="email" />
-                        <TextField label="Message" name="message" value={form.message} onChange={handleInputChange} fullWidth required multiline rows={4} />
-                        <Button type="submit" variant="contained" color="secondary" sx={{ fontWeight: 'bold', borderRadius: 3, py: 1.2, fontSize: '1.1rem', boxShadow: '0 2px 8px rgba(255,184,0,0.12)', textTransform: 'uppercase', transition: 'all 0.3s', '&:hover': { backgroundColor: 'primary.main', color: 'white' } }}>
+                        <TextField 
+                            label="Name" 
+                            name="name" 
+                            value={form.name} 
+                            onChange={handleInputChange} 
+                            fullWidth 
+                            required 
+                            size={isMobile ? "small" : "medium"}
+                        />
+                        <TextField 
+                            label="Email" 
+                            name="email" 
+                            value={form.email} 
+                            onChange={handleInputChange} 
+                            fullWidth 
+                            required 
+                            type="email" 
+                            size={isMobile ? "small" : "medium"}
+                        />
+                        <TextField 
+                            label="Message" 
+                            name="message" 
+                            value={form.message} 
+                            onChange={handleInputChange} 
+                            fullWidth 
+                            required 
+                            multiline 
+                            rows={isMobile ? 3 : 4} 
+                            size={isMobile ? "small" : "medium"}
+                        />
+                        <Button 
+                            type="submit" 
+                            variant="contained" 
+                            color="secondary" 
+                            sx={{ 
+                                fontWeight: 'bold', 
+                                borderRadius: 3, 
+                                py: { xs: 1, sm: 1.2 }, 
+                                fontSize: { xs: '0.9rem', sm: '1.1rem' }, 
+                                boxShadow: '0 2px 8px rgba(255,184,0,0.12)', 
+                                textTransform: 'uppercase', 
+                                transition: 'all 0.3s', 
+                                '&:hover': { 
+                                    backgroundColor: 'primary.main', 
+                                    color: 'white' 
+                                } 
+                            }}
+                        >
                             Submit
                         </Button>
                     </Box>
                 </Paper>
             </Box>
-            {/* Map Section */}
-            <Box sx={{ textAlign: 'center', mt: 4 }}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, color: 'primary.main' }}>
+            
+            {/* Map Section - Improved responsive design */}
+            <Box sx={{ 
+                textAlign: 'center', 
+                mt: 4,
+                px: { xs: 2, sm: 3, md: 4, lg: 0 }
+            }}>
+                <Typography variant="h5" sx={{ 
+                    fontWeight: 'bold', 
+                    mb: 2, 
+                    color: 'primary.main',
+                    fontSize: { xs: '1.5rem', sm: '2rem' }
+                }}>
                     Find Us
                 </Typography>
                 <Box
+                    className="contact-map"
                     sx={{
                         width: '100%',
                         maxWidth: 1200,
                         mx: 'auto',
-                        height: 300,
+                        height: { xs: 250, sm: 300 },
                         borderRadius: 4,
                         overflow: 'hidden',
                         boxShadow: 3,

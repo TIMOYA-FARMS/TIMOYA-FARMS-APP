@@ -3,6 +3,7 @@ import { Box, Typography, Link, IconButton, Stack, Grid, Divider, Avatar } from 
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -10,6 +11,14 @@ import { Link as RouterLink } from 'react-router-dom';
 
 // Use the provided logo
 const logoUrl = 'https://res.cloudinary.com/dbyeirmqw/image/upload/v1749203410/timoya-farms-logo_pdaeob.png';
+
+const socialLinks = [
+  {icon: FacebookIcon, url: 'https://facebook.com/timoyafarms'},
+  {icon: TwitterIcon, url: 'https://twitter.com/timoyafarms'},
+  {icon: InstagramIcon, url: 'https://instagram.com/timoyafarms?hl=en'},
+  {icon: LinkedInIcon, url: 'https://gh.linkedin.com/company/timoya-farms'}
+// Add more social links as needed
+]
 
 const Footer = () => (
   <Box
@@ -151,9 +160,14 @@ const Footer = () => (
           ))}
         </Stack>
         <Stack direction="row" spacing={2}>
-          {[FacebookIcon, TwitterIcon, InstagramIcon].map((Icon, index) => (
+          {socialLinks.map(({icon: Icon, url}, index) => (
             <IconButton 
               key={index}
+              component="a"
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Follow us on ${Icon.displayName}`}
               sx={{ 
                 bgcolor: 'rgba(255, 214, 0, 0.1)',
                 color: '#FFD600',
