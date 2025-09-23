@@ -5,41 +5,42 @@ import FactoryIcon from '@mui/icons-material/Factory';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 const milestones = [
   {
     year: '2022',
     label: 'Timoya Farms Founded',
-    desc: 'Timoya Farms is established with a mission to empower local rice farmers and deliver quality rice to consumers.',
+    desc: 'Timoya Farms was founded to transform Ghana’s rice value chain with sustainable, climate-smart solutions.',
     icon: <FlagIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
-    gradient: 'linear-gradient(135deg, #219653 0%, #27ae60 100%)',
+    gradient: 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)',
   },
-  {
-    year: '2022',
-    label: 'Saboba Facility Launch',
-    desc: 'Opened the Saboba processing facility, enabling local women to lead the parboiling process.',
-    icon: <FactoryIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
-    gradient: 'linear-gradient(135deg, #f39c12 0%, #f1c40f 100%)',
-  },
+  // {
+  //   year: '2022',
+  //   label: 'Saboba Facility Launch',
+  //   desc: 'Opened the Saboba processing facility, enabling local women to lead the parboiling process.',
+  //   icon: <FactoryIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
+  //   gradient: 'linear-gradient(135deg, #f39c12 0%, #f1c40f 100%)',
+  // },
   {
     year: '2023',
-    label: 'Parboiling Innovation',
-    desc: 'Developed and implemented a circular parboiling system, reducing processing time and improving rice quality.',
+    label: 'Prototype Development & Testing',
+    desc: 'Developed and tested the first Aviella Rice prototype, ensuring quality, taste, and consumer acceptance.',
     icon: <AutorenewIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)',
   },
   {
-    year: '2023',
-    label: 'Community Impact Expansion',
-    desc: 'Expanded partnerships with smallholder farmers and introduced eco-friendly packaging.',
-    icon: <Diversity3Icon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
+    year: '2024',
+    label: 'FDA Certification',
+    desc: 'Secured FDA certification for Aviella Rice, validating product safety and unlocking broader market access.',
+    icon: <VerifiedIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)',
   },
   {
-    year: '2024',
-    label: 'Future Plans',
-    desc: 'Plans underway to centralize operations and further scale sustainable impact.',
-    icon: <TrendingUpIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
+    year: '2025',
+    label: 'Circular Parboiling System',
+    desc: 'Began development of our innovative parboiling system, reducing emissions and improving efficiency in rice processing.',
+    icon: <FactoryIcon sx={{ fontSize: 40, color: 'white', mb: 1 }} />,
     gradient: 'linear-gradient(135deg, #219653 0%, #2ecc71 100%)',
   },
 ];

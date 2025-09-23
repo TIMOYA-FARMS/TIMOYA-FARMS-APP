@@ -130,7 +130,7 @@ const MissionVisionValues = () => {
       
       {/* Core Values Section */}
       <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
-        Our Core Values
+        {/* Our Core Values */}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, justifyContent: 'center' }}>
         {values.map((v, idx) => (

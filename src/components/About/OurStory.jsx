@@ -11,6 +11,17 @@ const OurStory = () => {
 
   return (
     <Box sx={{ py: 8, px: { xs: 2, md: 8 }, backgroundColor: '#f8f9fa' }}>
+      <Typography
+            variant="h4"
+            sx={{
+              mb: 3,
+              textAlign: 'center',
+              fontWeight: 'bold',
+              color: 'primary.main',
+            }}
+          >
+            Our Story
+          </Typography>
       <Box
         sx={{
           display: 'flex',
@@ -22,6 +33,7 @@ const OurStory = () => {
           mx: 'auto',
         }}
       >
+        
         {/* Video Section */}
         <Box
           sx={{
@@ -62,20 +74,11 @@ const OurStory = () => {
             textAlign: { xs: 'center', md: 'left' },
             p: 4,
             // backgroundColor: '#ffffff',
-            // borderRadius: 4,
-            // boxShadow: 4,
+            borderRadius: 4,
+            boxShadow: 4,
           }}
         >
-          <Typography
-            variant="h4"
-            sx={{
-              mb: 3,
-              fontWeight: 'bold',
-              color: 'primary.main',
-            }}
-          >
-            Our Story
-          </Typography>
+          
           <Typography
             variant="body1"
             sx={{

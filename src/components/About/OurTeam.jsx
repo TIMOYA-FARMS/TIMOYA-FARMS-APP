@@ -39,38 +39,53 @@ const OurTeam = () => {
                 Now, here's the real secret sauce: Moses believes that teamwork makes the dream work! He's formed partnerships with local farmers, providing them with fair compensation and the training they need to succeed. Together, we're sowing the seeds of a sustainable farming ecosystem that thrives on camaraderie and growth.`,
                 image: 'https://res.cloudinary.com/dbyeirmqw/image/upload/v1748955040/founder_Tim4_zkb2pf.jpg',
             },
-            {
-                name: 'Tampuori Marijanata Angsingmwini',
-                title: 'Co-Founder',
-                bio: `The Foodie Photographer with a Green Thumb!
+            // {
+            //     name: 'Tampuori Marijanata Angsingmwini',
+            //     title: 'Co-Founder',
+            //     bio: `The Foodie Photographer with a Green Thumb!
                 
-                Tampuori Marijanata Angsingmwini, our extraordinary co-founder, is a master of capturing deliciousness and sustainability through her lens.As a Doctor of Medical Laboratory Science student, Tampuori's passion for good food, a better environment, and her incredible photography and content marketing skills bring a delightful twist to Timoya Farms.
+            //     Tampuori Marijanata Angsingmwini, our extraordinary co-founder, is a master of capturing deliciousness and sustainability through her lens.As a Doctor of Medical Laboratory Science student, Tampuori's passion for good food, a better environment, and her incredible photography and content marketing skills bring a delightful twist to Timoya Farms.
                 
-                With a click of her camera, Tampuori captures the vibrant colors and mouthwatering textures of our farm- fresh produce.Her photographs are so tantalizing, they make you want to reach through the screen and savor the flavors! But that's not all—Tampuori's creativity extends beyond visuals.
-                Through her captivating content, she whisks you away into our flavorful world, sharing the story of our commitment to quality, sustainability, and, of course, the perfect rice dish.`,
-                image: 'https://timoyafarms.com/wp-content/uploads/2023/10/photo_1_2023-10-22_18-42-50.jpg',
-            },
+            //     With a click of her camera, Tampuori captures the vibrant colors and mouthwatering textures of our farm- fresh produce.Her photographs are so tantalizing, they make you want to reach through the screen and savor the flavors! But that's not all—Tampuori's creativity extends beyond visuals.
+            //     Through her captivating content, she whisks you away into our flavorful world, sharing the story of our commitment to quality, sustainability, and, of course, the perfect rice dish.`,
+            //     image: 'https://timoyafarms.com/wp-content/uploads/2023/10/photo_1_2023-10-22_18-42-50.jpg',
+            // },
         ],
         members: [
             {
-                name: 'Womol Job',
-                title: 'Productions Officer',
-                image: 'https://timoyafarms.com/wp-content/uploads/2023/10/photo_2_2023-10-22_18-42-50-3.jpg',
+                name: 'Beauty Ametepe',
+                title: 'Chief Innovation Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391832/chiefInnovativeOfficer_gu1lem.jpg',
             },
             {
-                name: 'Nana Kwabena Asare',
-                title: 'Financial Officer',
-                image: 'https://timoyafarms.com/wp-content/uploads/2023/11/744-757.jpg',
+                name: 'Erica Buabeng',
+                title: 'Chief Marketing Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391833/chiefMarketingOfficer_ytffca.jpg',
             },
             {
-                name: 'Abdallah Salia',
-                title: 'Marketing Officer',
-                image: 'https://timoyafarms.com/wp-content/uploads/2023/10/photo_2_2023-10-22_19-23-31.jpg',
+                name: 'Anita Nsiah Donkor',
+                title: 'Chief Operations Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391833/chiefOperationsOfficer_eqeyk4.jpg',
             },
             {
-                name: 'Braimah Isaac',
-                title: 'Technical Officer',
-                image: 'https://timoyafarms.com/wp-content/uploads/2023/10/Isaac-cropped.jpg',
+                name: 'Abdul Kadir Daaematu',
+                title: 'Chief Revenue Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391833/chiefRevenueOfficer_kas6xu.jpg',
+            },
+            {
+                name: 'Barbara Adwoah Boahene',
+                title: 'Chief Quality Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391833/chiefQualityOfficer_g0qxwj.jpg',
+            },
+            {
+                name: 'Jeremiah Kingsley Ansah',
+                title: 'Chief Development Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391832/chiefDevelopmentOfficer_oozqun.jpg',
+            },
+            {
+                name: 'Samuel Aye',
+                title: 'Chief Technical Officer',
+                image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1758391833/chiefTechnicalOfficer_jpqjjq.jpg',
             },
         ],
     };

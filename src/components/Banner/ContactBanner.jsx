@@ -26,7 +26,8 @@ const ContactBanner = () => {
         <Typography variant="h3" sx={{ fontWeight: 'bold', marginBottom: '10px', color: 'primary.main' }}>
           Let's Connect!
         </Typography>
-        <Typography variant="h6" sx={{ marginBottom: '20px', color: 'text.secondary', fontWeight: 400 }}>
+        <Typography variant="h6" sx={{ marginBottom: '20px', color: 'text.secondary', fontWeight: 400, width: { xs: '100%', md: '80%' } }}
+        >
           Questions, feedback, or just want to say hi? We're always happy to hear from you.
         </Typography>
         <Button 

@@ -150,8 +150,8 @@ const Footer = () => (
         <Stack direction="column" spacing={2} alignItems="flex-start" sx={{ mb: 3 }}>
           {[
             { icon: <EmailIcon />, text: 'info@timoyafarms.com' },
-            { icon: <PhoneIcon />, text: '+233 24 000 0000' },
-            { icon: <LocationOnIcon />, text: 'Accra, Ghana' }
+            { icon: <PhoneIcon />, text: '+233 (0) 593786079 / 554343230' },
+            { icon: <LocationOnIcon />, text: 'Saboba, Northern Region, Ghana' }
           ].map((item, index) => (
             <Stack key={index} direction="row" spacing={1.5} alignItems="center">
               <Box sx={{ color: '#FFD600' }}>{item.icon}</Box>
