@@ -25,7 +25,7 @@ const steps = [
   {
     icon: <LocalShippingIcon color="secondary" sx={{ fontSize: 48 }} />,
     title: 'Delivered Fresh',
-    desc: 'We deliver promptly so you always enjoy fresh and nutritious rice.'
+    desc: 'We work around the clock to deliver promptly so you always enjoy fresh and nutritious rice.'
   },
 ];
 
