@@ -1,136 +1,255 @@
 import React from 'react';
-import { Box, Typography, Grid, Card, CardMedia, CardContent, Button } from '@mui/material';
+import { Box, Typography, Card, CardContent, Button, Avatar, Chip } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Chip from '@mui/material/Chip';
+import RiceBowlIcon from '@mui/icons-material/RiceBowl';
+import RecyclingIcon from '@mui/icons-material/Recycling';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const featured = [
   {
-    title: 'Premium Parboiled Rice',
-    image: 'https://timoyafarms.com/wp-content/uploads/2023/10/photo_23_2023-10-19_19-45-24-1.jpg',
-    desc: 'Our best-selling, nutritious, and delicious parboiled rice, grown and processed sustainably.',
+    title: 'Premium Parboiled Rice – Our Best Seller',
+    // desc: 'Perfect fluffy grains and balanced nutrition for everyday meals.',
+    backDesc: 'Carefully parboiled to lock in nutrients and deliver consistent texture every time.',
     badge: 'Best Seller',
+    icon: <RiceBowlIcon sx={{ fontSize: 32 }} />,
+    iconBg: 'linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)',
+    iconColor: '#1976d2',
+    link: '/products'
   },
   {
-    title: 'Eco-Friendly Packaging',
-    image: 'https://timoyafarms.com/wp-content/uploads/2023/10/IMG-20230222-WA0006.jpg',
-    desc: 'We use biodegradable, planet-friendly packaging for all our products.',
+    title: 'Sustainable Packaging – Eco-Friendly Choices',
+    // desc: 'Biodegradable, planet-friendly packaging across our product line.',
+    backDesc: 'Biodegradable packaging reduces plastic waste and protects the environment.',
     badge: 'Eco',
+    icon: <RecyclingIcon sx={{ fontSize: 32 }} />,
+    iconBg: 'linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%)',
+    iconColor: '#2e7d32',
+    link: '/sustainability'
   },
   {
-    title: 'Farmer Partnerships',
-    image: 'https://res.cloudinary.com/dgwp3bvrr/image/upload/v1752122766/Africa_Rice_qhgjoy.avif',
-    desc: 'We empower local farmers with fair compensation, training, and support.',
+    title: 'Empowering Farmers – Building Communities',
+    // desc: 'Fair pricing, training, and long-term local partnerships.',
+    backDesc: 'Partnerships that drive livelihoods, resilience, and lasting community impact.',
     badge: 'Community',
+    icon: <HandshakeIcon sx={{ fontSize: 32 }} />,
+    iconBg: 'linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%)',
+    iconColor: '#f57c00',
+    link: '/impact'
+  },
+  {
+    title: 'Instant Rice Innovation – Cooks in 2 Minutes',
+    // desc: 'Convenient, tasty, and ready fast—perfect for busy days.',
+    backDesc: 'Steam-cooked and dehydrated for ultra-fast prep without losing nutrition.',
+    badge: 'New',
+    icon: <AccessTimeIcon sx={{ fontSize: 32 }} />,
+    iconBg: 'linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%)',
+    iconColor: '#7b1fa2',
+    link: '/products#instant'
   },
 ];
 
-const HomeFeaturedProducts = () => (
-  <Box sx={{ py: 6, px: { xs: 1, sm: 2, md: 8 }, backgroundColor: '#fff' }}>
-    <Typography variant="h4" align="center" component="h2" sx={{ fontWeight: 'bold', mb: 4, color: 'primary.main' }}>
-      Featured Highlights
-    </Typography>
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'row',
-      gap: 4,
-      justifyContent: 'center',
-      alignItems: 'stretch',
-      overflowX: { xs: 'auto', md: 'visible' },
-      pb: 2,
-      width: '100%',
+const HomeFeaturedProducts = () => {
+  return (
+    <Box sx={{ 
+      py: 8, 
+      px: { xs: 2, sm: 3, md: 6 }, 
+      backgroundColor: '#fff',
+      background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)'
     }}>
-      {featured.map((item, idx) => (
-        <Box key={idx} sx={{ minWidth: { xs: 260, sm: 300, md: 320 }, maxWidth: 340, flex: '0 0 auto', display: 'flex', alignItems: 'stretch' }}>
+      <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Typography variant="overline" sx={{ color: 'text.secondary', letterSpacing: 2, mb: 1 }}>
+          Why Choose Timoya Farms
+        </Typography>
+        <Typography variant="h3" component="h2" sx={{ fontWeight: 800, color: 'primary.main', mb: 2 }}>
+          Featured Highlights
+        </Typography>
+        <Typography variant="body1" sx={{ color: 'text.secondary', maxWidth: 600, mx: 'auto' }}>
+          Premium quality, sustainable choices, and real community impact
+        </Typography>
+      </Box>
+
+      <Box sx={{
+        display: 'grid',
+        gridTemplateColumns: {
+          xs: '1fr',
+          sm: 'repeat(2, minmax(0, 1fr))',
+          md: 'repeat(4, minmax(0, 1fr))',
+        },
+        gap: { xs: 3, sm: 4, md: 3 },
+        maxWidth: 1200,
+        mx: 'auto',
+      }}>
+        {featured.map((item, idx) => (
           <Card
+            key={idx}
+            component={Link}
+            to={item.link}
             sx={{
               height: '100%',
               display: 'flex',
               flexDirection: 'column',
-              // boxShadow: 3,
-              borderRadius: 3,
-              transition: 'transform 0.25s, box-shadow 0.25s',
+              borderRadius: 4,
+              textDecoration: 'none',
+              overflow: 'hidden',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              boxShadow: 2,
+              background: 'linear-gradient(135deg, #ffffff 0%, #fafafa 100%)',
+              border: '1px solid rgba(0,0,0,0.05)',
               '&:hover': {
-                transform: 'scale(1.035) translateY(-4px)',
+                transform: 'translateY(-8px)',
                 boxShadow: 8,
+                '& .hover-overlay': {
+                  opacity: 1,
+                  transform: 'translateY(0)',
+                  pointerEvents: 'auto',
+                }
               },
-              position: 'relative',
-              overflow: 'visible',
-              width: '100%',
             }}
           >
-            <Box sx={{ position: 'relative' }}>
-              <CardMedia
-                component="img"
-                height={180}
-                image={item.image.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_180,c_fill/')}
-                srcSet={`
-                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_160,h_90,c_fill/')} 160w,
-                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_320,h_180,c_fill/')} 320w,
-                  ${item.image.replace('/upload/', '/upload/f_auto,q_auto,w_640,h_360,c_fill/')} 640w
-                `}
-                sizes="(max-width: 600px) 160px, (max-width: 900px) 320px, 640px"
-                alt={item.title}
-                loading={idx === 0 ? 'eager' : 'lazy'}
-                fetchpriority={idx === 0 ? 'high' : undefined}
-                sx={{
-                  height: 180,
-                  objectFit: 'cover',
-                  borderTopLeftRadius: 12,
-                  borderTopRightRadius: 12,
-                }}
-              />
+            {/* Icon Section */}
+            <Box sx={{ 
+              p: 4, 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(248,249,250,0.8) 100%)',
+              position: 'relative'
+            }}>
               <Chip
                 label={item.badge}
-                color={item.badge === 'Best Seller' ? 'secondary' : item.badge === 'Eco' ? 'success' : 'primary'}
+                color={item.badge === 'Best Seller' ? 'secondary' : item.badge === 'Eco' ? 'success' : item.badge === 'New' ? 'warning' : 'primary'}
                 size="small"
-                sx={{
-                  position: 'absolute',
-                  top: 12,
-                  left: 12,
-                  fontWeight: 700,
-                  fontSize: '0.9rem',
-                  letterSpacing: 0.5,
-                  boxShadow: 2,
-                  zIndex: 2,
+                sx={{ 
+                  position: 'absolute', 
+                  top: 16, 
+                  right: 16, 
+                  fontWeight: 700, 
+                  letterSpacing: 0.4,
+                  boxShadow: 1
                 }}
               />
-            </Box>
-            <CardContent sx={{ flexGrow: 1 }}>
-              <Typography variant="h6" component="h3" sx={{ fontWeight: 'bold', mb: 1, color: 'primary.main' }}>{item.title}</Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>{item.desc}</Typography>
-              <Button
-                component={Link}
-                to="/products"
-                variant="contained"
-                color="secondary"
-                size="medium"
+              
+              <Avatar
                 sx={{
-                  fontWeight: 700,
-                  px: 3,
-                  py: 1,
-                  borderRadius: 2,
-                  boxShadow: '0 2px 8px rgba(255,184,0,0.15)',
-                  textTransform: 'uppercase',
-                  transition: 'all 0.3s',
+                  width: 80,
+                  height: 80,
+                  background: item.iconBg,
+                  boxShadow: 3,
+                  mb: 2,
+                  transition: 'transform 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'primary.main',
-                    color: 'white',
+                    transform: 'scale(1.1)',
                   },
                 }}
               >
-                Shop Now
-              </Button>
+                <Box sx={{ color: item.iconColor }}>
+                  {item.icon}
+                </Box>
+              </Avatar>
+
+              <Typography variant="h6" component="h3" sx={{ 
+                fontWeight: 700, 
+                color: 'primary.main',
+                textAlign: 'center',
+                lineHeight: 1.3,
+                mb: 2
+              }}>
+                {item.title}
+              </Typography>
+            </Box>
+
+            {/* Content Section */}
+            <CardContent sx={{ flexGrow: 1, p: 3, pt: 0 }}>
+              <Typography variant="body2" sx={{ 
+                color: 'text.secondary',
+                textAlign: 'center',
+                lineHeight: 1.6,
+                mb: 2
+              }}>
+                {item.desc}
+              </Typography>
             </CardContent>
+            
+            {/* Full card overlay - covers entire card on hover */}
+            <Box className="hover-overlay" sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(135deg, #ffffff 0%, #fafafa 100%)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              p: 4,
+              opacity: 0,
+              transform: 'translateY(20px)',
+              transition: 'opacity 0.3s ease, transform 0.3s ease',
+              pointerEvents: 'none',
+              borderRadius: 4,
+            }}>
+              <Typography variant="h6" component="h3" sx={{ 
+                fontWeight: 700, 
+                color: 'primary.main',
+                textAlign: 'center',
+                lineHeight: 1.3,
+                mb: 3
+              }}>
+                {item.title}
+              </Typography>
+              
+              <Typography variant="body2" sx={{ 
+                color: 'text.secondary',
+                textAlign: 'center',
+                lineHeight: 1.6,
+                mb: 3,
+                maxWidth: '90%'
+              }}>
+                {item.backDesc}
+              </Typography>
+              
+              <Button
+                variant="contained"
+                color="primary"
+                size="medium"
+                sx={{ 
+                  fontWeight: 700, 
+                  borderRadius: 2,
+                  px: 4,
+                  py: 1.5,
+                  textTransform: 'none'
+                }}
+              >
+                Explore
+              </Button>
+            </Box>
           </Card>
-        </Box>
-      ))}
+        ))}
+      </Box>
+
+      <Box sx={{ textAlign: 'center', mt: 6 }}>
+        <Button 
+          component={Link} 
+          to="/products" 
+          variant="outlined" 
+          color="primary" 
+          size="large" 
+          sx={{ 
+            fontWeight: 700, 
+            px: 6, 
+            py: 1.5, 
+            borderRadius: 3, 
+            letterSpacing: 1,
+            textTransform: 'none'
+          }}
+        >
+          View All Products
+        </Button>
+      </Box>
     </Box>
-    <Box sx={{ textAlign: 'center', mt: 5 }}>
-      <Button component={Link} to="/products" variant="outlined" color="primary" size="large" sx={{ fontWeight: 'bold', px: 6, py: 1.5, borderRadius: 3, letterSpacing: 1 }}>
-        View All Products
-      </Button>
-    </Box>
-  </Box>
-);
+  );
+};
 
 export default HomeFeaturedProducts;

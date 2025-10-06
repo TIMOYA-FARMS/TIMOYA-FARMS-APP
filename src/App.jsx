@@ -29,6 +29,8 @@ import AdminGallery from './pages/admin/Gallery';
 import AdminBlog from './pages/admin/Blog';
 import Categories from './pages/admin/Categories';
 import ShowBlog from './pages/ShowBlog';
+import Sustainability from './pages/Sustainability';
+import Impact from './pages/Impact';
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/orders' element={<Orders />} />
           <Route path='/gallery' element={<Gallery />} />
+          <Route path='/sustainability' element={<Sustainability />} />
+          <Route path='/impact' element={<Impact />} />
         </Route>
         {/* Dashboard/admin routes */}
         <Route path='/dashboard' element={<DashboardLayout />}>

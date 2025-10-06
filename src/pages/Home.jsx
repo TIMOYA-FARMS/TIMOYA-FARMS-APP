@@ -20,6 +20,7 @@ import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState, useEffect } from 'react';
 import HomeSDGTeaser from '../components/HomeSDGTeaser';
+import { Helmet } from 'react-helmet-async';
 
 const AnimatedLeaves = () => (
   <Box sx={{
@@ -145,6 +146,11 @@ const Home = () => {
 
   return (
     <Box sx={{ background: '#f9f9f9', minHeight: '100vh' }}>
+      <Helmet>
+        <title>Timoya Farms | Healthy Ghana Rice | Sustainable Rice Farming</title>
+        <meta name="description" content="Healthy Ghana rice, sustainable rice farming in Africa, eco-friendly rice packaging, and fast cooking rice from Timoya Farms." />
+        <meta name="keywords" content="Healthy Ghana Rice, Sustainable Rice Farming in Africa, Eco-Friendly Rice Packaging, Fast Cooking Rice, Aviella Rice, parboiled rice Ghana, buy rice Ghana, biodegradable rice packaging" />
+      </Helmet>
       <Box
         sx={{
           position: 'relative',

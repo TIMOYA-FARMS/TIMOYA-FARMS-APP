@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 import ScrollToTopButton from '../ScrollToTopButton';
 import { Outlet } from 'react-router-dom';
+import WhatsAppFloat from '../WhatsAppFloat'
 
 const Layout = () => {
     return (
@@ -14,6 +15,7 @@ const Layout = () => {
                 <Outlet />
             </main>
             <ScrollToTopButton />
+            <WhatsAppFloat phone="233554343230" message="Hello Timoya Farms! I'd like to learn more about your rice products." />
             <footer>
                 <Footer />
             </footer>
