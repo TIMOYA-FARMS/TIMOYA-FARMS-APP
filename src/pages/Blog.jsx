@@ -16,7 +16,8 @@ import {
   Paper,
   CircularProgress,
   Alert,
-  InputAdornment
+  InputAdornment,
+  ListItemButton
 } from '@mui/material';
 import BlogBanner from '../components/Banner/BlogBanner';
 import HomeIcon from '@mui/icons-material/Home';
@@ -89,7 +90,6 @@ const Blog = () => {
     )
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-  const showSidebar = search.trim() === '';
   const recentBlogs = [...blogs]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 3);
@@ -114,7 +114,8 @@ const Blog = () => {
       >
         <Breadcrumb links={breadcrumbLinks} />
       </Box>
-      <Box sx={{ maxWidth: 1100, mx: 'auto', px: 2 }}>
+      {/* Reduce side margins to ~1.5rem and use full width */}
+      <Box sx={{ maxWidth: '100%', mx: 'auto', px: 3 }}>
         <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
           <TextField
             value={search}
@@ -132,14 +133,15 @@ const Blog = () => {
             }}
           />
         </Box>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} md={showSidebar ? 8 : 12}>
+        {/* Keep layout from centering when no results */}
+        <Grid container spacing={3} justifyContent="space-between" alignItems="flex-start">
+          <Grid item xs={12} md={8}>
             {loading ? (
               <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}><CircularProgress /></Box>
             ) : error ? (
               <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
             ) : filteredBlogs.length === 0 ? (
-              <Typography align="center" sx={{ color: 'text.secondary', mt: 4 }}>No blogs found.</Typography>
+              <Typography sx={{ color: 'text.secondary', mt: 2 }}>No blogs found.</Typography>
             ) : (
               filteredBlogs.map((post, index) => (
                 <Card
@@ -147,7 +149,7 @@ const Blog = () => {
                   sx={{
                     display: 'flex',
                     alignItems: 'stretch',
-                    mb: 3,
+                    mb: 2.5,
                     boxShadow: 0,
                     borderRadius: 3,
                     minHeight: 200,
@@ -157,7 +159,9 @@ const Blog = () => {
                       transform: 'scale(1.015)',
                       boxShadow: 4,
                     },
+                    cursor: 'pointer'
                   }}
+                  onClick={() => handleOpenModal(post._id)}
                 >
                   {post.imageUrl && (
                     <CardMedia
@@ -200,7 +204,7 @@ const Blog = () => {
                         alignSelf: 'flex-start',
                         '&:hover': { backgroundColor: 'primary.main', color: '#fff', borderColor: 'primary.main' },
                       }}
-                      onClick={() => handleOpenModal(post._id)}
+                      onClick={(e) => { e.stopPropagation(); handleOpenModal(post._id); }}
                     >
                       Read More
                     </Button>
@@ -209,16 +213,20 @@ const Blog = () => {
               ))
             )}
           </Grid>
-          {showSidebar && (
-            <Grid item xs={12} md={4}>
-              {/* Enhanced Recent Blogs */}
-              <Box sx={{ mb: 4, boxShadow: 1, p: 3, backgroundColor: '#fff', borderRadius: 2 }}>
+          <Grid item xs={12} md={4}>
+            <Box sx={{ position: 'sticky', top: 24, width: '100%' }}>
+              <Box sx={{ mb: 3, boxShadow: 1, p: 3, backgroundColor: '#fff', borderRadius: 2, ml: { md: 2 } }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.light', mb: 2 }}>
                   Recent Blogs
                 </Typography>
                 <List>
                   {recentBlogs.map((blog, index) => (
-                    <ListItem key={blog._id || index} alignItems="flex-start" sx={{ borderRadius: 1, mb: 2, p: 0 }}>
+                    <ListItemButton 
+                      key={blog._id || index} 
+                      alignItems="flex-start"
+                      sx={{ borderRadius: 1, mb: 1.5, p: 0.5 }}
+                      onClick={() => handleOpenModal(blog._id)}
+                    >
                       {blog.imageUrl && (
                         <Box sx={{ minWidth: 60, minHeight: 60, maxWidth: 60, maxHeight: 60, mr: 2, borderRadius: 1, overflow: 'hidden', boxShadow: 1 }}>
                           <img src={blog.imageUrl} alt={blog.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 8 }} />
@@ -232,23 +240,23 @@ const Blog = () => {
                           {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
                         </Typography>
                       </Box>
-                    </ListItem>
+                    </ListItemButton>
                   ))}
                 </List>
               </Box>
-            </Grid>
-          )}
+            </Box>
+          </Grid>
         </Grid>
       </Box>
       {/* Newsletter Subscription */}
-      <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 0, borderRadius: 3, maxWidth: '100%', mx: 'auto' }}>
+      <Box sx={{ mt: 5, p: 4, textAlign: 'center', background: 'linear-gradient(90deg, #fffde4 0%, #e0ffe7 100%)', boxShadow: 0, borderRadius: 3, maxWidth: '100%', mx: 'auto', px: 3 }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', mb: 2 }}>
           Subscribe to Our Newsletter
         </Typography>
         <TextField
           fullWidth
           placeholder="Enter your email"
-          sx={{ mt: 2, maxWidth: 400, background: '#fff', borderRadius: 1 }}
+          sx={{ mt: 2, maxWidth: 400, background: '#fff', borderRadius: 1, mx: 'auto' }}
         />
         <br />
         <Button
