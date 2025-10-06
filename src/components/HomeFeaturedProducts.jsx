@@ -40,7 +40,7 @@ const featured = [
   {
     title: 'Instant Rice Innovation – Cooks in 2 Minutes',
     // desc: 'Convenient, tasty, and ready fast—perfect for busy days.',
-    backDesc: 'Steam-cooked and dehydrated for ultra-fast prep without losing nutrition.',
+    backDesc: 'Crafted for busy lifestyles, Aviella Instant Rice cooks perfectly in under two minutes - nutritious, flavorful, and proudly made in Ghana.',
     badge: 'New',
     icon: <AccessTimeIcon sx={{ fontSize: 32 }} />,
     iconBg: 'linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%)',
