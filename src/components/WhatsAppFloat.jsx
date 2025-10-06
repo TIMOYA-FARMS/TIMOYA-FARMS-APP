@@ -2,7 +2,7 @@ import React from 'react'
 import { Fab, Tooltip } from '@mui/material'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
-const WhatsAppFloat = ({ phone = '233554343230', message = 'Hello Timoya Farms! I need assistance.' }) => {
+const WhatsAppFloat = ({ phone = '233593786079', message = `Hello Timoya Farms! I'd like to learn more about your rice products.` }) => {
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
   return (
     <Tooltip title="Chat on WhatsApp" placement="left">

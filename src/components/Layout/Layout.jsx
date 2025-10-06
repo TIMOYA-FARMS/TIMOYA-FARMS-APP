@@ -15,7 +15,7 @@ const Layout = () => {
                 <Outlet />
             </main>
             <ScrollToTopButton />
-            <WhatsAppFloat phone="233554343230" message="Hello Timoya Farms! I'd like to learn more about your rice products." />
+            <WhatsAppFloat phone="233593786079" message="Hello Timoya Farms! I'd like to learn more about your rice products." />
             <footer>
                 <Footer />
             </footer>
