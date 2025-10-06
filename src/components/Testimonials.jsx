@@ -4,19 +4,19 @@ import StarIcon from '@mui/icons-material/Star';
 
 const testimonials = [
   {
-    name: 'Ama Boateng',
-    feedback: 'Timoya Farms rice is the best I have ever tasted! The quality and freshness are unmatched. I love supporting local farmers.',
+    name: 'Ruth Ayabah, Tamale',
+    feedback: 'Aviella Rice has completely changed how my family enjoys rice. It’s clean, flavorful, and cooks evenly every time. Knowing it’s locally produced makes it even better.',
     avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurly&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
   {
-    name: 'Kwame Mensah',
-    feedback: 'I switched to Timoya rice for my restaurant and my customers noticed the difference immediately. Highly recommended!',
+    name: 'Mr Yakil, Smallholder Farmer – Saboba',
+    feedback: 'Before joining Timoya Farms, I struggled to sell my paddy at fair prices. Now, I earn more and have access to better training and equipment.',
     avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Black&clotheType=CollarSweater&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
   {
-    name: 'Efua Sarpong',
-    feedback: 'The eco-friendly packaging and the taste of the rice make Timoya Farms my go-to brand. Great job, team!',
-    avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Blouse&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
+    name: 'Bishe Nelson, Community leader–Saboba, Northern Region',
+    feedback: 'Timoya Farms is transforming our community. They’ve empowered women through training and helped make rice farming sustainable again.',
+    avatar: 'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Blank&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Black&clotheType=CollarSweater&eyeType=Default&eyebrowType=Default&mouthType=Smile&skinColor=Brown',
   },
 ];
 
