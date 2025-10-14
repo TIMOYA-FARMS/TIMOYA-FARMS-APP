@@ -69,7 +69,7 @@ const NewsList = () => {
                             xs: '1fr',
                             sm: 'repeat(2, minmax(0, 1fr))',
                             md: 'repeat(4, minmax(0, 1fr))',
-                            // lg: 'repeat(4, 1fr)'
+            
                         },
                         gap: { xs: 3, sm: 4, md: 3 },
                         width: '100%',
