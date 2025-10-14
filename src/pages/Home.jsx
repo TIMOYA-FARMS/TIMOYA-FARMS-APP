@@ -16,6 +16,7 @@ import HomeBlogHighlights from '../components/HomeBlogHighlights';
 import HomeNewsletterSignup from '../components/HomeNewsletterSignup';
 import HomeCTABanner from '../components/HomeCTABanner';
 import HomePartners from '../components/HomePartners';
+import NewsList from '../components/News/NewsList';
 import { Link } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useState, useEffect } from 'react';
@@ -373,6 +374,7 @@ const Home = () => {
       <SectionDivider />
       <HomeHowItWorks />
       <HomeSDGTeaser />
+      <NewsList />
       {/* <SectionDivider flip /> */}
       <HomeGalleryPreview />
       <SectionDivider />
